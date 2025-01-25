@@ -1,0 +1,129 @@
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    /* Make the header fixed */
+    top: 0;
+    /* Position it at the top */
+    left: 0;
+    /* Align it to the left */
+    width: 100%;
+    /* Full width */
+    z-index: 1000;
+    /* Ensure it stays above other content */
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav a {
+    color: #fff;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+/* Add padding to the body to prevent content from being hidden behind the fixed header */
+body {
+    padding-top: 70px;
+    /* Adjust this value based on the header height */
+}
+
+/* Section Styles */
+.section {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+/* Home Section */
+.home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding-top: 70px;
+    /* Add padding to account for the fixed header */
+}
+
+/* Content Container */
+.content {
+    display: flex; /* Use Flexbox to arrange children side by side */
+    align-items: center; /* Vertically center the content */
+    justify-content: space-between; /* Space out the text and image */
+    gap: 2rem; /* Add space between the text and image */
+    width: 100%; /* Ensure the content takes full width */
+    max-width: 1200px; /* Optional: Limit the maximum width */
+    margin: 0 auto; /* Center the content horizontally */
+    padding: 0 2rem; /* Add padding for better spacing */
+}
+
+/* Text Section */
+.text {
+    flex: 1; /* Allow the text to take up available space */
+    max-width: 50%; /* Limit the width of the text section */
+    text-align: left; /* Align text to the left */
+}
+
+.text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.text .register-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.text .register-button:hover {
+    background-color: #0056b3;
+}
+
+/* Image Section */
+.image {
+    flex: 1; /* Allow the image to take up available space */
+    max-width: 50%; /* Limit the width of the image section */
+}
+
+.image img {
+    max-width: 100%; /* Ensure the image is responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional: Add rounded corners */
+}
+
+/* About Section */
+.about {
+    background-color: #fff;
+}
+
+/* Testimonial Section */
+.testimonial {
+    background-color: #f4f4f4;
+}
+
+/* Footer Styles */
+.footer {
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0.5rem 0;
+}
