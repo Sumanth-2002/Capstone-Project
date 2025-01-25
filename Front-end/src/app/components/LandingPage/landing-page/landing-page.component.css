@@ -58,6 +58,10 @@ body {
 
 /* Content Container */
 .content {
+    background-image: url('/assets/landing-page-img.png'); /* Path to your image */
+    background-size: cover; /* Cover the entire section */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat;
     display: flex; /* Use Flexbox to arrange children side by side */
     align-items: center; /* Vertically center the content */
     justify-content: space-between; /* Space out the text and image */
