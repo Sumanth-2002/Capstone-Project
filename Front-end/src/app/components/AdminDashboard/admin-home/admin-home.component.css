@@ -1,0 +1,21 @@
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 20px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    background-color: #dae7ff;
+}
+.chart-container {
+    background-color: #fff; /* White background */
+    padding: 20px; /* Add padding */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    height: 400px; /* Fixed height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 10px  #e0e0e0; /* Dashed border for placeholder */
+    animation: fadeIn 0.5s ease; /* Fade-in animation */
+}

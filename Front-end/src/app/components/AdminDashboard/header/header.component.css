@@ -1,0 +1,54 @@
+/* Header Container */
+.header {
+    display: flex;
+    justify-content: space-between;
+    /* Space between company name and admin section */
+    align-items: center;
+    /* Vertically center the content */
+    padding: 1rem 2rem;
+    /* Padding inside the header */
+    background-color: #2a3691;
+    /* Dark background color */
+    color: #fff;
+    /* White text color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 96%;
+        z-index: 1000; /* Ensure header is above other content */
+    /* Subtle shadow */
+}
+
+/* Company Name */
+.company-name {
+    font-size: 1.5rem;
+    /* Larger font size */
+    font-weight: bold;
+    /* Bold text */
+}
+
+/* Admin Section */
+.admin-section {
+    display: flex;
+    flex-direction: column;
+    /* Stack admin name and role vertically */
+    align-items: flex-end;
+    /* Align text to the right */
+}
+
+/* Admin Name */
+.admin-name {
+    font-size: 1rem;
+    /* Normal font size */
+    font-weight: 500;
+    /* Medium font weight */
+}
+
+/* Admin Role */
+.admin-role {
+    font-size: 0.875rem;
+    /* Smaller font size */
+    color: #b0b0b0;
+    /* Light gray color for the role */
+}

@@ -1,0 +1,33 @@
+<aside class="sidebar">
+    <!-- Navigation Links -->
+    <nav class="sidebar-nav">
+        <a class="nav-link" [routerLink]="'/admin-home'" routerLinkActive="active">
+            <span class="material-icons">dashboard</span>
+            Dashboard
+        </a>
+        <a class="nav-link" [routerLink]="'/admin-vendor'" routerLinkActive="active">
+            <span class="material-icons">people</span>
+            Vendors
+        </a>
+        <a class="nav-link" [routerLink]="'/admin-product'" routerLinkActive="active">
+            <span class="material-icons">inventory</span>
+            Products
+        </a>
+        <a class="nav-link" [routerLink]="'/admin-store'" routerLinkActive="active">
+            <span class="material-icons">store</span>
+            Store
+        </a>
+        <a class="nav-link" [routerLink]="'/admin-request'" routerLinkActive="active">
+            <span class="material-icons">request_quote</span>
+            Requests
+        </a>
+    </nav>
+
+    <!-- Logout Section -->
+    <div class="logout-section">
+        <a class="nav-link" (click)="logout()">
+            <span class="material-icons">logout</span>
+            Logout
+        </a>
+    </div>
+</aside>

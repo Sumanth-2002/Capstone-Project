@@ -1,0 +1,89 @@
+/* Sidebar Container */
+.sidebar {
+    width: 250px;
+    /* Full viewport height */
+    background-color: #0419b9;
+    /* Dark background color */
+    color: #fff;
+    /* White text color */
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 60px; /* Match the height of the header */
+        left: 0;
+        height: calc(100vh - 60px); /* Full height minus header height */
+        z-index: 999; 
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #34495e;
+    /* Divider line */
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* Navigation Links */
+.sidebar-nav {
+    flex: 1;
+    /* Take up remaining space */
+    padding: 1rem 0;
+}
+
+/* Active Link */
+.nav-link.active {
+    background-color: #34495e; /* Darker background for active link */
+    color: #fff; /* White text color */
+    border-left: 4px solid #007bff; /* Blue left border */
+}
+
+.nav-link.active .material-icons {
+    color: #007bff; /* Blue icon color for active link */
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    color: #fff;
+    /* White text color */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    /* Smooth hover effect */
+}
+
+.nav-link:hover {
+    background-color: #34495e;
+    /* Darker background on hover */
+}
+
+.nav-link .material-icons {
+    margin-right: 0.75rem;
+    /* Space between icon and text */
+    font-size: 1.25rem;
+    /* Icon size */
+}
+
+/* Logout Section */
+.logout-section {
+    padding: 1rem;
+    border-top: 1px solid #34495e;
+    /* Divider line */
+}
+
+.logout-section .nav-link {
+    color: #e74c3c;
+    /* Red color for logout */
+}
+
+.logout-section .nav-link:hover {
+    background-color: #34495e;
+    /* Darker background on hover */
+}
