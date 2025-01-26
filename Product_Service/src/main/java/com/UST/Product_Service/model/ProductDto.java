@@ -17,14 +17,24 @@ public class ProductDto {
         this.quantity = quantity;
     }
 
-    public ProductDto(String productId, Long quantity) {
+    public ProductDto(String productId, String productName,Long quantity) {
         this.productId = productId;
+        this.productName = productName;
         this.quantity = quantity;
     }
 
     public ProductDto() {
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     private String productId;
+    private String productName;
     private Long quantity;
 }

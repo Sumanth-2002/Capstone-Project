@@ -5,6 +5,8 @@ import com.UST.Store_MicroService.repository.SalesRepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SalesRepService {
     @Autowired
@@ -14,5 +16,7 @@ public class SalesRepService {
         if(salesRepRepository.save(salesRep)==null) throw  new RuntimeException("Error while adding Sales Representative");
         return "Sales Representative Added Successfully";
     }
-
+    public List<SalesRep> getAllSalesRep(String storeId) {
+        return salesRepRepository.getAllSalesRep(storeId);
+    }
 }

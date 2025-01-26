@@ -1,9 +1,6 @@
 package com.UST.Store_MicroService.service;
 
-import com.UST.Store_MicroService.dto.AddProductDto;
-import com.UST.Store_MicroService.dto.InventoryDto;
-import com.UST.Store_MicroService.dto.StoreDto;
-import com.UST.Store_MicroService.dto.StoreResponseDto;
+import com.UST.Store_MicroService.dto.*;
 import com.UST.Store_MicroService.generator.InventoryIdGenerator;
 import com.UST.Store_MicroService.model.Inventory;
 import com.UST.Store_MicroService.model.Store;
@@ -90,4 +87,10 @@ public class StoreService {
            storeResponseDto.setTotalProducts(inventoryRepository.findByStoreId(store.getStoreId()).stream().mapToLong(InventoryDto::getQuantity).sum());
            storeResponseDto.setInventoryDtos(inventoryRepository.findByStoreId(store.getStoreId()));
         return storeResponseDto;
-        }}
+        }
+        public Inventory updateStore(UpdateProductDto updateProductDto){
+        Inventory inventory = inventoryRepository.getByStoreAndProductId(updateProductDto.getStoreId(),updateProductDto.getProductId());
+        inventory.setQuantity(inventory.getQuantity()-updateProductDto.getQuantity());
+        return inventoryRepository.save(inventory);
+        }
+}

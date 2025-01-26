@@ -8,10 +8,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class SalesRep {
     @Id
-    @GeneratedValue(generator = "salesrep-id-generator")
+    @GeneratedValue(generator = "rep-id-generator")
     @GenericGenerator(
-            name = "salesrep-id-generator",
-            strategy = "com.ust.Billing_Service.generator.SalesRepIdGenerator"
+            name = "rep-id-generator",
+            strategy = "com.UST.Store_MicroService.generator.RepIdGenerator"
     )
     private String salesRepId;
     private String storeId;

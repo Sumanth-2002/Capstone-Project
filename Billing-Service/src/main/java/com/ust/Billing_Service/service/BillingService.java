@@ -1,12 +1,23 @@
 package com.ust.Billing_Service.service;
 
+import com.ust.Billing_Service.dto.BillingDto;
+import com.ust.Billing_Service.dto.SalesDto;
+import com.ust.Billing_Service.dto.UpdateProductDto;
 import com.ust.Billing_Service.entity.Billing;
 import com.ust.Billing_Service.entity.Customer;
-import com.ust.Billing_Service.entity.SalesRep;
+import com.ust.Billing_Service.entity.ProductBilled;
+import com.ust.Billing_Service.generator.CustomIdGenerator;
 import com.ust.Billing_Service.repository.BillingRepository;
 import com.ust.Billing_Service.repository.CustomerRepository;
+import com.ust.Billing_Service.repository.ProductBilledRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BillingService {
@@ -15,16 +26,50 @@ public class BillingService {
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ProductBilledRepository productBilledRepository;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
-    public Billing addBillingData(Billing billing){
-        return billingRepository.save(billing);
+    public String addBillingData(BillingDto billingDto) {
+        Billing billing = new Billing();
+        billing.setStoreId(billingDto.getStoreId());
+        billing.setCustomerId(billingDto.getCustomerId());
+        billing.setCustomerName(billingDto.getCustomerName());
+        billing.setSalesRepId(billingDto.getSalesRepId());
+        billing.setTotalPrice(billingDto.getTotalPrice());
+        billingRepository.save(billing);
+        for(ProductBilled productBilled : billingDto.getProductBilledList()) {
+            productBilled.setBillingId(billing.getBillingId());
+            UpdateProductDto updateProductDto = new UpdateProductDto();
+            updateProductDto.setProductId(productBilled.getProductId());
+            updateProductDto.setProductName(productBilled.getProductName());
+            updateProductDto.setQuantity(productBilled.getQuantity());
+            updateProductDto.setStoreId(billing.getStoreId());
+            updateProductDto.setStoreName(billing.getStoreName());
+            String object = WebClient.builder()
+                    .baseUrl("http://localhost:9092")
+                    .build()
+                    .put()
+                    .uri("/api/stores/update-stock") // Direct URI without query parameters
+                    .bodyValue(updateProductDto) // Attach the DTO as the body
+                    .retrieve()
+                    .bodyToMono(new ParameterizedTypeReference<String>() {})
+                    .block();
+            productBilledRepository.save(productBilled);
+        }
+        return "Success";
     }
 
     public String addCustomerData(Customer customer){
         customerRepository.save(customer);
         return  customer.getCustomerId();
     }
-    public String addSalesRep(SalesRep salesRep){
+    public Billing getBillingByid(String billingId){
+        return billingRepository.findById(billingId).get();
+    }
 
+    public List<SalesDto> getLeadeboard(String storeId){
+        return billingRepository.getLeaderboard(storeId);
     }
 }

@@ -1,10 +1,11 @@
 package com.ust.Billing_Service.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Billing {
@@ -14,10 +15,12 @@ public class Billing {
             name = "custom-id-generator",
             strategy = "com.ust.Billing_Service.generator.CustomIdGenerator"
     )
-    private  String billingId;
+    private String billingId;
+
     @JsonProperty("storeId")
     private String storeId;
-
+    @JsonProperty("storeName")
+    private String storeName;
     @JsonProperty("salesRepId")
     private String salesRepId;
 
@@ -27,20 +30,30 @@ public class Billing {
     @JsonProperty("customerName")
     private String customerName;
 
-    @JsonProperty("productId")
-    private String productId;
-
-    @JsonProperty("productName")
-    private String productName;
-
-    @JsonProperty("price")
-    private Double price;
-
-    @JsonProperty("GST")
-    private Double GST;
-
     @JsonProperty("totalPrice")
     private Double totalPrice;
+
+    private Date BillDate;
+
+    // Removed @OneToMany and the products list
+    public Billing() {}
+
+    public Billing(String storeId, String storeName,String salesRepId, String customerId, String customerName, Double totalPrice) {
+        this.storeId = storeId;
+        this.storeName = storeName;
+        this.salesRepId = salesRepId;
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.totalPrice = totalPrice;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
     public String getBillingId() {
         return billingId;
@@ -82,38 +95,6 @@ public class Billing {
         this.customerName = customerName;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Double getGST() {
-        return GST;
-    }
-
-    public void setGST(Double GST) {
-        this.GST = GST;
-    }
-
     public Double getTotalPrice() {
         return totalPrice;
     }
@@ -122,34 +103,11 @@ public class Billing {
         this.totalPrice = totalPrice;
     }
 
-    public Billing() {
+    @PrePersist
+    public void onCreate() {
+        this.BillDate = new Date();
     }
-
-    public Billing(String storeId, String salesRepId, String customerId, String customerName, String productId, String productName, Double price, Double GST, Double totalPrice) {
-        this.storeId = storeId;
-        this.salesRepId = salesRepId;
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.productId = productId;
-        this.productName = productName;
-        this.price = price;
-        this.GST = GST;
-        this.totalPrice = totalPrice;
-    }
-    @Override
-    public String toString() {
-        return "Billing{" +
-                "billingId='" + billingId + '\'' +
-                ", storeId='" + storeId + '\'' +
-                ", salesRepId='" + salesRepId + '\'' +
-                ", customerId='" + customerId + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", productId='" + productId + '\'' +
-                ", productName='" + productName + '\'' +
-                ", price=" + price +
-                ", GST=" + GST +
-                ", totalPrice=" + totalPrice +
-                '}';
-    }
+    public Date getBillDate() {return BillDate;}
+    public void setBillDate(Date billDate) {this.BillDate = billDate;};
 
 }

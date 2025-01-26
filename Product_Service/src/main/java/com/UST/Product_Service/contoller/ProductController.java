@@ -45,8 +45,14 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/UpdateQuantityById")
-    public Product updateQuantityById(@RequestParam String productId, @RequestBody ProductDto productDto){
-        return productService.updateQuantityById(productId,productDto);
+    @PutMapping("/UpdateQuantityById")
+    public Product updateQuantityById(@RequestBody ProductDto productDto){
+        return productService.updateQuantityById(productDto);
     }
+
+    @PutMapping("/restock-product")
+    public Product restockProduct(@RequestBody ProductDto productDto){
+        return productService.restockProduct(productDto);
+    }
+
 }

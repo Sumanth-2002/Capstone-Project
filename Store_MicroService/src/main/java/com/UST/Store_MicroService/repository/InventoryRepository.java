@@ -19,6 +19,11 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long>{
     @Query("SELECT i.inventoryId FROM Inventory i where i.storeId = :storeId")
     String getInventoryIdByStoreId(@Param("storeId") String storeId);
 
-    @Query("SELECT i.productId,i.productName,i.quantity FROM Inventory i where i.storeId = :storeId")
+    @Query("SELECT new com.UST.Store_MicroService.dto.InventoryDto(i.productId, i.productName, i.quantity) " +
+            "FROM Inventory i " +
+            "WHERE i.storeId = :storeId")
     List<InventoryDto> findByStoreId(@Param("storeId") String storeId);
+
+    @Query("SELECT i FROM Inventory i  where i.storeId = :storeId and i.productId = :productId")
+    Inventory getByStoreAndProductId(@Param("storeId") String storeId, @Param("productId") String productId);
 }

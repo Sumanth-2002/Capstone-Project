@@ -3,8 +3,10 @@ package com.UST.Product_Service.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 @Entity
+@Table(name="product")
 public class Product {
     @Id
     @GeneratedValue(generator = "product-id-generator")
@@ -13,25 +15,35 @@ public class Product {
             strategy = "com.UST.Product_Service.generator.CustomIdGenerator"
     )
     private String productId;
+    private String productName;
     private String vendorId;
     private String vendorName;
     private Double selling_Price;
     private Double cost_Price;
     private Long quantity;
     private String description;
-    private String company_id;
-    public Product(String productId, String vendorId, String vendorName, Double selling_Price, Double cost_Price, Long quantity, String description, String company_id) {
+    private String companyId;
+    public Product(String productId, String productName,String vendorId, String vendorName, Double selling_Price, Double cost_Price, Long quantity, String description, String companyId) {
         this.productId = productId;
+        this.productName = productName;
         this.vendorId = vendorId;
         this.vendorName = vendorName;
         this.selling_Price = selling_Price;
         this.cost_Price = cost_Price;
         this.quantity = quantity;
         this.description = description;
-        this.company_id = company_id;
+        this.companyId = companyId;
     }
 
     public Product() {
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getProductId() {
@@ -91,10 +103,10 @@ public class Product {
     }
 
     public String getCompany_id() {
-        return company_id;
+        return companyId;
     }
 
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
+    public void setCompany_id(String companyId) {
+        this.companyId = companyId;
     }
 }

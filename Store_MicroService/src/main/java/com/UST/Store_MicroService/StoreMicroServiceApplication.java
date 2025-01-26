@@ -2,6 +2,8 @@ package com.UST.Store_MicroService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
 public class StoreMicroServiceApplication {
@@ -9,5 +11,8 @@ public class StoreMicroServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StoreMicroServiceApplication.class, args);
 	}
-
+	@Bean
+	public WebClient webClient(){
+		return WebClient.builder().build();
+	}
 }

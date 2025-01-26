@@ -12,4 +12,6 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request, String> {
        @Query("SELECT r from Request r where r.companyId=:companyId")
         List<Request> getAllRequests(@Param("companyId") String companyId);
+    @Query("SELECT r from Request r where r.storeId=:storeId")
+    List<Request> getAllRequestsByStore(@Param("storeId") String storeId);
 }

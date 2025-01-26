@@ -1,11 +1,12 @@
 package com.UST.Store_MicroService.controller;
 
-import com.UST.Store_MicroService.dto.AddProductDto;
-import com.UST.Store_MicroService.dto.StoreDto;
-import com.UST.Store_MicroService.dto.StoreResponseDto;
+import com.UST.Store_MicroService.dto.*;
+import com.UST.Store_MicroService.model.Inventory;
 import com.UST.Store_MicroService.model.Request;
+//import com.UST.Store_MicroService.model.SalesRep;
 import com.UST.Store_MicroService.model.SalesRep;
 import com.UST.Store_MicroService.service.RequestService;
+//import com.UST.Store_MicroService.service.SalesRepService;
 import com.UST.Store_MicroService.service.SalesRepService;
 import com.UST.Store_MicroService.service.StoreService;
 //import com.UST.Store_MicroService.service.InventoryService;
@@ -23,7 +24,7 @@ public class StoreInventoryController {
     private StoreService storeService;
     @Autowired
     private RequestService requestService;
-
+//
     @Autowired
     private SalesRepService salesRepService;
 
@@ -40,7 +41,7 @@ public class StoreInventoryController {
     public ResponseEntity<List<StoreResponseDto>> getAllStores(@PathVariable("companyId") String companyId) {
         return ResponseEntity.ok(storeService.getAllStore(companyId));
     }
-    @GetMapping("/getStore/{store}")
+    @GetMapping("/getStore/{storeId}")
     public ResponseEntity<StoreResponseDto> getStore(@PathVariable("storeId") String storeId) {
         return ResponseEntity.ok(storeService.getStore(storeId));
     }
@@ -52,10 +53,27 @@ public class StoreInventoryController {
     public ResponseEntity<List<Request>> getAllRequests(@PathVariable("companyId") String companyId) {
         return ResponseEntity.ok(requestService.getAllRequests(companyId));
     }
-
+//
     @PostMapping("/add-sales-rep")
     public ResponseEntity<String> addSalesRep(SalesRep salesRep){
         return ResponseEntity.ok(salesRepService.addSalesRep(salesRep));
     }
+    @GetMapping("/get-all-salesRep/{storeId}")
+    public ResponseEntity<List<SalesRep>> getAllSalesRep(@PathVariable String storeId) {
+        return ResponseEntity.ok(salesRepService.getAllSalesRep(storeId));
+    }
+
+    @PutMapping("/update-stock")
+    public ResponseEntity<String> updateStore(@RequestBody UpdateProductDto updateProductDto){
+        storeService.updateStore(updateProductDto);
+        return ResponseEntity.ok("Product Details  updated Successfully");
+    }
+
+    @GetMapping("/get-all-requests/store/{storeId}")
+    public ResponseEntity<List<Request>> getAllStoreRequests(@PathVariable("storeId") String storeId) {
+        return ResponseEntity.ok(requestService.getAllRequests(storeId));
+    }
+
+
 
 }
