@@ -20,8 +20,6 @@ public class Product {
     private Long quantity;
     private String description;
     private String company_id;
-
-
     public Product(String productId, String vendorId, String vendorName, Double selling_Price, Double cost_Price, Long quantity, String description, String company_id) {
         this.productId = productId;
         this.vendorId = vendorId;
@@ -32,7 +30,6 @@ public class Product {
         this.description = description;
         this.company_id = company_id;
     }
-
 
     public Product() {
     }

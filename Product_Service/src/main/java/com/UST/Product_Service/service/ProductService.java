@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-
     @Autowired
     private ProductRepository productRepository;
 
@@ -33,7 +32,6 @@ public class ProductService {
     }
 
     public String deleteProductById(String productId) {
-
         productRepository.deleteById(productId);
         return "Product Deleted Successfully";
     }
@@ -46,7 +44,5 @@ public class ProductService {
                 })
                 .orElse(null);
     }
-
-
 
 }

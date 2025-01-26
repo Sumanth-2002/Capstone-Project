@@ -4,7 +4,9 @@ import com.UST.Store_MicroService.dto.AddProductDto;
 import com.UST.Store_MicroService.dto.StoreDto;
 import com.UST.Store_MicroService.dto.StoreResponseDto;
 import com.UST.Store_MicroService.model.Request;
+import com.UST.Store_MicroService.model.SalesRep;
 import com.UST.Store_MicroService.service.RequestService;
+import com.UST.Store_MicroService.service.SalesRepService;
 import com.UST.Store_MicroService.service.StoreService;
 //import com.UST.Store_MicroService.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class StoreInventoryController {
     private StoreService storeService;
     @Autowired
     private RequestService requestService;
+
+    @Autowired
+    private SalesRepService salesRepService;
 
     @PostMapping("/addStore")
     public ResponseEntity<String> addStore(@RequestBody StoreDto storeDto) {
@@ -46,6 +51,11 @@ public class StoreInventoryController {
     @GetMapping("/get-requests/{companyId}")
     public ResponseEntity<List<Request>> getAllRequests(@PathVariable("companyId") String companyId) {
         return ResponseEntity.ok(requestService.getAllRequests(companyId));
+    }
+
+    @PostMapping("/add-sales-rep")
+    public ResponseEntity<String> addSalesRep(SalesRep salesRep){
+        return ResponseEntity.ok(salesRepService.addSalesRep(salesRep));
     }
 
 }

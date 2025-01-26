@@ -27,10 +27,10 @@ public class Vendor {
     private String vendorAddress;
 
     private String contact;
-
+    private String email;
     private LocalDate lastPurchased;
 
-    private Long quantityPurchased;
+    private Long quantityPurchased=0L;
 
     public String getVendorID() {
         return vendorID;
@@ -97,16 +97,24 @@ public class Vendor {
     }
 
     public Vendor(String companyID, String gstin, String vendorName, String vendorAddress,
-            String contact, LocalDate lastPurchased, Long quantityPurchased) {
+            String contact,String email,LocalDate lastPurchased) {
         this.companyID = companyID;
         this.gstin = gstin;
         this.vendorName = vendorName;
         this.vendorAddress = vendorAddress;
         this.contact = contact;
         this.lastPurchased = lastPurchased;
-        this.quantityPurchased = quantityPurchased;
+        this.email = email;
     }
 
     public Vendor() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

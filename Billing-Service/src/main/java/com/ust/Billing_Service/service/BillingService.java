@@ -2,6 +2,7 @@ package com.ust.Billing_Service.service;
 
 import com.ust.Billing_Service.entity.Billing;
 import com.ust.Billing_Service.entity.Customer;
+import com.ust.Billing_Service.entity.SalesRep;
 import com.ust.Billing_Service.repository.BillingRepository;
 import com.ust.Billing_Service.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,8 @@ public class BillingService {
     public String addCustomerData(Customer customer){
         customerRepository.save(customer);
         return  customer.getCustomerId();
+    }
+    public String addSalesRep(SalesRep salesRep){
+
     }
 }
