@@ -1,19 +1,17 @@
 package com.UST.Store_MicroService.generator;
 
 import com.UST.Store_MicroService.repository.StoreRepository;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 @Component
-public class CustomIdGenerator implements IdentifierGenerator, ApplicationContextAware {
-
+public class RequestIdGenerator implements IdentifierGenerator, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @Override
@@ -28,7 +26,7 @@ public class CustomIdGenerator implements IdentifierGenerator, ApplicationContex
         }
 
         StoreRepository storeRepository = applicationContext.getBean(StoreRepository.class);
-        long count = storeRepository.count(); // Avoid casting to int
-        return "STOR" + (count + 1) + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+        long count = storeRepository.count();
+        return "REQU" + (count + 1) + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
     }
 }

@@ -1,18 +1,18 @@
 package com.UST.Store_MicroService.generator;
 
+import com.UST.Store_MicroService.repository.InventoryRepository;
 import com.UST.Store_MicroService.repository.StoreRepository;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import jdk.jfr.Category;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.UUID;
-
 @Component
-public class CustomIdGenerator implements IdentifierGenerator, ApplicationContextAware {
+public class InventoryIdGenerator implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
@@ -21,14 +21,14 @@ public class CustomIdGenerator implements IdentifierGenerator, ApplicationContex
         this.applicationContext = context;
     }
 
-    @Override
-    public Serializable generate(SharedSessionContractImplementor session, Object object) {
+    public String generateId() {
         if (applicationContext == null) {
             throw new IllegalStateException("ApplicationContext is not initialized");
         }
 
-        StoreRepository storeRepository = applicationContext.getBean(StoreRepository.class);
-        long count = storeRepository.count(); // Avoid casting to int
-        return "STOR" + (count + 1) + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+        InventoryRepository inventoryRepository = applicationContext.getBean(InventoryRepository.class);
+        long count = inventoryRepository.getNumberOfUniqueInventory(); // Get the count of unique inventories
+        return "INVE" + (count + 1)+UUID.randomUUID().toString().substring(0, 5).toUpperCase(); // Generate ID like INVE1, INVE2, etc.
     }
 }
+

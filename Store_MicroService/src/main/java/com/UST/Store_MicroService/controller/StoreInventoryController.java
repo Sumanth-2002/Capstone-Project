@@ -1,93 +1,51 @@
 package com.UST.Store_MicroService.controller;
 
-import com.UST.Store_MicroService.model.Store;
-import com.UST.Store_MicroService.model.Inventory;
+import com.UST.Store_MicroService.dto.AddProductDto;
+import com.UST.Store_MicroService.dto.StoreDto;
+import com.UST.Store_MicroService.dto.StoreResponseDto;
+import com.UST.Store_MicroService.model.Request;
+import com.UST.Store_MicroService.service.RequestService;
 import com.UST.Store_MicroService.service.StoreService;
-import com.UST.Store_MicroService.service.InventoryService;
+//import com.UST.Store_MicroService.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/stores")
+@RequestMapping("/api/stores")
 public class StoreInventoryController {
 
     @Autowired
     private StoreService storeService;
-
     @Autowired
-    private InventoryService inventoryService;
+    private RequestService requestService;
 
-    // Store Endpoints
-    @PostMapping
-    public Store createStore(@RequestBody Store store) {
-        return storeService.createStore(store);
+    @PostMapping("/addStore")
+    public ResponseEntity<String> addStore(@RequestBody StoreDto storeDto) {
+        return ResponseEntity.ok(storeService.addStoreInventory(storeDto));
+    }
+    @PostMapping("/addNewProduct")
+    public ResponseEntity<String> addNewProduct(@RequestBody AddProductDto addProductDto) {
+        return ResponseEntity.ok(storeService.addNewProduct(addProductDto));
     }
 
-    @GetMapping
-    public List<Store> getAllStores() {
-        return storeService.getAllStores();
+    @GetMapping("/getAllStores/{companyId}")
+    public ResponseEntity<List<StoreResponseDto>> getAllStores(@PathVariable("companyId") String companyId) {
+        return ResponseEntity.ok(storeService.getAllStore(companyId));
+    }
+    @GetMapping("/getStore/{store}")
+    public ResponseEntity<StoreResponseDto> getStore(@PathVariable("storeId") String storeId) {
+        return ResponseEntity.ok(storeService.getStore(storeId));
+    }
+    @PostMapping("/raise-request")
+    public ResponseEntity<String> raiseRequest(@RequestBody Request request){
+        return ResponseEntity.ok(requestService.raiseRequest(request));
+    }
+    @GetMapping("/get-requests/{companyId}")
+    public ResponseEntity<List<Request>> getAllRequests(@PathVariable("companyId") String companyId) {
+        return ResponseEntity.ok(requestService.getAllRequests(companyId));
     }
 
-    @GetMapping("/{id}")
-    public Optional<Store> getStoreById(@PathVariable("id") String id) {
-        return storeService.getStoreById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Store updateStore(@PathVariable("id") String id, @RequestBody Store store) {
-        return storeService.updateStore(id, store);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteStore(@PathVariable("id") String id) {
-        storeService.deleteStore(id);
-    }
-
-    // Inventory Endpoints for a specific Store
-    @PostMapping("/{storeId}/inventory")
-    public Inventory createInventory(@PathVariable("storeId") String storeId, @RequestBody Inventory inventory) {
-        Optional<Store> storeOpt = storeService.getStoreById(storeId);
-        if (storeOpt.isPresent()) {
-            Store store = storeOpt.get();
-            inventory.setStore(store); // Link the inventory to the store
-            return inventoryService.createInventory(inventory);
-        }
-        return null;
-    }
-
-    @GetMapping("/{storeId}/inventory")
-    public Optional<Inventory> getInventoryByStore(@PathVariable("storeId") String storeId) {
-        Optional<Store> storeOpt = storeService.getStoreById(storeId);
-        if (storeOpt.isPresent()) {
-            Store store = storeOpt.get();
-            return Optional.ofNullable(store.getInventory());
-        }
-        return Optional.empty(); // Return empty if no inventory found
-    }
-
-    @PutMapping("/{storeId}/inventory")
-    public Inventory updateInventory(@PathVariable("storeId") String storeId, @RequestBody Inventory inventory) {
-        Optional<Store> storeOpt = storeService.getStoreById(storeId);
-        if (storeOpt.isPresent()) {
-            Store store = storeOpt.get();
-            inventory.setStore(store); // Ensure the inventory belongs to the correct store
-            return inventoryService.updateInventory(inventory.getId(), inventory);
-        }
-        return null; // Or throw an exception indicating store not found
-    }
-
-    @DeleteMapping("/{storeId}/inventory")
-    public void deleteInventory(@PathVariable("storeId") String storeId) {
-        Optional<Store> storeOpt = storeService.getStoreById(storeId);
-        if (storeOpt.isPresent()) {
-            Store store = storeOpt.get();
-            Inventory inventory = store.getInventory();
-            if (inventory != null) {
-                inventoryService.deleteInventory(inventory.getId());
-            }
-        }
-    }
 }

@@ -1,39 +1,28 @@
-package com.UST.Store_MicroService.model;
+package com.UST.Store_MicroService.dto;
 
-import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity
-public class Store {
-    @Id
-    @GeneratedValue(generator = "custom-id-generator")
-    @GenericGenerator(
-            name = "custom-id-generator",
-            strategy = "com.UST.Store_MicroService.generator.CustomIdGenerator"
-    )
+public class StoreResponseDto {
     private String storeId;
     private String companyId;
     private String storeName;
     private String region;
     private String storeAddress;
     private Date createdAt;
-    public Store() {
-    }
+    private Long totalProducts;
+    private List<InventoryDto> inventoryDtos;
+    public StoreResponseDto() {}
 
-    public Store(String companyId, String storeName, String region, String storeAddress) {
+    public StoreResponseDto(String storeId, String companyId, String storeName, String region, String storeAddress, Date createdAt, Long totalProducts, List<InventoryDto> inventoryDtos) {
+        this.storeId = storeId;
         this.companyId = companyId;
         this.storeName = storeName;
         this.region = region;
         this.storeAddress = storeAddress;
-    }
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = new Date();
+        this.createdAt = createdAt;
+        this.totalProducts = totalProducts;
+        this.inventoryDtos = inventoryDtos;
     }
 
     public String getStoreId() {
@@ -82,5 +71,21 @@ public class Store {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getTotalProducts() {
+        return totalProducts;
+    }
+
+    public void setTotalProducts(Long totalProducts) {
+        this.totalProducts = totalProducts;
+    }
+
+    public List<InventoryDto> getInventoryDtos() {
+        return inventoryDtos;
+    }
+
+    public void setInventoryDtos(List<InventoryDto> inventoryDtos) {
+        this.inventoryDtos = inventoryDtos;
     }
 }
