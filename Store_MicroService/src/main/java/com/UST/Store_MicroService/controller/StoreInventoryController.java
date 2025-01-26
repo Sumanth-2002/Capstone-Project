@@ -55,7 +55,7 @@ public class StoreInventoryController {
             inventory.setStore(store); // Link the inventory to the store
             return inventoryService.createInventory(inventory);
         }
-        return null; // Or throw an exception indicating store not found
+        return null;
     }
 
     @GetMapping("/{storeId}/inventory")
