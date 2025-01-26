@@ -1,0 +1,106 @@
+/* Registration Container */
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Full viewport height */
+    background-color: #bce7ff;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Include padding in height calculation */
+}
+
+/* Back Button */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Registration Form */
+.registration-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    /* Compact form width */
+    margin: 0 auto;
+    /* Center the form horizontally */
+}
+
+.registration-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.5rem;
+    /* Smaller heading */
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 1rem;
+    /* Reduced spacing between fields */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    /* Reduced spacing */
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
+    /* Smaller label text */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    /* Smaller padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    /* Smaller input text */
+    box-sizing: border-box;
+    /* Include padding in width calculation */
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+    /* Smaller textarea height */
+}
+
+/* Register Button */
+.register-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    /* Spacing above the button */
+}
+
+.register-button:hover {
+    background-color: #218838;
+}

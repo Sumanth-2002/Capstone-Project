@@ -1,1 +1,59 @@
-<p>registration works!</p>
+<div class="registration-container">
+    <!-- Back Button -->
+    <button class="back-button" (click)="navigateToLandingPage()">
+        <span class="material-icons">arrow_back</span> Back
+    </button>
+
+    <!-- Registration Form -->
+    <form class="registration-form" (ngSubmit)="onSubmit()">
+        <h2>Register Your Company</h2>
+
+        <!-- Company Name -->
+        <div class="form-group">
+            <label for="companyName">Company Name</label>
+            <input type="text" id="companyName" name="companyName" [(ngModel)]="registrationData.companyName"
+                required />
+        </div>
+
+        <!-- GST Number -->
+        <div class="form-group">
+            <label for="gstNumber">GST Number</label>
+            <input type="text" id="gstNumber" name="gstNumber" [(ngModel)]="registrationData.gstNumber" required />
+        </div>
+
+        <!-- UIN Number -->
+        <div class="form-group">
+            <label for="uinNumber">UIN Number</label>
+            <input type="text" id="uinNumber" name="uinNumber" [(ngModel)]="registrationData.uinNumber" required />
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" [(ngModel)]="registrationData.address" required></textarea>
+        </div>
+
+        <!-- Company Email -->
+        <div class="form-group">
+            <label for="companyEmail">Company Email</label>
+            <input type="email" id="companyEmail" name="companyEmail" [(ngModel)]="registrationData.companyEmail"
+                required />
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="registrationData.password" required />
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword"
+                [(ngModel)]="registrationData.confirmPassword" required />
+        </div>
+
+        <!-- Register Button -->
+        <button type="submit" class="register-button">Register</button>
+    </form>
+</div>

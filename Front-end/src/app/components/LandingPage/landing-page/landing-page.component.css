@@ -12,7 +12,7 @@
     /* Position it at the top */
     left: 0;
     /* Align it to the left */
-    width: 100%;
+    width: 96%;
     /* Full width */
     z-index: 1000;
     /* Ensure it stays above other content */
@@ -37,6 +37,7 @@
 /* Add padding to the body to prevent content from being hidden behind the fixed header */
 body {
     padding-top: 70px;
+    padding: 0%;
     /* Adjust this value based on the header height */
 }
 
@@ -58,10 +59,6 @@ body {
 
 /* Content Container */
 .content {
-    background-image: url('/assets/landing-page-img.png'); /* Path to your image */
-    background-size: cover; /* Cover the entire section */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat;
     display: flex; /* Use Flexbox to arrange children side by side */
     align-items: center; /* Vertically center the content */
     justify-content: space-between; /* Space out the text and image */
@@ -101,7 +98,7 @@ body {
 /* Image Section */
 .image {
     flex: 1; /* Allow the image to take up available space */
-    max-width: 50%; /* Limit the width of the image section */
+    max-width: 50%; 
 }
 
 .image img {

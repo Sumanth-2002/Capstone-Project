@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="login-container">
+    <!-- Back Button -->
+    <button class="back-button" (click)="navigateToLandingPage()">
+        <span class="material-icons">arrow_back</span> Back
+    </button>
+
+    <!-- Login Form -->
+    <form class="login-form" (ngSubmit)="onSubmit()">
+        <h2>Login</h2>
+
+        <!-- Role Selection -->
+        <div class="form-group">
+            <label>Login As</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="role" value="company" [(ngModel)]="loginData.role" required />
+                    <span class="radio-custom"></span>
+                    Company
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="role" value="store" [(ngModel)]="loginData.role" required />
+                    <span class="radio-custom"></span>
+                    Store
+                </label>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="email">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" [(ngModel)]="loginData.email" required />
+        </div>
+
+        <!-- Password -->
+        <div class="password">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="loginData.password" required />
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit" class="login-button">Login</button>
+    </form>
+</div>

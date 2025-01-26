@@ -1,0 +1,149 @@
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    background: linear-gradient(135deg, #f4f4f4, #e0e0e0); /* Gradient background */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in height calculation */
+  }
+  
+  /* Back Button */
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .back-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
+  
+  /* Login Form */
+  .login-form {
+    background-color: #fff;
+    padding: 2.5rem; /* Increased padding */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Deeper shadow */
+    width: 100%;
+    max-width: 400px; /* Compact form width */
+    margin: 0 auto; /* Center the form horizontally */
+    animation: fadeIn 0.5s ease; /* Fade-in animation */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .login-form h2 {
+    text-align: center;
+    margin-bottom: 2rem; /* Increased spacing */
+    color: #333;
+    font-size: 1.75rem; /* Larger heading */
+    font-weight: 600; /* Bold heading */
+  }
+  
+  /* Form Group */
+.form-group {
+  margin-bottom: 1.5rem; /* Spacing below the form group */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.75rem; /* Spacing below the "Login As" label */
+  font-weight: bold;
+  color: #333; /* Darker text color for better readability */
+  font-size: 1rem; /* Slightly larger font size */
+}
+
+/* Radio Group */
+.radio-group {
+  display: flex;
+  justify-content: center; /* Center the radio buttons horizontally */
+  gap: 1.5rem; /* Spacing between radio buttons */
+  align-items: center; /* Vertically center the radio buttons */
+}
+
+/* Email and Password Container */
+.email, .password {
+  margin-bottom: 20px;
+}
+
+/* Label Styling */
+.email label, .password label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Input Field Styling */
+.email input, .password input {
+  width: 94%;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+/* Focused Input Field */
+.email input:focus, .password input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+  background-color: #fff;
+}
+
+/* Placeholder Styling */
+.email input::placeholder, .password input::placeholder {
+  font-size: 14px;
+  color: #aaa;
+}
+
+  
+  /* Login Button */
+  .login-button {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    font-size: 1rem;
+    font-weight: 600; /* Bold text */
+    cursor: pointer;
+    margin-top: 1.5rem; /* Increased spacing */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .login-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
+  
+  .login-button:active {
+    transform: translateY(0); /* Reset on click */
+  }
