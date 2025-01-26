@@ -1,0 +1,64 @@
+<!-- Header -->
+<app-header></app-header>
+
+<!-- Sidebar -->
+<app-sidebar></app-sidebar>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Billing Form -->
+    <form class="billing-form" (ngSubmit)="onSubmit()">
+        <!-- Customer Details -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" [(ngModel)]="billingData.customerName" name="customerName" required />
+            </div>
+            <div class="form-group">
+                <label>Contact</label>
+                <input type="text" [(ngModel)]="billingData.contact" name="contact" required />
+            </div>
+        </div>
+
+        <!-- Store Details -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>Store ID</label>
+                <input type="text" [(ngModel)]="billingData.storeId" name="storeId" required />
+            </div>
+            <div class="form-group">
+                <label>Store Name</label>
+                <input type="text" [(ngModel)]="billingData.storeName" name="storeName" required />
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" [(ngModel)]="billingData.productName" name="productName" required />
+            </div>
+            <div class="form-group">
+                <label>Product ID</label>
+                <input type="text" [(ngModel)]="billingData.productId" name="productId" required />
+            </div>
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" [(ngModel)]="billingData.quantity" name="quantity" required style="width: fit-content;"/>
+            </div>
+        </div>
+
+        <!-- Add Product Button -->
+        <button type="button" class="add-product-button" (click)="addProduct()">
+            Add Product
+        </button>
+
+        <!-- Save and Generate Invoice Buttons -->
+        <div class="form-buttons">
+            <button type="submit" class="save-button">Save</button>
+            <button type="button" class="generate-invoice-button" (click)="generateInvoice()">
+                Generate Invoice
+            </button>
+        </div>
+    </form>
+</div>

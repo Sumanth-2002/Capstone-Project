@@ -6,5 +6,68 @@
 
 <!-- Main Content -->
 <div class="main-content">
-    <p>admin products</p>
+    <!-- Search Bar and Add Product Button -->
+    <div class="search-add-container">
+        <input type="text" class="search-bar" placeholder="Search Product" />
+        <button class="add-product-button" (click)="openAddProductForm()">
+            Add New Product
+        </button>
+    </div>
+
+    <!-- Product Table -->
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Cost Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.costPrice }}</td>
+                <td>{{ product.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Add Product Form (Pop-up) -->
+    <div class="add-product-form" *ngIf="showAddProductForm">
+        <div class="form-container">
+            <button class="close-button" (click)="closeAddProductForm()">
+                <span class="material-icons">close</span>
+            </button>
+            <h2>Add New Product</h2>
+            <form (ngSubmit)="saveProduct()">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" [(ngModel)]="newProduct.name" name="name" required />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea [(ngModel)]="newProduct.description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" [(ngModel)]="newProduct.category" name="category" required />
+                </div>
+                <div class="form-group">
+                    <label>Cost Price</label>
+                    <input type="number" [(ngModel)]="newProduct.costPrice" name="costPrice" required />
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" required />
+                </div>
+                <button type="submit" class="save-button">Save</button>
+            </form>
+        </div>
+    </div>
 </div>

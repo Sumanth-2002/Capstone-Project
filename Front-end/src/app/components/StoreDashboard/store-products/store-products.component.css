@@ -1,18 +1,21 @@
 /* Main Content */
 .main-content {
     margin-left: 250px;
+    /* Match the width of the sidebar */
     margin-top: 60px;
+    /* Match the height of the header */
     padding: 20px;
+    /* Add padding for spacing */
     background-color: #dae7ff;
+    /* Light background color */
     height: calc(100vh - 60px);
     overflow-y: auto;
+    background-color: #dae7ff;
 }
 
-/* Search Bar and Add Product Button */
-.search-add-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+/* Search Bar */
+.search-container {
     margin-bottom: 20px;
 }
 
@@ -24,22 +27,8 @@
     font-size: 1rem;
 }
 
-.add-product-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.add-product-button:hover {
-    background-color: #218838;
-}
-
-/* Product Table */
-.product-table {
+/* Products Table */
+.products-table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
@@ -48,25 +37,49 @@
     overflow: hidden;
 }
 
-.product-table th,
-.product-table td {
+.products-table th,
+.products-table td {
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
-.product-table th {
+.products-table th {
     background-color: #007bff;
     color: #fff;
     font-weight: bold;
 }
 
-.product-table tr:hover {
+.products-table tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Add Product Form (Pop-up) */
-.add-product-form {
+/* Request Button */
+.request-button {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    /* Red color for request button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.request-button:hover {
+    background-color: #c82333;
+    /* Darker red on hover */
+}
+
+/* Requested Status */
+.requested-status {
+    color: #dc3545;
+    /* Red color for "Requested" status */
+    font-weight: bold;
+}
+
+/* Request Form (Pop-up) */
+.request-form {
     position: fixed;
     top: 0;
     left: 0;
@@ -115,8 +128,7 @@
     color: #333;
 }
 
-.form-group input,
-.form-group textarea {
+.form-group input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -124,7 +136,7 @@
     font-size: 1rem;
 }
 
-.save-button {
+.send-request-button {
     width: 100%;
     padding: 10px;
     background-color: #28a745;
@@ -135,6 +147,6 @@
     font-size: 1rem;
 }
 
-.save-button:hover {
+.send-request-button:hover {
     background-color: #218838;
 }

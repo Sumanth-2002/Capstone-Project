@@ -1,0 +1,36 @@
+<aside class="sidebar">
+    <!-- Navigation Links -->
+    <nav class="sidebar-nav">
+        <!-- Dashboard -->
+        <a class="nav-link" [routerLink]="'/store-home'" routerLinkActive="active">
+            <span class="material-icons">dashboard</span>
+            Dashboard
+        </a>
+
+        <!-- Products -->
+        <a class="nav-link" [routerLink]="'/store-products'" routerLinkActive="active">
+            <span class="material-icons">inventory</span>
+            Products
+        </a>
+
+        <!-- Billings -->
+        <a class="nav-link" [routerLink]="'/store-billing'" routerLinkActive="active">
+            <span class="material-icons">receipt</span>
+            Billings
+        </a>
+
+        <!-- Leaderboard -->
+        <a class="nav-link" [routerLink]="'/store-leaderboard'" routerLinkActive="active">
+            <span class="material-icons">leaderboard</span>
+            Leaderboard
+        </a>
+    </nav>
+
+    <!-- Logout Section -->
+    <div class="logout-section">
+        <a class="nav-link" (click)="logout()">
+            <span class="material-icons">logout</span>
+            Logout
+        </a>
+    </div>
+</aside>

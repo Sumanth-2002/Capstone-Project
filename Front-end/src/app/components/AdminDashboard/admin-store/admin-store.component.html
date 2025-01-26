@@ -6,6 +6,60 @@
 
 <!-- Main Content -->
 <div class="main-content">
-    <!-- Bar Chart Section -->
-    <p>admin store</p>
+    <!-- Search Bar and Add Store Button -->
+    <div class="search-add-container">
+        <input type="text" class="search-bar" placeholder="Search Store" />
+        <button class="add-store-button" (click)="openAddStoreForm()">
+            Add New Store
+        </button>
+    </div>
+
+    <!-- Store Table -->
+    <table class="store-table">
+        <thead>
+            <tr>
+                <th>Store ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let store of stores">
+                <td>{{ store.id }}</td>
+                <td>{{ store.name }}</td>
+                <td>{{ store.address }}</td>
+                <td>{{ store.region }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Add Store Form (Pop-up) -->
+    <div class="add-store-form" *ngIf="showAddStoreForm">
+        <div class="form-container">
+            <button class="close-button" (click)="closeAddStoreForm()">
+                <span class="material-icons">close</span>
+            </button>
+            <h2>Add New Store</h2>
+            <form (ngSubmit)="saveStore()">
+                <div class="form-group">
+                    <label>Store ID</label>
+                    <input type="text" [(ngModel)]="newStore.id" name="id" required />
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" [(ngModel)]="newStore.name" name="name" required />
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea [(ngModel)]="newStore.address" name="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Region</label>
+                    <input type="text" [(ngModel)]="newStore.region" name="region" required />
+                </div>
+                <button type="submit" class="save-button">Save</button>
+            </form>
+        </div>
+    </div>
 </div>
