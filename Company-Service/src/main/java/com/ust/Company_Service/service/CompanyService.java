@@ -16,13 +16,12 @@ public class CompanyService {
     private EmailService emailService;
 
     public Company addCompany(CompanyDto companyDto) {
-        // Save the company
-        CompanyDto companyDto1 = new CompanyDto();
+
         Company  company = new Company();
-        company.setGSTIN(companyDto1.getGSTIN());
-        company.setUIN(companyDto1.getUIN());
-        company.setName(companyDto1.getName());
-        company.setEmail(companyDto1.getEmail());
+        company.setGSTIN(companyDto.getGSTIN());
+        company.setUIN(companyDto.getUIN());
+        company.setName(companyDto.getName());
+        company.setEmail(companyDto.getEmail());
         Company savedCompany = companyRepository.save(company);
 
         // Send welcome email
@@ -33,5 +32,8 @@ public class CompanyService {
         }
 
         return savedCompany;
+    }
+    public Company getCompanyById(String companyId) {
+        return companyRepository.findById(companyId).get();
     }
 }

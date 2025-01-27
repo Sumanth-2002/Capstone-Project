@@ -1,5 +1,6 @@
 package com.UST.Vendor_MicroService.service;
 
+import com.UST.Vendor_MicroService.dto.VendorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,20 +28,20 @@ public class VendorService {
         return vendorRepository.save(vendor);
     }
 
-    public Vendor updateVendor(String vendorID, Vendor vendorDetails) {
-        return vendorRepository.findById(vendorID).map(vendor -> {
-            vendor.setCompanyID(vendorDetails.getCompanyID());
-            vendor.setGstin(vendorDetails.getGstin());
-            vendor.setVendorName(vendorDetails.getVendorName());
-            vendor.setVendorAddress(vendorDetails.getVendorAddress());
-            vendor.setContact(vendorDetails.getContact());
-            vendor.setLastPurchased(vendorDetails.getLastPurchased());
-            vendor.setQuantityPurchased(vendorDetails.getQuantityPurchased());
+    public Vendor updateVendor(VendorDto vendorDto) {
+        return vendorRepository.findById(vendorDto.getVendorId()).map(vendor -> {
+
+
+            vendor.setQuantityPurchased(vendor.getQuantityPurchased()+vendorDto.getQuantity());
             return vendorRepository.save(vendor);
-        }).orElseThrow(() -> new RuntimeException("Vendor not found with ID: " + vendorID));
+        }).orElseThrow(() -> new RuntimeException("Vendor not found with ID: " + vendorDto.getVendorId()));
     }
 
     public void deleteVendor(String vendorID) {
         vendorRepository.deleteById(vendorID);
+    }
+
+    public List<Vendor> getVendorByCompanyID(String companyID) {
+        return vendorRepository.findByCompanyId(companyID);
     }
 }

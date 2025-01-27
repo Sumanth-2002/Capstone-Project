@@ -102,11 +102,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getCompany_id() {
+    public String getCompanyId() {
         return companyId;
     }
 
-    public void setCompany_id(String companyId) {
+    public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
 }

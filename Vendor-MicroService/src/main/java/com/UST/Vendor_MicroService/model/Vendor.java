@@ -18,7 +18,7 @@ public class Vendor {
     )
     private String vendorID;
 
-    private String companyID;
+    private String companyId;
 
     private String gstin;
 
@@ -40,12 +40,12 @@ public class Vendor {
         this.vendorID = vendorID;
     }
 
-    public String getCompanyID() {
-        return companyID;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setCompanyID(String companyID) {
-        this.companyID = companyID;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getGstin() {
@@ -96,14 +96,14 @@ public class Vendor {
         this.quantityPurchased = quantityPurchased;
     }
 
-    public Vendor(String companyID, String gstin, String vendorName, String vendorAddress,
-            String contact,String email,LocalDate lastPurchased) {
-        this.companyID = companyID;
+    public Vendor(String companyId, String gstin, String vendorName, String vendorAddress,
+            String contact,String email) {
+        this.companyId = companyId;
         this.gstin = gstin;
         this.vendorName = vendorName;
         this.vendorAddress = vendorAddress;
         this.contact = contact;
-        this.lastPurchased = lastPurchased;
+
         this.email = email;
     }
 
@@ -116,5 +116,13 @@ public class Vendor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    @PrePersist
+    private void onCreate(){
+        this.lastPurchased = LocalDate.now();
+    }
+    @PreUpdate
+    private void onUpdate(){
+        this.lastPurchased = LocalDate.now();
     }
 }

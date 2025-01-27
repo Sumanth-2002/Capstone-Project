@@ -1,5 +1,6 @@
 package com.UST.Vendor_MicroService.controller;
 
+import com.UST.Vendor_MicroService.dto.VendorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +34,10 @@ public class VendorController {
         return vendorService.createVendor(vendor);
     }
 
-    @PutMapping("/{vendorID}")
-    public ResponseEntity<Vendor> updateVendor(@PathVariable String vendorID, @RequestBody Vendor vendorDetails) {
+    @PutMapping("/update-vendor")
+    public ResponseEntity<Vendor> updateVendor(@RequestBody VendorDto vendorDto) {
         try {
-            return ResponseEntity.ok(vendorService.updateVendor(vendorID, vendorDetails));
+            return ResponseEntity.ok(vendorService.updateVendor(vendorDto));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
@@ -46,5 +47,9 @@ public class VendorController {
     public ResponseEntity<Void> deleteVendor(@PathVariable String vendorID) {
         vendorService.deleteVendor(vendorID);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/get-vendor/{companyId}")
+    public ResponseEntity<List<Vendor>> getVendorByCompanyId(@PathVariable String companyId) {
+        return ResponseEntity.ok(vendorService.getVendorByCompanyID(companyId));
     }
 }

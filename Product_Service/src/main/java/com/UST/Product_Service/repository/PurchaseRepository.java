@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchases,String> {
-    @Query("SELECT SUM(s.totalPrice) FROM Purchases s WHERE s.companId = :companyId")
+    @Query("SELECT SUM(s.totalPrice) FROM Purchases s WHERE s.companyId = :companyId")
     Double getTotalPurchases(@Param("companyId") String companyId);
 }

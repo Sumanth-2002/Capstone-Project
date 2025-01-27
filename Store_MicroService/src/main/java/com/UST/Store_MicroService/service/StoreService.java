@@ -44,10 +44,10 @@ public class StoreService {
         }
         Map<String,Object> registerDto = new HashMap<>();
         registerDto.put("userId",store.getStoreId());
-        registerDto.put("password","masssiva");
+        registerDto.put("password","store@123");
         registerDto.put("role","STORE");
         Optional<Map<String,Object>> response = WebClient.builder()
-                .baseUrl("http://localhost:9090")
+                .baseUrl("http://localhost:9093")
                 .build()
                 .post()
                 .uri("/api/login/register") // Direct URI without query parameters

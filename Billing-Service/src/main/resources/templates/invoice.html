@@ -1,240 +1,200 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--  <meta charset="UTF-8">-->
-<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
   <title>invoice</title>
-<!--  <link rel="stylesheet" th:href="@{/styles.css}" />-->
-  <link rel="stylesheet" type="text/css" href="styles.css">
-<!--<style>-->
-<!--  $primary-color: #1779ba;-->
-<!--$secondary-color: #0b386f;-->
-<!--$gray:  #9b9b9b;-->
-<!--$light-gray: #eeeeee;-->
-<!--$medium-gray: #c8c3be;-->
-<!--$dark-gray: #96918c;-->
-<!--$black: #322d28;-->
-<!--$white: #f3f3f3;-->
-<!--$body-background: #ffffff;-->
-<!--$body-font-color: $black;-->
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #322d28;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
 
-<!--$sans: 'Montserrat', sans-serif;-->
-<!--$serif: 'Lora', Georgia, serif;-->
+  main {
+    margin-top: 4rem;
+    min-height: calc(100vh - 107px);
+  }
 
-<!--body {-->
-<!--  font-family: $sans;-->
-<!--  font-weight: 400;-->
-<!--  color: $body-font-color;-->
-<!--  background-color: $body-background;-->
-<!--  margin: 0;-->
-<!--  padding: 0;-->
-<!--}-->
+  main .inner-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
 
-<!--main {-->
-<!--  margin-top: 4rem;-->
-<!--  min-height: calc(100vh - 107px);-->
-<!--  .inner-container {-->
-<!--    max-width: 800px;-->
-<!--    margin: 0 auto;-->
-<!--  }-->
-<!--}-->
+  table.invoice {
+    background: #fff;
+    width: 100%;
+    border-collapse: collapse;
+  }
 
-<!--table.invoice {-->
-<!--  background: #fff;-->
-<!--  width: 100%;-->
-<!--  border-collapse: collapse;-->
+  table.invoice .num {
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.8em;
+  }
 
-<!--  .num {-->
-<!--    font-weight: 200;-->
-<!--    text-transform: uppercase;-->
-<!--    letter-spacing: 1.5px;-->
-<!--    font-size: 0.8em;-->
-<!--  }-->
+  table.invoice tr,
+  table.invoice td {
+    background: #fff;
+    text-align: left;
+    font-weight: 400;
+    color: #322d28;
+  }
 
-<!--  tr, td {-->
-<!--    background: #fff;-->
-<!--    text-align: left;-->
-<!--    font-weight: 400;-->
-<!--    color: $body-font-color;-->
-<!--  }-->
+  table.invoice tr.header td img {
+    max-width: 300px;
+  }
 
-<!--  tr {-->
-<!--    &.header {-->
-<!--      td {-->
-<!--        img {-->
-<!--          max-width: 300px;-->
-<!--        }-->
-<!--        h2 {-->
-<!--          text-align: left;-->
-<!--          font-family: $sans;-->
-<!--          font-weight: 200;-->
-<!--          font-size: 2rem;-->
-<!--          color: $primary-color;-->
-<!--        }-->
-<!--      }-->
-<!--    }-->
+  table.invoice tr.header td h2 {
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 2rem;
+    color: #1779ba;
+  }
 
-<!--    &.intro {-->
-<!--      td {-->
-<!--        &:nth-child(2) {-->
-<!--          text-align: right;-->
-<!--        }-->
-<!--      }-->
-<!--    }-->
+  table.invoice tr.intro td:nth-child(2) {
+    text-align: right;
+  }
 
-<!--    &.details {-->
-<!--      > td {-->
-<!--        padding-top: 4rem;-->
-<!--        padding-bottom: 0;-->
-<!--      }-->
+  table.invoice tr.details > td {
+    padding-top: 4rem;
+    padding-bottom: 0;
+  }
 
-<!--      td, th {-->
-<!--        padding: 10px 15px;-->
-<!--        &.id,-->
-<!--        &.qty,-->
-<!--        &.price {-->
-<!--          text-align: center;-->
-<!--        }-->
-<!--        &:last-child {-->
-<!--          text-align: right;-->
-<!--        }-->
-<!--      }-->
+  table.invoice tr.details td,
+  table.invoice tr.details th {
+    padding: 10px 15px;
+  }
 
-<!--      table {-->
-<!--        thead, tbody {-->
-<!--          position: relative;-->
-<!--          &:after {-->
-<!--            content: '';-->
-<!--            height: 1px;-->
-<!--            position: absolute;-->
-<!--            width: 100%;-->
-<!--            left: 0;-->
-<!--            margin-top: -1px;-->
-<!--            background: $medium-gray;-->
-<!--          }-->
-<!--        }-->
-<!--      }-->
-<!--    }-->
+  table.invoice tr.details td.id,
+  table.invoice tr.details td.qty,
+  table.invoice tr.details td.price {
+    text-align: center;
+  }
 
-<!--    &.totals {-->
-<!--      td {-->
-<!--        padding-top: 0;-->
-<!--      }-->
+  table.invoice tr.details td:last-child {
+    text-align: right;
+  }
 
-<!--      table {-->
-<!--        tr {-->
-<!--          td {-->
-<!--            padding-top: 0;-->
-<!--            padding-bottom: 0;-->
-<!--            &:nth-child(1) {-->
-<!--              font-weight: 500;-->
-<!--            }-->
-<!--            &:nth-child(2) {-->
-<!--              text-align: right;-->
-<!--              font-weight: 200;-->
-<!--            }-->
-<!--          }-->
+  table.invoice tr.details table thead,
+  table.invoice tr.details table tbody {
+    position: relative;
+  }
 
-<!--          &.total {-->
-<!--            td {-->
-<!--              font-size: 1.2em;-->
-<!--              padding-top: 0.5em;-->
-<!--              font-weight: 700;-->
-<!--              &:last-child {-->
-<!--                font-weight: 700;-->
-<!--              }-->
-<!--            }-->
-<!--          }-->
-<!--        }-->
-<!--      }-->
-<!--    }-->
-<!--  }-->
-<!--}-->
+  table.invoice tr.details table thead:after,
+  table.invoice tr.details table tbody:after {
+    content: '';
+    height: 1px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    margin-top: -1px;
+    background: #c8c3be;
+  }
 
-<!--.info-section {-->
-<!--  display: flex;-->
-<!--  justify-content: space-between;-->
-<!--  margin-top: 20px;-->
-<!--  padding: 20px;-->
-<!--  background-color: $light-gray;-->
-<!--  border-radius: 5px;-->
+  table.invoice tr.totals td {
+    padding-top: 0;
+  }
 
-<!--  .billing-info {-->
-<!--    width: 48%;-->
-<!--    h5 {-->
-<!--      font-size: 1.2em;-->
-<!--      font-weight: 700;-->
-<!--      text-transform: uppercase;-->
-<!--      letter-spacing: 1.5px;-->
-<!--      color: $primary-color;-->
-<!--      margin-bottom: 10px;-->
-<!--    }-->
-<!--    p {-->
-<!--      margin: 0;-->
-<!--      line-height: 1.4;-->
-<!--      color: $body-font-color;-->
-<!--    }-->
-<!--  }-->
+  table.invoice tr.totals table tr td {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
-<!--  .store-info {-->
-<!--    width: 48%;-->
-<!--    text-align: right;-->
-<!--    h5 {-->
-<!--      font-size: 1.2em;-->
-<!--      font-weight: 700;-->
-<!--      text-transform: uppercase;-->
-<!--      letter-spacing: 1.5px;-->
-<!--      color: $primary-color;-->
-<!--      margin-bottom: 10px;-->
-<!--    }-->
-<!--    p {-->
-<!--      margin: 0;-->
-<!--      line-height: 1.4;-->
-<!--      color: $gray;-->
-<!--    }-->
-<!--  }-->
-<!--}-->
+  table.invoice tr.totals table tr td:nth-child(1) {
+    font-weight: 500;
+  }
 
-<!--.additional-info {-->
-<!--  h5 {-->
-<!--    font-size: 0.8em;-->
-<!--    font-weight: 700;-->
-<!--    text-transform: uppercase;-->
-<!--    letter-spacing: 2px;-->
-<!--    color: $primary-color;-->
-<!--  }-->
-<!--}-->
+  table.invoice tr.totals table tr td:nth-child(2) {
+    text-align: right;
+    font-weight: 200;
+  }
 
-<!--.store-info {-->
-<!--  margin-top: 3rem;-->
-<!--  text-align: right;-->
-<!--  font-size: 0.9em;-->
-<!--  color: $gray;-->
-<!--}-->
+  table.invoice tr.totals table tr.total td {
+    font-size: 1.2em;
+    padding-top: 0.5em;
+    font-weight: 700;
+  }
 
-<!--.invoice table {-->
-<!--  width: 100%; /* Ensure the table occupies the full width */-->
-<!--  border-collapse: collapse; /* Remove space between borders */-->
-<!--}-->
+  table.invoice tr.totals table tr.total td:last-child {
+    font-weight: 700;
+  }
 
-<!--.invoice td,-->
-<!--.invoice th {-->
-<!--  padding: 10px; /* Add padding for better spacing */-->
-<!--  border: 1px solid #ddd; /* Add borders for clarity */-->
-<!--  text-align: left;-->
-<!--  border: none;-->
-<!--}-->
+  .info-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #eeeeee;
+    border-radius: 5px;
+  }
 
-<!--.invoice .details table {-->
-<!--  width: 100%; /* Ensure nested tables also occupy full width */-->
-<!--}-->
+  .info-section .billing-info,
+  .info-section .store-info {
+    width: 100%;
+  }
 
-<!--.invoice .details td,-->
-<!--.invoice .details th {-->
-<!--  padding: 10px;-->
-<!--}-->
+  .info-section .billing-info h5,
+  .info-section .store-info h5 {
+    font-size: 1.2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #1779ba;
+    margin-bottom: 10px;
+  }
 
-<!--</style>-->
+  .info-section .billing-info p,
+  .info-section .store-info p {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .info-section .store-info p {
+    color: #9b9b9b;
+  }
+
+  .additional-info h5 {
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #1779ba;
+  }
+
+  .store-info {
+    margin-top: 3rem;
+    text-align: right;
+    font-size: 0.9em;
+    color: #9b9b9b;
+  }
+
+  .invoice table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .invoice td,
+  .invoice th {
+    padding: 10px;
+    border: none;
+    text-align: left;
+  }
+
+  .invoice .details table {
+    width: 100%;
+  }
+
+  .invoice .details td,
+  .invoice .details th {
+    padding: 10px;
+  }
+
+</style>
 
 </head>
 <body>
@@ -247,6 +207,7 @@
             <tr class="header">
               <td class="">
                 <h1 style="font-weight: bold; color: #1779ba;" th:text="${companyName}">Your Company Name</h1>
+                <h3 style=" color: black;" th:text="${GSTIN}">Your GST</h3>
               </td>
               <td class="align-right">
                 <h2>Invoice</h2>
@@ -254,7 +215,7 @@
             </tr>
             <tr class="intro">
               <td class="">
-                Hello, <span th:text="${customerName}">Customer Name</span>.<br>
+                Hello, <span th:text="${customerName}">Customer Name</span>.<br></br>
                 Thank you for your order.
               </td>
               <td class="text-right">
@@ -311,14 +272,16 @@
           <section class="info-section">
             <div class="billing-info">
               <h5>Billing Information</h5>
-              <p th:text="${customerName} + ' ' + ${customerContact}">Customer Name Contact Info</p>
+              <p th:text="${customerName}">Customer Name</p>
+              <p th:text="${customerContact}">Customer Contact Info</p>
+
             </div>
             <div class="store-info">
-              <h5>Store Information</h5>
-              <p><strong>Store Info:</strong><br>
-                Store Name: <span th:text="${storeName}">Your Store</span><br>
-                Region: <span th:text="${region}">Region Name</span><br>
-                Address: <span th:text="${storeAddress}">Store Address</span>
+
+              <p><strong>Store Info:</strong><br></br>
+               <span th:text="${storeName}">Your Store</span><br></br>
+                <span th:text="${region}">Region Name</span><br></br>
+            <span th:text="${storeAddress}">Store Address</span>
               </p>
             </div>
           </section>
