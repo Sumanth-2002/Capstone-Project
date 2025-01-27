@@ -3,6 +3,7 @@ import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../side-bar/side-bar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
+import { VendorService } from '../../../service/vendor.service';
 
 @Component({
   selector: 'app-admin-vendor',
@@ -14,54 +15,81 @@ import { FormsModule, NgModel } from '@angular/forms';
 export class AdminVendorComponent {
 
   // Dummy Data for Vendors
-  vendors = [
-    { id: 1, name: 'Vendor A', gstNo: 'GST001', address: '123 Main St', contact: '9876543210', productsPurchased: 50 },
-    { id: 2, name: 'Vendor B', gstNo: 'GST002', address: '456 Elm St', contact: '9876543211', productsPurchased: 30 },
-    { id: 3, name: 'Vendor C', gstNo: 'GST003', address: '789 Oak St', contact: '9876543212', productsPurchased: 20 },
-    { id: 4, name: 'Vendor D', gstNo: 'GST004', address: '101 Pine St', contact: '9876543213', productsPurchased: 40 },
-    { id: 5, name: 'Vendor E', gstNo: 'GST005', address: '202 Maple St', contact: '9876543214', productsPurchased: 60 },
-  ];
+  vendors: any[] = [];
 
   // New Vendor Object
   newVendor = {
-    id: 5,
-    name: '',
-    gstNo: '',
+    // vendorID: '',
+    companyID: '',
+    gstin: '',
+    vendorName: '',
+    vendorAddress: '',
     contact: '',
-    address: '',
-    productsPurchased: 0,
+    email: '',
+    lastPurchased: new Date().toISOString().split('T')[0], // Default to today's date
+    quantityPurchased: 0,
   };
 
   // Control Pop-up Form Visibility
   showAddVendorForm = false;
 
+  constructor(private vendorService: VendorService) {} // Inject the service
+
+  // Fetch vendors on component initialization
+  ngOnInit(): void {
+    this.getAllVendors();
+  }
+
+  // Fetch all vendors from the service
+  getAllVendors(): void {
+    this.vendorService.getAllVendors().subscribe({
+      next: (data: any[]) => {
+        this.vendors = data; // Assign fetched data to the vendors array
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch vendors:', err);
+        alert('Failed to fetch vendors. Please try again later.');
+      },
+    });
+  }
+
   // Open Add Vendor Form
-  openAddVendorForm() {
+  openAddVendorForm(): void {
     this.showAddVendorForm = true;
   }
 
   // Close Add Vendor Form
-  closeAddVendorForm() {
+  closeAddVendorForm(): void {
     this.showAddVendorForm = false;
     this.resetForm();
   }
 
   // Save Vendor
-  saveVendor() {
-    this.newVendor.id = this.vendors.length + 1; // Auto-generate ID
-    this.vendors.push({ ...this.newVendor }); // Add new vendor to the list
-    this.closeAddVendorForm(); // Close the form
+  saveVendor(): void {
+    this.vendorService.addVendor(this.newVendor).subscribe({
+      next: (response: any) => {
+        this.vendors.push(response); // Add the new vendor to the list
+        this.closeAddVendorForm(); // Close the form
+        alert('Vendor added successfully!');
+      },
+      error: (err: any) => {
+        console.error('Failed to save vendor:', err);
+        alert('Failed to save vendor. Please try again.');
+      },
+    });
   }
 
   // Reset Form
-  resetForm() {
+  resetForm(): void {
     this.newVendor = {
-      id: 5,
-      name: '',
-      gstNo: '',
+      companyID: '',
+      gstin: '',
+      vendorName: '',
+      vendorAddress: '',
       contact: '',
-      address: '',
-      productsPurchased: 0,
+      email: '',
+      lastPurchased: new Date().toISOString().split('T')[0], // Default to today's date
+      quantityPurchased: 0,
     };
   }
 }

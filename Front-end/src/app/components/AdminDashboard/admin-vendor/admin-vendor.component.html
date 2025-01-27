@@ -28,13 +28,13 @@
         </thead>
         <tbody>
             <tr *ngFor="let vendor of vendors">
-                <td>{{ vendor.id }}</td>
-                <td>{{ vendor.name }}</td>
-                <td>{{ vendor.gstNo }}</td>
-                <td>{{ vendor.address }}</td>
+                <td>{{ vendor.vendorID }}</td>
+                <td>{{ vendor.vendorName }}</td>
+                <td>{{ vendor.gstin }}</td>
+                <td>{{ vendor.vendorAddress }}</td>
                 <td>{{ vendor.contact }}</td>
-                <td>{{ vendor.productsPurchased }}</td>
-            </tr>
+                <td>{{ vendor.quantityPurchased }}</td>
+              </tr>
         </tbody>
     </table>
 
@@ -48,24 +48,44 @@
             <form (ngSubmit)="saveVendor()">
                 <div class="form-group">
                     <label>Vendor Name</label>
-                    <input type="text" [(ngModel)]="newVendor.name" name="name" required />
-                </div>
-                <div class="form-group">
-                    <label>GST No</label>
-                    <input type="text" [(ngModel)]="newVendor.gstNo" name="gstNo" required />
-                </div>
-                <div class="form-group">
+                    <input type="text" [(ngModel)]="newVendor.vendorName" name="vendorName" required />
+                  </div>
+          
+                  <!-- Company ID -->
+                  <div class="form-group">
+                    <label>Company ID</label>
+                    <input type="text" [(ngModel)]="newVendor.companyID" name="companyID" required />
+                  </div>
+          
+                  <!-- GSTIN -->
+                  <div class="form-group">
+                    <label>GSTIN</label>
+                    <input type="text" [(ngModel)]="newVendor.gstin" name="gstin" required />
+                  </div>
+          
+                  <!-- Address -->
+                  <div class="form-group">
+                    <label>Address</label>
+                    <textarea [(ngModel)]="newVendor.vendorAddress" name="vendorAddress" required></textarea>
+                  </div>
+          
+                  <!-- Contact -->
+                  <div class="form-group">
                     <label>Contact</label>
                     <input type="text" [(ngModel)]="newVendor.contact" name="contact" required />
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <textarea [(ngModel)]="newVendor.address" name="address" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>No of Products Purchased</label>
-                    <input type="number" [(ngModel)]="newVendor.productsPurchased" name="productsPurchased" required />
-                </div>
+                  </div>
+          
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" [(ngModel)]="newVendor.email" name="email" required />
+                  </div>
+          
+                  <!-- Quantity Purchased -->
+                  <div class="form-group">
+                    <label>Quantity Purchased</label>
+                    <input type="number" [(ngModel)]="newVendor.quantityPurchased" name="quantityPurchased" required />
+                  </div>
                 <button type="submit" class="save-button">Save</button>
             </form>
         </div>
