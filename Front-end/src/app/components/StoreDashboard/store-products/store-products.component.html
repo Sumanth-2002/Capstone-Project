@@ -4,7 +4,6 @@
 <!-- Sidebar -->
 <app-sidebar></app-sidebar>
 
-<!-- Main Content -->
 <div class="main-content">
     <!-- Search Bar -->
     <div class="search-container">
@@ -15,17 +14,23 @@
     <table class="products-table">
         <thead>
             <tr>
-                <th>Product ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Cost Price</th>
-                <th>Quantity</th>
+                <th (click)="sort('productId')" [class.sorted-asc]="sortColumn === 'productId' && sortDirection === 'asc'"
+                    [class.sorted-desc]="sortColumn === 'productId' && sortDirection === 'desc'">Product ID</th>
+                <th (click)="sort('name')" [class.sorted-asc]="sortColumn === 'name' && sortDirection === 'asc'"
+                    [class.sorted-desc]="sortColumn === 'name' && sortDirection === 'desc'">Name</th>
+                <th (click)="sort('description')" [class.sorted-asc]="sortColumn === 'description' && sortDirection === 'asc'"
+                    [class.sorted-desc]="sortColumn === 'description' && sortDirection === 'desc'">Description</th>
+                <th (click)="sort('category')" [class.sorted-asc]="sortColumn === 'category' && sortDirection === 'asc'"
+                    [class.sorted-desc]="sortColumn === 'category' && sortDirection === 'desc'">Category</th>
+                <th (click)="sort('costPrice')" [class.sorted-asc]="sortColumn === 'costPrice' && sortDirection === 'asc'"
+                    [class.sorted-desc]="sortColumn === 'costPrice' && sortDirection === 'desc'">Cost Price</th>
+                <th (click)="sort('quantity')" [class.sorted-asc]="sortColumn === 'quantity' && sortDirection === 'asc'"
+                    [class.sorted-desc]="sortColumn === 'quantity' && sortDirection === 'desc'">Quantity</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let product of products">
+            <tr *ngFor="let product of filteredProducts | paginate: config">
                 <td>{{ product.productId }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
@@ -33,8 +38,7 @@
                 <td>{{ product.costPrice }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>
-                    <button *ngIf="product.status !== 'Requested'" class="request-button"
-                        (click)="openRequestForm(product)">
+                    <button *ngIf="product.status !== 'Requested'" class="request-button" (click)="openRequestForm(product)">
                         Request
                     </button>
                     <span *ngIf="product.status === 'Requested'" class="requested-status">
@@ -44,6 +48,24 @@
             </tr>
         </tbody>
     </table>
+    
+    <div class="pagination-container">
+        <!-- Pagination Limits -->
+        <div class="pagination-limit-container">
+            <label for="paginationLimit">Items per page:</label>
+            <select id="paginationLimit" [(ngModel)]="config.itemsPerPage"
+                (change)="onPaginationLimitChange(config.itemsPerPage)">
+                <option *ngFor="let limit of paginationLimits" [value]="limit">
+                    {{ limit }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+            <pagination-controls (pageChange)="onPageChange($event)" id="custom"></pagination-controls>
+        </div>
+    </div>
 
     <!-- Request Form (Pop-up) -->
     <div class="request-form" *ngIf="showRequestForm">
