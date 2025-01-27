@@ -28,4 +28,11 @@ public interface BillingRepository extends JpaRepository<Billing, String> {
             "GROUP BY s.storeId, s.name",
             nativeQuery = true)
     List<StoreSaledDto> getSales(@Param("companyId") String companyId);
+    @Query(value = "SELECT  SUM(s.totalPrice) AS totalSales " +
+            "FROM billing s " +
+            "JOIN Store b ON s.storeId = b.storeId " +
+            "WHERE b.companyId = :companyId ",
+            nativeQuery = true)
+    Double getTotalSales(@Param("companyId") String companyId);
+
 }

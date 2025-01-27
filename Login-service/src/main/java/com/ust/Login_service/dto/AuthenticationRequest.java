@@ -1,22 +1,18 @@
-package com.ust.Login_service.model;
+package com.ust.Login_service.dto;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity
-public class Login {
+public class AuthenticationRequest {
     @Id
     private String UserId;
     private String Password;
-    private String role;
 
-    public Login(String userId, String password, String role) {
+    public AuthenticationRequest(String userId, String password) {
         UserId = userId;
         Password = password;
-        this.role = role;
     }
 
-    public Login() {
+    public AuthenticationRequest() {
     }
 
     public String getUserId() {
@@ -33,13 +29,5 @@ public class Login {
 
     public void setPassword(String password) {
         Password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

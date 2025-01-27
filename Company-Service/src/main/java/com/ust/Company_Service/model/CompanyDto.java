@@ -1,21 +1,9 @@
 package com.ust.Company_Service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
 
-@Entity
-public class Company {
+public class CompanyDto {
 
-    @Id
-    @GeneratedValue(generator = "custom-id-generator")
-    @GenericGenerator(
-            name = "custom-id-generator",
-            strategy = "com.ust.Company_Service.CustomIdGenerator"
-    )
-    private String companyId;
 
     @JsonProperty("GSTIN")
     private String GSTIN;
@@ -26,24 +14,18 @@ public class Company {
     @JsonProperty("email")
     private String email;
 
+    @JsonProperty("password")
+    private String password;
 
-    public Company() {
+    public CompanyDto() {
     }
 
-    public Company(String GSTIN, String UIN, String name, String email) {
+    public CompanyDto(String GSTIN, String UIN, String name, String email, String password) {
         this.GSTIN = GSTIN;
         this.UIN = UIN;
         this.name = name;
         this.email = email;
-
-    }
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
+        this.password = password;
     }
 
     public String getGSTIN() {
@@ -78,7 +60,11 @@ public class Company {
         this.email = email;
     }
 
-
-
+    public String getPassword() {
+        return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}

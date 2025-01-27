@@ -5,7 +5,9 @@ import com.ust.Billing_Service.repository.BillingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MetricsService {
@@ -14,5 +16,10 @@ public class MetricsService {
 
     public List<StoreSaledDto> getStoresSales(String companyId){
         return  billingRepository.getSales(companyId);
+    }
+    public Map<String,Double> getTotalSales(String companyId){
+        Map<String,Double> totalSales = new HashMap<>();
+        totalSales.put("TotalSales",billingRepository.getTotalSales(companyId));
+        return totalSales;
     }
 }

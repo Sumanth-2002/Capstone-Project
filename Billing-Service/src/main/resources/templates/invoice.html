@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <title>invoice</title>
+<!--  <link rel="stylesheet" th:href="@{/styles.css}" />-->
+  <link rel="stylesheet" type="text/css" href="styles.css">
+<!--<style>-->
+<!--  $primary-color: #1779ba;-->
+<!--$secondary-color: #0b386f;-->
+<!--$gray:  #9b9b9b;-->
+<!--$light-gray: #eeeeee;-->
+<!--$medium-gray: #c8c3be;-->
+<!--$dark-gray: #96918c;-->
+<!--$black: #322d28;-->
+<!--$white: #f3f3f3;-->
+<!--$body-background: #ffffff;-->
+<!--$body-font-color: $black;-->
+
+<!--$sans: 'Montserrat', sans-serif;-->
+<!--$serif: 'Lora', Georgia, serif;-->
+
+<!--body {-->
+<!--  font-family: $sans;-->
+<!--  font-weight: 400;-->
+<!--  color: $body-font-color;-->
+<!--  background-color: $body-background;-->
+<!--  margin: 0;-->
+<!--  padding: 0;-->
+<!--}-->
+
+<!--main {-->
+<!--  margin-top: 4rem;-->
+<!--  min-height: calc(100vh - 107px);-->
+<!--  .inner-container {-->
+<!--    max-width: 800px;-->
+<!--    margin: 0 auto;-->
+<!--  }-->
+<!--}-->
+
+<!--table.invoice {-->
+<!--  background: #fff;-->
+<!--  width: 100%;-->
+<!--  border-collapse: collapse;-->
+
+<!--  .num {-->
+<!--    font-weight: 200;-->
+<!--    text-transform: uppercase;-->
+<!--    letter-spacing: 1.5px;-->
+<!--    font-size: 0.8em;-->
+<!--  }-->
+
+<!--  tr, td {-->
+<!--    background: #fff;-->
+<!--    text-align: left;-->
+<!--    font-weight: 400;-->
+<!--    color: $body-font-color;-->
+<!--  }-->
+
+<!--  tr {-->
+<!--    &.header {-->
+<!--      td {-->
+<!--        img {-->
+<!--          max-width: 300px;-->
+<!--        }-->
+<!--        h2 {-->
+<!--          text-align: left;-->
+<!--          font-family: $sans;-->
+<!--          font-weight: 200;-->
+<!--          font-size: 2rem;-->
+<!--          color: $primary-color;-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+
+<!--    &.intro {-->
+<!--      td {-->
+<!--        &:nth-child(2) {-->
+<!--          text-align: right;-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+
+<!--    &.details {-->
+<!--      > td {-->
+<!--        padding-top: 4rem;-->
+<!--        padding-bottom: 0;-->
+<!--      }-->
+
+<!--      td, th {-->
+<!--        padding: 10px 15px;-->
+<!--        &.id,-->
+<!--        &.qty,-->
+<!--        &.price {-->
+<!--          text-align: center;-->
+<!--        }-->
+<!--        &:last-child {-->
+<!--          text-align: right;-->
+<!--        }-->
+<!--      }-->
+
+<!--      table {-->
+<!--        thead, tbody {-->
+<!--          position: relative;-->
+<!--          &:after {-->
+<!--            content: '';-->
+<!--            height: 1px;-->
+<!--            position: absolute;-->
+<!--            width: 100%;-->
+<!--            left: 0;-->
+<!--            margin-top: -1px;-->
+<!--            background: $medium-gray;-->
+<!--          }-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+
+<!--    &.totals {-->
+<!--      td {-->
+<!--        padding-top: 0;-->
+<!--      }-->
+
+<!--      table {-->
+<!--        tr {-->
+<!--          td {-->
+<!--            padding-top: 0;-->
+<!--            padding-bottom: 0;-->
+<!--            &:nth-child(1) {-->
+<!--              font-weight: 500;-->
+<!--            }-->
+<!--            &:nth-child(2) {-->
+<!--              text-align: right;-->
+<!--              font-weight: 200;-->
+<!--            }-->
+<!--          }-->
+
+<!--          &.total {-->
+<!--            td {-->
+<!--              font-size: 1.2em;-->
+<!--              padding-top: 0.5em;-->
+<!--              font-weight: 700;-->
+<!--              &:last-child {-->
+<!--                font-weight: 700;-->
+<!--              }-->
+<!--            }-->
+<!--          }-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+<!--  }-->
+<!--}-->
+
+<!--.info-section {-->
+<!--  display: flex;-->
+<!--  justify-content: space-between;-->
+<!--  margin-top: 20px;-->
+<!--  padding: 20px;-->
+<!--  background-color: $light-gray;-->
+<!--  border-radius: 5px;-->
+
+<!--  .billing-info {-->
+<!--    width: 48%;-->
+<!--    h5 {-->
+<!--      font-size: 1.2em;-->
+<!--      font-weight: 700;-->
+<!--      text-transform: uppercase;-->
+<!--      letter-spacing: 1.5px;-->
+<!--      color: $primary-color;-->
+<!--      margin-bottom: 10px;-->
+<!--    }-->
+<!--    p {-->
+<!--      margin: 0;-->
+<!--      line-height: 1.4;-->
+<!--      color: $body-font-color;-->
+<!--    }-->
+<!--  }-->
+
+<!--  .store-info {-->
+<!--    width: 48%;-->
+<!--    text-align: right;-->
+<!--    h5 {-->
+<!--      font-size: 1.2em;-->
+<!--      font-weight: 700;-->
+<!--      text-transform: uppercase;-->
+<!--      letter-spacing: 1.5px;-->
+<!--      color: $primary-color;-->
+<!--      margin-bottom: 10px;-->
+<!--    }-->
+<!--    p {-->
+<!--      margin: 0;-->
+<!--      line-height: 1.4;-->
+<!--      color: $gray;-->
+<!--    }-->
+<!--  }-->
+<!--}-->
+
+<!--.additional-info {-->
+<!--  h5 {-->
+<!--    font-size: 0.8em;-->
+<!--    font-weight: 700;-->
+<!--    text-transform: uppercase;-->
+<!--    letter-spacing: 2px;-->
+<!--    color: $primary-color;-->
+<!--  }-->
+<!--}-->
+
+<!--.store-info {-->
+<!--  margin-top: 3rem;-->
+<!--  text-align: right;-->
+<!--  font-size: 0.9em;-->
+<!--  color: $gray;-->
+<!--}-->
+
+<!--.invoice table {-->
+<!--  width: 100%; /* Ensure the table occupies the full width */-->
+<!--  border-collapse: collapse; /* Remove space between borders */-->
+<!--}-->
+
+<!--.invoice td,-->
+<!--.invoice th {-->
+<!--  padding: 10px; /* Add padding for better spacing */-->
+<!--  border: 1px solid #ddd; /* Add borders for clarity */-->
+<!--  text-align: left;-->
+<!--  border: none;-->
+<!--}-->
+
+<!--.invoice .details table {-->
+<!--  width: 100%; /* Ensure nested tables also occupy full width */-->
+<!--}-->
+
+<!--.invoice .details td,-->
+<!--.invoice .details th {-->
+<!--  padding: 10px;-->
+<!--}-->
+
+<!--</style>-->
+
+</head>
+<body>
+<div class="row expanded">
+  <main class="columns">
+    <div class="inner-container">
+      <section class="row">
+        <div class="callout large invoice-container">
+          <table class="invoice">
+            <tr class="header">
+              <td class="">
+                <h1 style="font-weight: bold; color: #1779ba;" th:text="${companyName}">Your Company Name</h1>
+              </td>
+              <td class="align-right">
+                <h2>Invoice</h2>
+              </td>
+            </tr>
+            <tr class="intro">
+              <td class="">
+                Hello, <span th:text="${customerName}">Customer Name</span>.<br>
+                Thank you for your order.
+              </td>
+              <td class="text-right">
+                <span class="num">Order #<span th:text="${billingId}">12345</span></span><br></br>
+                <span th:text="${orderDate}">2023-10-01</span>
+              </td>
+            </tr>
+            <tr class="details">
+              <td colspan="2">
+                <table>
+                  <thead>
+                  <tr>
+                    <th class="desc">Product Name</th>
+                    <th class="id">Product ID</th>
+                    <th class="price">Price per Unit</th>
+                    <th class="qty">Quantity</th>
+                    <th class="amt">Subtotal</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="item" th:each="product : ${products}">
+                    <td class="desc" th:text="${product.productName}">Product Name</td>
+                    <td class="id num" th:text="${product.productId}">123</td>
+                    <td class="price" th:text="${product.price}">$10.00</td>
+                    <td class="qty" th:text="${product.quantity}">2</td>
+                    <td class="amt" th:text="${product.subtotal}">$20.00</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr class="totals">
+              <td></td>
+              <td>
+                <table>
+                  <tr class="subtotal">
+                    <td class="num">Subtotal</td>
+                    <td class="num" th:text="${subtotal}">$100.00</td>
+                  </tr>
+                  <tr class="tax">
+                    <td class="num">Tax <span th:text="${taxPercentage}">12</span>%</td>
+                    <td class="num" th:text="${taxAmount}">$12.00</td>
+                  </tr>
+                  <tr class="total">
+                    <td>Total</td>
+                    <td th:text="${totalAmount}">$112.00</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <!-- Billing and Store Information -->
+          <section class="info-section">
+            <div class="billing-info">
+              <h5>Billing Information</h5>
+              <p th:text="${customerName} + ' ' + ${customerContact}">Customer Name Contact Info</p>
+            </div>
+            <div class="store-info">
+              <h5>Store Information</h5>
+              <p><strong>Store Info:</strong><br>
+                Store Name: <span th:text="${storeName}">Your Store</span><br>
+                Region: <span th:text="${region}">Region Name</span><br>
+                Address: <span th:text="${storeAddress}">Store Address</span>
+              </p>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</body>
+</html>

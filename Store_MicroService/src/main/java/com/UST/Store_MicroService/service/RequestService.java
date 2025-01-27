@@ -18,6 +18,8 @@ public class RequestService {
     private RequestRepository requestRepository;
     @Autowired
     private StoreService storeService;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
     public String raiseRequest(Request request) {
         if (requestRepository.save(request) == null) {
@@ -42,7 +44,7 @@ public class RequestService {
         updateProductDto.setProductName(request.getProductName());
         updateProductDto.setStoreId(request.getStoreId());
         updateProductDto.setStoreName(request.getStoreName());
-        storeService.updateStore(updateProductDto);
+        storeService.updateQuantity(updateProductDto);
         ProductDto productDto = new ProductDto();
         productDto.setProductId(request.getProductId());
         productDto.setProductName(request.getProductName());

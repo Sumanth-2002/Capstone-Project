@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products")
+@CrossOrigin("*")
 public class ProductController {
 
     @Autowired
@@ -55,4 +57,8 @@ public class ProductController {
         return productService.restockProduct(productDto);
     }
 
+    @GetMapping("/get-total-purchases/{companyId}")
+    public Map<String,Double> getTotalPurchase(@PathVariable String companyId){
+        return productService.getTotalPurchases(companyId);
+    }
 }

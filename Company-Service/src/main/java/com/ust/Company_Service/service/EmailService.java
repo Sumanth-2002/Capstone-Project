@@ -23,7 +23,6 @@ public class EmailService {
         Path templatePath = new ClassPathResource("templates/email-template/index.html").getFile().toPath();
         String htmlContent = new String(Files.readAllBytes(templatePath));
 
-        // Replace placeholder with actual username
         htmlContent = htmlContent.replace("{{USERID}}", username);
 
         // Set up the email

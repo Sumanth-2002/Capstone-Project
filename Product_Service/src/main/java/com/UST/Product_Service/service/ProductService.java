@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -78,6 +76,12 @@ public class ProductService {
         purchases.setTotalPrice(productDto.getQuantity()*product.getCost_Price());
         purchaseRepository.save(purchases);
         return productRepository.save(product);
+    }
+
+    public Map<String,Double> getTotalPurchases(String companyId){
+        Map<String,Double> totalSale = new HashMap<>();
+        totalSale.put("totalSale",  purchaseRepository.getTotalPurchases(companyId));
+        return totalSale;
     }
 
 }

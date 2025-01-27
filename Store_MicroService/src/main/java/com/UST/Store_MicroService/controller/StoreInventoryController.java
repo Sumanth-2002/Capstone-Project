@@ -73,7 +73,15 @@ public class StoreInventoryController {
     public ResponseEntity<List<Request>> getAllStoreRequests(@PathVariable("storeId") String storeId) {
         return ResponseEntity.ok(requestService.getAllRequests(storeId));
     }
-
+    @PutMapping("/update-request")
+    public ResponseEntity<Request> updateRequest(@RequestBody Request request){
+        return ResponseEntity.ok(requestService.updateRequest(request));
+    }
+    @PutMapping("/restock-products")
+    public ResponseEntity<String> restockProduct(@RequestBody UpdateProductDto updateProductDto){
+        if(storeService.updateQuantity(updateProductDto)==null) throw  new RuntimeException("Error while restocking products");
+        return ResponseEntity.ok("Product Details updated Successfully");
+    }
 
 
 }

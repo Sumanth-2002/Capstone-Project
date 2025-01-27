@@ -7,11 +7,11 @@ import com.UST.Store_MicroService.model.Store;
 import com.UST.Store_MicroService.repository.InventoryRepository;
 import com.UST.Store_MicroService.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StoreService {
@@ -22,6 +22,8 @@ public class StoreService {
     private InventoryIdGenerator inventoryIdGenerator;
     @Autowired
     private InventoryRepository inventoryRepository;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
     public String  addStoreInventory(StoreDto storeDto) {
         Store store = new Store();
         store.setCompanyId(storeDto.getCompanyId());
@@ -40,6 +42,19 @@ public class StoreService {
         if(inventoryRepository.save(inventory)==null){
             throw new RuntimeException("Error while saving store");
         }
+        Map<String,Object> registerDto = new HashMap<>();
+        registerDto.put("userId",store.getStoreId());
+        registerDto.put("password","masssiva");
+        registerDto.put("role","STORE");
+        Optional<Map<String,Object>> response = WebClient.builder()
+                .baseUrl("http://localhost:9090")
+                .build()
+                .post()
+                .uri("/api/login/register") // Direct URI without query parameters
+                .bodyValue(registerDto) // Attach the DTO as the body
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<Optional<Map<String,Object>>>() {})
+                .block();
         return "Store details saved successfully ";
     }
 
@@ -91,6 +106,11 @@ public class StoreService {
         public Inventory updateStore(UpdateProductDto updateProductDto){
         Inventory inventory = inventoryRepository.getByStoreAndProductId(updateProductDto.getStoreId(),updateProductDto.getProductId());
         inventory.setQuantity(inventory.getQuantity()-updateProductDto.getQuantity());
+        return inventoryRepository.save(inventory);
+        }
+        public Inventory updateQuantity(UpdateProductDto updateProductDto){
+        Inventory inventory = inventoryRepository.getByStoreAndProductId(updateProductDto.getStoreId(),updateProductDto.getProductId());
+        inventory.setQuantity(inventory.getQuantity()+updateProductDto.getQuantity());
         return inventoryRepository.save(inventory);
         }
 }
