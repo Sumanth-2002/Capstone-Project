@@ -3,36 +3,56 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../side-bar/side-bar.component';
 import { CommonModule } from '@angular/common';
+// import { Observable } from 'rxjs';
+import { ProductService } from '../../../service/product.service';
 
 @Component({
   selector: 'app-admin-product',
-  standalone: true, 
-  imports: [FormsModule, HeaderComponent,SidebarComponent, CommonModule], 
+  standalone: true,
+  imports: [FormsModule, HeaderComponent, SidebarComponent, CommonModule],
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css'],
 })
 export class AdminProductsComponent {
-  // Dummy Data for Products
-  products = [
-    { id: 1, name: 'Product A', description: 'Description A', category: 'Category 1', costPrice: 100, quantity: 50 },
-    { id: 2, name: 'Product B', description: 'Description B', category: 'Category 2', costPrice: 200, quantity: 30 },
-    { id: 3, name: 'Product C', description: 'Description C', category: 'Category 1', costPrice: 150, quantity: 20 },
-    { id: 4, name: 'Product D', description: 'Description D', category: 'Category 3', costPrice: 300, quantity: 40 },
-    { id: 5, name: 'Product E', description: 'Description E', category: 'Category 2', costPrice: 250, quantity: 60 },
-  ];
+  // Product list fetched from backend
+  products: any[] = [];
+  
+  // Initialize as an empty array
+  searchTerm: string ='';
+  filterProducts: any[]=[];
 
   // New Product Object
-  newProduct = {
-    id: 5,
-    name: '',
-    description: '',
+  newProduct ={
+    // productId: '',
+    productName: '',
     category: '',
-    costPrice: 0,
+    vendorId: '',
+    vendorName: '',
+    selling_Price: 0,
+    cost_Price: 0,
     quantity: 0,
-  };
+    description: 0,
+    // companyId: '',
+  }
+
 
   // Control Pop-up Form Visibility
   showAddProductForm = false;
+
+  constructor(private productService:  ProductService) {}
+
+  // Fetch products from backend
+  fetchProducts() {
+    this.productService.getAllProducts().subscribe(
+      (products: any[]) => {
+        this.products = products;
+      },
+      (error: any) => {
+        console.error('Error fetching products:', error);
+        alert('Could not fetch products. Please try again later.');
+      }
+    );
+  }
 
   // Open Add Product Form
   openAddProductForm() {
@@ -47,20 +67,52 @@ export class AdminProductsComponent {
 
   // Save Product
   saveProduct() {
-    this.newProduct.id = this.products.length + 1; // Auto-generate ID
-    this.products.push({ ...this.newProduct }); // Add new product to the list
-    this.closeAddProductForm(); // Close the form
+    // Prepare the list of products to be sent
+    const productsList = [this.newProduct]; // Wrapping the single product in an array
+    
+    console.log('Saving products list:', productsList); // Log the products list data
+  
+    // Call the service to send the list of products
+    this.productService.addProduct(productsList).subscribe(
+      (savedProducts) => {
+        // Assuming the API returns the list of saved products
+        this.products = this.products.concat(savedProducts); // Append the saved products to the existing list
+        this.closeAddProductForm(); // Close the form after saving
+      },
+      (error) => {
+        console.error('Error saving products:', error);
+        alert('There was an error saving the products. Please try again.');
+      }
+    );
   }
+  
+  
 
   // Reset Form
   resetForm() {
-    this.newProduct = {
-      id: 5,
-      name: '',
-      description: '',
+    this.newProduct ={
+      // productId: '',
+      productName: '',
       category: '',
-      costPrice: 0,
+      vendorId: '',
+      vendorName: '',
+      selling_Price: 0,
+      cost_Price: 0,
       quantity: 0,
-    };
+      description: 0,
+      // companyId: '',
+    }
+  
+  }
+
+  // Initialize and fetch products on component load
+
+  onSearch(searchValue: string){
+    this.filterProducts = this.products.filter(
+      product => product.productName.toLowerCase().
+      includes(this.searchTerm.toLowerCase()));
+  }
+  ngOnInit() {
+    this.fetchProducts();
   }
 }
