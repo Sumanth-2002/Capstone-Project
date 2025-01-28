@@ -1,6 +1,6 @@
 package com.ust.Login_service.repository;
 
-import com.mysql.cj.log.Log;
+
 //import com.ust.Login_service.model.Login;
 import com.ust.Login_service.model.LoginDetails;
 import org.springframework.data.jpa.repository.JpaRepository;

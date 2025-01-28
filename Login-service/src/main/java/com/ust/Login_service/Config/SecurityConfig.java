@@ -1,5 +1,7 @@
 package com.ust.Login_service.Config;
 
+import com.ust.Login_service.filter.JwtRequestFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
 
     public SecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -33,10 +37,10 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .requestMatchers("/api/login/**","/api/**","/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll() // Allow public access to specific endpoints
-                .anyRequest().permitAll(); // Secure all other endpoints
+                .anyRequest().authenticated(); // Secure all other endpoints
 
         // Add JWT filter before the UsernamePasswordAuthenticationFilter
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
