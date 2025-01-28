@@ -50,7 +50,9 @@ body {
     background-color: #0093E9;
     background-image: linear-gradient(160deg, #0093E9 0%, #77ecde 100%);
     /* background: linear-gradient(to right, #8576FF, #A3FFD6); */
-    padding-top: 70px;
+    padding-top: 60px;
+    padding-bottom: 30px;
+    height: 100vh;
     /* Add padding to account for the fixed header */
 }
 
@@ -92,27 +94,56 @@ body {
     background-color: #0056b3;
 }
 
-/* Image Section */
 .image {
-    flex: 1; /* Allow the image to take up available space */
-    max-width: 50%; 
+    flex: 1;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 .image img {
-    max-width: 100%; /* Ensure the image is responsive */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Optional: Add rounded corners */
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    object-fit: cover;
+}
+
+.image::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
+    width: 80%;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(5px);
+    z-index: -1;
 }
 
 /* About Section */
 .about {
     background-color: #fff;
+    height: 100vh;
+
 }
 
 /* Testimonial Section */
 .testimonial {
     background-color: #0093E9;
     background-image: linear-gradient(160deg, #0093E9 0%, #77ecde 100%);
+    height: 100vh;
+
 }
 
 /* Footer Styles */

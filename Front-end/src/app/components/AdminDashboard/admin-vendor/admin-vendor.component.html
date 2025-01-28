@@ -6,37 +6,63 @@
 
 <!-- Main Content -->
 <div class="main-content">
+  <div class="content-div">
     <!-- Search Bar and Add Vendor Button -->
     <div class="search-add-container">
-        <input type="text" class="search-bar" placeholder="Search Vendor" />
+        <input type="text" class="search-bar" [(ngModel)]="searchTerm" 
+                placeholder="Search Product" (input)="onSearch(searchTerm)"/>
         <button class="add-vendor-button" (click)="openAddVendorForm()">
             Add New Vendor
         </button>
     </div>
+  
 
-    <!-- Vendor Table -->
-    <table class="vendor-table">
-        <thead>
-            <tr>
-                <th>Vendor ID</th>
-                <th>Name</th>
-                <th>GST No</th>
-                <th>Address</th>
-                <th>Contact</th>
-                <th>No of Products Purchased</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let vendor of vendors">
-                <td>{{ vendor.vendorID }}</td>
-                <td>{{ vendor.vendorName }}</td>
-                <td>{{ vendor.gstin }}</td>
-                <td>{{ vendor.vendorAddress }}</td>
-                <td>{{ vendor.contact }}</td>
-                <td>{{ vendor.quantityPurchased }}</td>
+    <div class="table-container">
+      <!-- Vendor Table -->
+      <table class="vendor-table">
+          <thead>
+              <tr>
+                  <th (click)="sort('vendorID')" [class.sorted-asc]="sortColumn === 'vendorID' && sortDirection === 'asc'"
+                  [class.sorted-desc]="sortColumn === 'vendorID' && sortDirection === 'desc'">Vendor ID</th>
+                  <th (click)="sort('vendorName')" [class.sorted-asc]="sortColumn === 'vendorName' && sortDirection === 'asc'"
+                  [class.sorted-desc]="sortColumn === 'vendorName' && sortDirection === 'desc'">Name</th>
+                  <th>GST No</th>
+                  <th >Address</th>
+                  <th>Contact</th>
+                  <th (click)="sort('quantityPurchased')" [class.sorted-asc]="sortColumn === 'quantityPurchased' && sortDirection === 'asc'"
+                  [class.sorted-desc]="sortColumn === 'quantityPurchased' && sortDirection === 'desc'">No of Products Purchased</th>
               </tr>
-        </tbody>
-    </table>
+          </thead>
+          <tbody>
+              <tr *ngFor="let vendor of filteredVendors | paginate: config">
+                  <td>{{ vendor.vendorID }}</td>
+                  <td>{{ vendor.vendorName }}</td>
+                  <td>{{ vendor.gstin }}</td>
+                  <td>{{ vendor.vendorAddress }}</td>
+                  <td>{{ vendor.contact }}</td>
+                  <td>{{ vendor.quantityPurchased }}</td>
+                </tr>
+          </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-container">
+      <!-- Pagination Limits -->
+      <div class="pagination-limit-container">
+          <label for="paginationLimit">Items per page:</label>
+          <select id="paginationLimit" [(ngModel)]="config.itemsPerPage"
+              (change)="onPaginationLimitChange(config.itemsPerPage)">
+              <option *ngFor="let limit of paginationLimits" [value]="limit">
+                  {{ limit }}
+              </option>
+          </select>
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="pagination-controls">
+          <pagination-controls (pageChange)="onPageChange($event)" id="custom"></pagination-controls>
+      </div>
+  </div>
 
     <!-- Add Vendor Form (Pop-up) -->
     <div class="add-vendor-form" *ngIf="showAddVendorForm">
@@ -86,4 +112,5 @@
             </form>
         </div>
     </div>
+  </div>
 </div>
