@@ -1,10 +1,23 @@
 /* Main Content */
 .main-content {
+    display: flex;
     margin-left: 250px;
+    justify-content: center;
+    align-items: center;
     margin-top: 60px;
     padding: 20px;
     background-color: #dae7ff;
     height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+.content-div{
+    width: 80%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    padding-bottom: 0px;
     overflow-y: auto;
 }
 
@@ -38,7 +51,14 @@
     background-color: #218838;
 }
 
-/* Product Table */
+/* Products Table */
+.table-container {
+    max-height: calc(100vh - 300px); /* Adjust based on your layout */
+    overflow-y: auto; /* Enable scrolling for the table body */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
 .product-table {
     width: 100%;
     border-collapse: collapse;
@@ -61,8 +81,14 @@
     font-weight: bold;
 }
 
-.product-table tr:hover {
-    background-color: #f1f1f1;
+.product-table tr:hover td {
+    transform: scale(1.02); 
+    transition: transform 0.2s ease;
+    padding: 12px; 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #8ddef9;
 }
 
 /* Add Product Form (Pop-up) */
@@ -77,27 +103,42 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1001;
+    padding: 20px;
 }
 
 .form-container {
     background-color: #fff;
-    padding: 20px;
     border-radius: 8px;
-    width: 400px;
+    width: 100%; /* Use full width */
+    max-width: 500px; /* Set a maximum width */
+    height: auto; /* Allow height to adjust based on content */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     position: relative;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    max-height: calc(100% - 40px);
+    padding: 20px;
+}
+.header {
+    display: flex;
+    justify-content: space-between; /* Aligns items to the left and right */
+    align-items: center; /* Vertically centers the items */
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+h2 {
+    margin: 0; /* Removes default margin */
 }
 
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
-    color: #888;
+    padding: 0;
+}
+.close-button .material-icons {
+    font-size: 24px; /* Adjust icon size as needed */
+    color: #000; /* Adjust icon color as needed */
 }
 
 .close-button:hover {
@@ -105,36 +146,137 @@
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 2px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2px;
     font-weight: bold;
     color: #333;
 }
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+    width: calc(100% - 16px); /* Subtract padding for full width */
+    height: 25px;
+    margin-top: 5px;
 }
 
 .save-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    padding: 8px 24px; /* Padding for size */
+    font-size: 16px; /* Font size */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    display: block; /* Block element for centering */
+    margin: 0 auto; /* Center horizontally */
 }
 
 .save-button:hover {
     background-color: #218838;
+    transform: scale(1.05);
+}
+.pagination-limit-container {
+    margin-bottom: 1rem;
+}
+
+.pagination-limit-container label {
+    margin-right: 0.5rem;
+}
+
+.pagination-limit-container select {
+    padding: 0.25rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+th {
+    cursor: pointer;
+}
+
+th.sorted-asc::after {
+    content: ' ▲';
+}
+
+th.sorted-desc::after {
+    content: ' ▼';
+}
+
+
+/* Container for Pagination Limits and Pagination Controls */
+.pagination-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Pagination Limits Dropdown */
+.pagination-limit-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.pagination-limit-container label {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.pagination-limit-container select {
+    padding: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Pagination Controls */
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    /* Align pagination controls vertically */
+}
+
+.pagination-controls .ngx-pagination {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pagination-controls .ngx-pagination li {
+    display: inline-block;
+}
+
+.pagination-controls .ngx-pagination a {
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-controls .ngx-pagination a:hover {
+    background-color: #007bff;
+    color: #8ec5ff;
+    border-color: #007bff;
+}
+
+.pagination-controls .ngx-pagination .current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+.save-button:focus {
+    outline: none; /* Remove default outline on focus */
 }
