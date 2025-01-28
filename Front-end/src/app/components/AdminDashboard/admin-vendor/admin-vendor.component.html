@@ -41,10 +41,12 @@
     <!-- Add Vendor Form (Pop-up) -->
     <div class="add-vendor-form" *ngIf="showAddVendorForm">
         <div class="form-container">
+          <div class="header">
+            <h2>Add New Vendor</h2>
             <button class="close-button" (click)="closeAddVendorForm()">
                 <span class="material-icons">close</span>
             </button>
-            <h2>Add New Vendor</h2>
+          </div>
             <form (ngSubmit)="saveVendor()">
                 <div class="form-group">
                     <label>Vendor Name</label>
@@ -79,12 +81,6 @@
                   <div class="form-group">
                     <label>Email</label>
                     <input type="email" [(ngModel)]="newVendor.email" name="email" required />
-                  </div>
-          
-                  <!-- Quantity Purchased -->
-                  <div class="form-group" style="margin-bottom: 5px;">
-                    <label>Quantity Purchased</label>
-                    <input type="number" [(ngModel)]="newVendor.quantityPurchased" name="quantityPurchased" required />
                   </div>
                 <button type="submit" class="save-button">Save</button>
             </form>
