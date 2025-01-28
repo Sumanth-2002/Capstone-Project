@@ -42,10 +42,21 @@ public class InvoiceService {
      */
     public String generateInvoiceHtml(String billingId) {
         Billing billing = billingService.getBillingByid(billingId);
+        Map<String,Object> map = new HashMap<>();
+        map = getStoreDetails(billing.getStoreId());
+        Map<String,Object> company  = new HashMap<>();
+        company = WebClient.builder()
+                .baseUrl("http://localhost:9090")
+                .build()
+                .get()
+                .uri("/api/company/getCompanyDetails/"+map.get("companyId")) // Direct URI without query parameters
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<Map<String,Object>>() {})
+                .block();
 
-        // Create the context with the necessary data
         Context context = new Context();
-        context.setVariable("companyName", "Your Company Name");
+        context.setVariable("companyName",company.get("name") );
+        context.setVariable("GSTIN",company.get("GSTIN") );
         context.setVariable("billingId", billing.getBillingId());
         context.setVariable("customerName", billing.getCustomerName());
         context.setVariable("customerContact",getCustomerById(billing.getCustomerId()).getContact());
@@ -74,8 +85,7 @@ public class InvoiceService {
         context.setVariable("taxPercentage", taxPercentage);
         context.setVariable("taxAmount", taxAmount);
         context.setVariable("totalAmount", totalAmount);
-        Map<String,Object> map = new HashMap<>();
-        map = getStoreDetails(billing.getStoreId());
+
         context.setVariable("storeName", map.get("storeName"));
         context.setVariable("storeAddress", map.get("storeAddress"));
         context.setVariable("region",map.get("region"));
