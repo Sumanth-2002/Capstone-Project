@@ -8,7 +8,8 @@
     <div class="content-div">
         <!-- Search Bar -->
         <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search Product" />
+            <input type="text" class="search-bar" placeholder="Search Product" [(ngModel)]="searchTerm"
+            (input)="onSearch(searchTerm)" />
         </div>
 
         <div class="table-container">

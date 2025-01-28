@@ -197,6 +197,8 @@ export class StoreProductsComponent implements OnInit {
     }
   ];
 
+  searchTerm: string = '';
+
   // Filtered Products for Display
   filteredProducts: any[] = [];
 
@@ -231,6 +233,7 @@ export class StoreProductsComponent implements OnInit {
     this.filteredProducts = this.products;
   }
 
+  
   // Pagination change page
   onPageChange(page: number) {
     this.config.currentPage = page;
