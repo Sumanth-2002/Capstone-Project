@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #333;
+    background-color: #1C1678;
     color: #fff;
     position: fixed;
     top: 0;
@@ -47,7 +47,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f4f4f4;
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #77ecde 100%);
+    /* background: linear-gradient(to right, #8576FF, #A3FFD6); */
     padding-top: 70px;
     /* Add padding to account for the fixed header */
 }
@@ -109,7 +111,8 @@ body {
 
 /* Testimonial Section */
 .testimonial {
-    background-color: #f4f4f4;
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #77ecde 100%);
 }
 
 /* Footer Styles */

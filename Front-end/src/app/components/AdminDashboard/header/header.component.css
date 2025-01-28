@@ -7,7 +7,9 @@
     /* Vertically center the content */
     padding: 1rem 2rem;
     /* Padding inside the header */
-    background-color: #2a3691;
+    background-color: #1C1678;
+background-image: linear-gradient(135deg, #1C1678 0%, #471678 100%);
+
     /* Dark background color */
     color: #fff;
     /* White text color */
@@ -16,7 +18,7 @@
         top: 0;
         left: 0;
         width: 96%;
-        z-index: 1000; /* Ensure header is above other content */
+        z-index: 2; /* Ensure header is above other content */
     /* Subtle shadow */
 }
 
