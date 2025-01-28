@@ -33,6 +33,7 @@ public class ProductService {
             purchases.setProductId(product.getProductId());
             purchases.setQuantity(product.getQuantity());
             purchases.setProductName(product.getProductName());
+
             purchases.setVendorId(product.getVendorId());
             purchases.setVendorName(product.getVendorName());
             purchases.setPrice(product.getCost_Price());

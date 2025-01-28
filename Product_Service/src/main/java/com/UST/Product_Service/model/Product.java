@@ -16,6 +16,7 @@ public class Product {
     )
     private String productId;
     private String productName;
+    private String category;
     private String vendorId;
     private String vendorName;
     private Double selling_Price;
@@ -23,9 +24,10 @@ public class Product {
     private Long quantity;
     private String description;
     private String companyId;
-    public Product(String productId, String productName,String vendorId, String vendorName, Double selling_Price, Double cost_Price, Long quantity, String description, String companyId) {
+    public Product(String productId, String productName,String category,String vendorId, String vendorName, Double selling_Price, Double cost_Price, Long quantity, String description, String companyId) {
         this.productId = productId;
         this.productName = productName;
+        this.category = category;
         this.vendorId = vendorId;
         this.vendorName = vendorName;
         this.selling_Price = selling_Price;
@@ -36,6 +38,14 @@ public class Product {
     }
 
     public Product() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getProductName() {
