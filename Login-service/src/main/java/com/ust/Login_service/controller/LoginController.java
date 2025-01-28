@@ -13,7 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/login")
+    @RequestMapping("/api/login")
 @CrossOrigin("*")
 public class LoginController {
 

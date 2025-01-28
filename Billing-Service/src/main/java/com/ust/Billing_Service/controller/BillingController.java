@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/billing")
+@RequestMapping("/api/billing")
 @CrossOrigin("*")
 public class BillingController {
 
