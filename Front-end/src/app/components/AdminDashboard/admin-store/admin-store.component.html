@@ -19,6 +19,7 @@
         <thead>
             <tr>
                 <th>Store ID</th>
+                <th>Company ID</th>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Region</th>
@@ -26,9 +27,10 @@
         </thead>
         <tbody>
             <tr *ngFor="let store of stores">
-                <td>{{ store.id }}</td>
-                <td>{{ store.name }}</td>
-                <td>{{ store.address }}</td>
+                <td>{{ store.storeId }}</td>
+                <td>{{ store.companyId }}</td>
+                <td>{{ store.storeName }}</td>
+                <td>{{ store.storeAddress }}</td>
                 <td>{{ store.region }}</td>
             </tr>
         </tbody>
@@ -42,17 +44,21 @@
             </button>
             <h2>Add New Store</h2>
             <form (ngSubmit)="saveStore()">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Store ID</label>
-                    <input type="text" [(ngModel)]="newStore.id" name="id" required />
+                    <input type="text" [(ngModel)]="newStore.storeId" name="id" required />
+                </div> -->
+                <div class="form-group">
+                    <label>Company ID</label>
+                    <input type="text" [(ngModel)]="newStore.companyId" name="id" required />
                 </div>
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" [(ngModel)]="newStore.name" name="name" required />
+                    <input type="text" [(ngModel)]="newStore.storeName" name="name" required />
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <textarea [(ngModel)]="newStore.address" name="address" required></textarea>
+                    <textarea [(ngModel)]="newStore.storeAddress" name="address" required></textarea>
                 </div>
                 <div class="form-group">
                     <label>Region</label>

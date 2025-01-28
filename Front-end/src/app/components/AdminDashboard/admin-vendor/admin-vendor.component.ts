@@ -43,8 +43,8 @@ export class AdminVendorComponent {
   // Fetch all vendors from the service
   getAllVendors(): void {
     this.vendorService.getAllVendors().subscribe({
-      next: (data: any[]) => {
-        this.vendors = data; // Assign fetched data to the vendors array
+      next: (vendors: any[]) => {
+        this.vendors = vendors; // Assign fetched data to the vendors array
       },
       error: (err: any) => {
         console.error('Failed to fetch vendors:', err);
