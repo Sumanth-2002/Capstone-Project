@@ -72,25 +72,35 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
+    padding: 20px; /* Add padding to prevent content from touching edges */
 }
 
 .form-container {
     background-color: #fff;
-    padding-left: 10px;
-    padding-right: 27px;
     border-radius: 8px;
-    width: 400px;
-    height: 90%;
+    width: 100%; /* Use full width */
+    max-width: 500px; /* Set a maximum width */
+    height: auto; /* Allow height to adjust based on content */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     position: relative;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    max-height: calc(100% - 40px); /* Prevent overflow out of viewport */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 20px;
 }
 
+.form-group{
+    padding: 5px;
+}
+
+/* Adjust close button positioning */
 .close-button {
     position: absolute;
     top: 10px;
@@ -106,37 +116,33 @@
     color: #333;
 }
 
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #333;
-}
-
+/* Ensure form inputs are responsive */
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+    width: calc(100% - 16px); /* Subtract padding for full width */
+    height: 25px;
+    margin-top: 5px;
+    /* border-radius: 5px;
+    border-width: 2px; */
 }
-
 .save-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    padding: 12px 24px; /* Padding for size */
+    font-size: 16px; /* Font size */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    display: block; /* Block element for centering */
+    margin: 0 auto; /* Center horizontally */
 }
 
 .save-button:hover {
-    background-color: #218838;
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.save-button:focus {
+    outline: none; /* Remove default outline on focus */
 }
