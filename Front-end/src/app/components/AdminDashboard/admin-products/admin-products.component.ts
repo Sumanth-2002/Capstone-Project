@@ -1,21 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../side-bar/side-bar.component';
 import { CommonModule } from '@angular/common';
 // import { Observable } from 'rxjs';
 import { ProductService } from '../../../service/product.service';
+import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
+
 
 @Component({
   selector: 'app-admin-product',
   standalone: true,
-  imports: [FormsModule, HeaderComponent, SidebarComponent, CommonModule],
+  imports: [FormsModule, HeaderComponent, SidebarComponent, CommonModule,NgxPaginationModule],
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css'],
 })
-export class AdminProductsComponent {
+export class AdminProductsComponent implements OnInit {
   // Product list fetched from backend
   products: any[] = [];
+  filteredProducts: any[] = [];
   
   // Initialize as an empty array
   searchTerm: string ='';
@@ -40,6 +43,20 @@ export class AdminProductsComponent {
   showAddProductForm = false;
 
   constructor(private productService:  ProductService) {}
+
+    // Pagination
+    public config: PaginationInstance = {
+      id: 'custom',
+      itemsPerPage: 5, // Number of items per page
+      currentPage: 1,
+    };
+
+    // Pagination Limit Options
+  paginationLimits = [5, 10, 20, 50];
+
+  // Sorting
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   // Fetch products from backend
   fetchProducts() {
@@ -107,12 +124,49 @@ export class AdminProductsComponent {
 
   // Initialize and fetch products on component load
 
-  onSearch(searchValue: string){
-    this.filterProducts = this.products.filter(
-      product => product.productName.toLowerCase().
-      includes(this.searchTerm.toLowerCase()));
+  onSearch(searchTerm: string) {
+    this.filteredProducts = this.products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    this.config.currentPage = 1; // Reset to first page after search
   }
+
   ngOnInit() {
     this.fetchProducts();
+    this.filteredProducts = this.products;
+  }
+
+   // Pagination change page
+  onPageChange(page: number) {
+    this.config.currentPage = page;
+  }
+
+  // Change Pagination Limit
+  onPaginationLimitChange(limit: number) {
+    this.config.itemsPerPage = limit;
+    this.config.currentPage = 1; // Reset to the first page when the limit changes
+  }
+
+  // Sorting functionality
+  sort(column: string) {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+
+    this.filteredProducts.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      if (valueA < valueB) {
+        return this.sortDirection === 'asc' ? -1 : 1;
+      } else if (valueA > valueB) {
+        return this.sortDirection === 'asc' ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
   }
 }

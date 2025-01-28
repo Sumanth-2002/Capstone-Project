@@ -1,13 +1,16 @@
 /* Main Content */
 .main-content {
-    margin-left: 250px;
-    /* Match the width of the sidebar */
-    margin-top: 60px;
-    /* Match the height of the header */
+    display: flex;
+    background-color: #0093E9;
+    background-image: linear-gradient(135deg, #6cc9fff2 0%, #a0eee5 59%);
     padding: 20px;
-    /* Add padding for spacing */
-    background-color: #f4f4f4;
-    /* Light background color */
+    width: 81%;
+    flex-direction: column;
+    position: fixed;
+    top: 60px; /* Match the height of the header */
+    left: 250px;
+    height: calc(100vh - 60px); /* Full height minus header height */
+    z-index: 1; 
 }
 
 /* Billing Form */
