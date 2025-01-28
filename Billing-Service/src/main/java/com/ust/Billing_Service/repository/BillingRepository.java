@@ -44,13 +44,21 @@ public interface BillingRepository extends JpaRepository<Billing, String> {
             ORDER BY MONTH(b.BillDate)""")
     List<Object []> getStoreSalesYearly(@Param("storeId") String storeId, @Param("year") Integer year);
     @Query(value = """
-    SELECT MONTH(b.billing_date) AS month, 
+    SELECT MONTH(b.bill_date) AS month, 
            COUNT(DISTINCT b.customer_id) AS customerCount 
     FROM billing b
-    WHERE b.store_id = :storeId AND YEAR(b.billing_date) = :year
-    GROUP BY MONTH(b.billing_date)
-    ORDER BY MONTH(b.billing_date)
+    WHERE b.store_id = :storeId AND YEAR(b.bill_date) = :year
+    GROUP BY MONTH(b.bill_date)
+    ORDER BY MONTH(b.bill_date)
 """, nativeQuery = true)
     List<Object[]> getCustomerForStore(@Param("storeId") String storeId, @Param("year") Integer year);
 
+
+    @Query(value = "SELECT MONTH(b.bill_date) AS month, SUM(b.total_price) AS totalSales " +
+            "FROM billing b " +
+            "JOIN Store s ON s.store_id = b.store_id " +
+            "WHERE s.company_id = :companyId AND YEAR(b.bill_date) = :year " +
+            "GROUP BY MONTH(b.bill_date)",
+            nativeQuery = true)
+    List<Object[]> getYearlySales(@Param("companyId") String companyId, @Param("year") Integer year);
 }

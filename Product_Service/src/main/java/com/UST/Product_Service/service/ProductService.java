@@ -61,8 +61,8 @@ Map<String,Object> response = WebClient.builder()
         return productRepository.save(product);
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getAllProducts(String companyId) {
+        return productRepository.findByCompanyId(companyId);
     }
 
     public Product getProductById(String productId) {

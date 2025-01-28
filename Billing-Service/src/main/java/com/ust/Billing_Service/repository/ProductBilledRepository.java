@@ -20,5 +20,15 @@ public interface ProductBilledRepository extends JpaRepository<ProductBilled,Str
         GROUP BY p.productId, p.productName
        """)
     List<Object[]> getProductsByStoreWise(@Param("storeId") String storeId);
+    @Query(value="""
+        SELECT p.product_name, SUM(p.quantity) 
+        FROM product_billed p 
+        JOIN billing b ON b.billing_id = p.billing_id 
+        WHERE b.store_id IN (SELECT s.store_id FROM Store s WHERE s.company_id = :companyId)
+        GROUP BY p.product_id, p.product_name
+       """,nativeQuery = true)
+    List<Object[]> getProductByCompanyId(@Param("companyId") String companyId);
+
+
 
 }

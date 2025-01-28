@@ -10,8 +10,6 @@ import com.ust.Billing_Service.entity.ProductBilled;
 import com.ust.Billing_Service.repository.ProductBilledRepository;
 import com.ust.Billing_Service.service.BillingService;
 import com.ust.Billing_Service.service.MetricsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +77,22 @@ public class BillingController {
     @GetMapping("/get-customers/{storeId}")
     public List<Map<String, Object>> getCustomerByStoreId(@PathVariable String storeId,@RequestParam Integer year){
         return metricsService.getCustomerForStore(storeId,year);
+    }
+
+    @GetMapping("/get-sales-yearly/{companyId}")
+    public List<Map<String,Object>> getSalesYearly(@PathVariable String companyId,@RequestParam Integer year){
+        return metricsService.getYearlySales(companyId,year);
+    }
+
+    @GetMapping("/get-total-Sales/{companyId}")
+    public Map<String, Double> getTotalSale(@PathVariable String companyId){
+        return  metricsService.getTotalSales(companyId);
+
+    }
+
+    @GetMapping("/getTotalProductsSelled/{companyId}")
+    public List<Map<String,Object>>  getTotalProductsSelled(@PathVariable String companyId){
+        return metricsService.getTotalProductsSelled(companyId);
     }
 
 }

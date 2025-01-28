@@ -3,10 +3,12 @@ package com.ust.Company_Service.model;
 public class LoginDto {
     private String userId;
     private String password;
-    private String role="Company";
+    private String name;
+    private String role="COMPANY";
 
-    public LoginDto(String userId, String password) {
+    public LoginDto(String userId, String name, String password) {
         this.userId = userId;
+        this.name = name;
         this.password = password;
     }
 
@@ -31,5 +33,13 @@ public class LoginDto {
 
     public String getRole() {
         return role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

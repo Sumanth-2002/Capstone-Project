@@ -18,9 +18,9 @@ public class VendorController {
     @Autowired
     private VendorService vendorService;
 
-    @GetMapping
-    public List<Vendor> getAllVendors() {
-        return vendorService.getAllVendors();
+    @GetMapping("/getVendors/{companyId}")
+    public List<Vendor> getAllVendors(@PathVariable String companyId) {
+        return vendorService.getAllVendors(companyId);
     }
 
     @GetMapping("/{vendorID}")

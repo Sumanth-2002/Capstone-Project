@@ -4,6 +4,7 @@ import com.ust.Billing_Service.dto.StoreSaledDto;
 import com.ust.Billing_Service.dto.StoreYearlyDto;
 import com.ust.Billing_Service.repository.BillingRepository;
 import com.ust.Billing_Service.repository.ProductBilledRepository;
+import org.bouncycastle.util.Integers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,6 @@ public class MetricsService {
 
     @Autowired
     private ProductBilledRepository productBilledRepository;
-
     private static final List<String> MONTH_NAMES = Arrays.asList(
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
@@ -59,7 +59,6 @@ public class MetricsService {
         return responseList ;
     }
     public List<Map<String, Object>> getCustomerForStore(String storeId, Integer year) {
-
         List<Object[]> customers = billingRepository.getCustomerForStore(storeId, year);
         Map<String, Map<String, Object>> customersStoreMap = MONTH_NAMES.stream()
                 .collect(Collectors.toMap(
@@ -67,23 +66,53 @@ public class MetricsService {
                         month -> {
                             Map<String, Object> monthData = new HashMap<>();
                             monthData.put("month", month);
-                            monthData.put("customerCount", 0); // Default value
+                            monthData.put("customerCount", 0);
                             return monthData;
-                        }
+                        },
+                        (existing, replacement) -> existing, // Merge function (unused here)
+                        LinkedHashMap::new // Use LinkedHashMap to preserve order
                 ));
-
         for (Object[] record : customers) {
-            // Extract data from the query result (assuming the query returns month as Integer and customerCount as Long)
-            Integer monthIndex = (Integer) record[0];
+            Integer monthIndex = Math.toIntExact((Long) record[0]);
             Long customerCount = (Long) record[1];
-
-            // Get the corresponding month name and update the map
-            String monthName = MONTH_NAMES.get(monthIndex - 1); // Months are 1-based in SQL
+            String monthName = MONTH_NAMES.get(monthIndex - 1);
             customersStoreMap.get(monthName).put("customerCount", customerCount);
         }
-
-        // Convert the map values to a list and return
         return new ArrayList<>(customersStoreMap.values());
+    }
+
+    public List<Map<String,Object>> getYearlySales (String companyId,Integer year){
+        List<Object []> sales = billingRepository.getYearlySales(companyId,year);
+        Map<String, Map<String, Object>> companySales = MONTH_NAMES.stream()
+                .collect(Collectors.toMap(
+                        month -> month,
+                        month -> {
+                            Map<String, Object> monthData = new HashMap<>();
+                            monthData.put("month", month);
+                            monthData.put("TotalSales", 0.0);
+                            return monthData;
+                        },
+                        (existing, replacement) -> existing, // Merge function (unused here)
+                        LinkedHashMap::new // Use LinkedHashMap to preserve order
+                ));
+        for (Object[] record : sales) {
+            Integer monthIndex = (int)record[0];
+            Double totalSales = (Double) record[1];
+            String monthName = MONTH_NAMES.get(monthIndex - 1);
+            companySales.get(monthName).put("TotalSales", totalSales);
+        }
+        return new ArrayList<>(companySales.values());
+    }
+
+    public List<Map<String,Object>> getTotalProductsSelled(String companyId){
+        Map<String,Object> response = new HashMap<>();
+        List<Map<String,Object>> responseList = new ArrayList<>();
+        for(Object[] obj :productBilledRepository.getProductByCompanyId(companyId)){
+            response.put("productName",obj[0]);
+            response.put("quantity",obj[1]);
+            responseList.add(response);
+        }
+        return responseList ;
     }
 
 }

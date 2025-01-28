@@ -16,8 +16,8 @@ public class VendorService {
     @Autowired
     private VendorRepository vendorRepository;
 
-    public List<Vendor> getAllVendors() {
-        return vendorRepository.findAll();
+    public List<Vendor> getAllVendors(String companyId) {
+        return vendorRepository.findByCompanyId(companyId);
     }
 
     public Optional<Vendor> getVendorById(String vendorID) {

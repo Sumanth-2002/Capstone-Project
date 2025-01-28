@@ -25,9 +25,9 @@ public class ProductController {
         return ResponseEntity.ok(savedProducts);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
+    @GetMapping("/get-products/{companyId}")
+    public ResponseEntity<List<Product>> getAllProducts(@PathVariable String companyId) {
+        List<Product> products = productService.getAllProducts(companyId);
         return ResponseEntity.ok(products);
     }
 

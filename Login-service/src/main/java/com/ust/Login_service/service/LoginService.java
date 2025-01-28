@@ -28,25 +28,5 @@ public class LoginService {
         login.setPassword(passwordEncoder.encode(login.getPassword()));
         return loginRepository.save(login);
     }
-    @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationRequest.getUserId(), authenticationRequest.getPassword())
-        );
-
-        // Fetch user details from the database
-//        UserInfo userInfo = userRepository.findByEmail(authenticationRequest.getEmail())
-//                .orElseThrow(() -> new Exception("User not found with email: " + authenticationRequest.getEmail()));
-//
-//        // Generate JWT with role, region, or storeId based on role
-//        final String jwt = jwtUtil.generateToken(
-//                userInfo.getEmail(),
-//                userInfo.getRoles().name(),
-//                userInfo.getRegion(),
-//                userInfo.getStoreId()
-//        );
-
-        return ResponseEntity.ok("Login Service");
-    }
 }

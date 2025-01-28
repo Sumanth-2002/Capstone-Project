@@ -44,6 +44,7 @@ public class StoreService {
         }
         Map<String,Object> registerDto = new HashMap<>();
         registerDto.put("userId",store.getStoreId());
+        registerDto.put("name",store.getStoreName());
         registerDto.put("password","store@123");
         registerDto.put("role","STORE");
         Optional<Map<String,Object>> response = WebClient.builder()
