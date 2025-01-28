@@ -12,5 +12,13 @@ import java.util.List;
 public interface ProductBilledRepository extends JpaRepository<ProductBilled,String> {
     @Query("SELECT p FROM ProductBilled p WHERE p.billingId = :billingId")
     List<ProductBilled> findAllByBillingId(@Param("billingId") String billingId);
+    @Query("""
+        SELECT p.productName, SUM(p.quantity) 
+        FROM ProductBilled p 
+        JOIN Billing b ON b.billingId = p.billingId 
+        WHERE b.storeId = :storeId 
+        GROUP BY p.productId, p.productName
+       """)
+    List<Object[]> getProductsByStoreWise(@Param("storeId") String storeId);
 
 }

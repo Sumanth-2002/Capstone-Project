@@ -32,12 +32,14 @@ public class BillingService {
     private WebClient.Builder webClientBuilder;
 
     public String addBillingData(BillingDto billingDto) {
+        Double totalPrice = 0.0;
         Billing billing = new Billing();
         billing.setStoreId(billingDto.getStoreId());
+        billing.setStoreName(billingDto.getStoreName());
         billing.setCustomerId(billingDto.getCustomerId());
         billing.setCustomerName(billingDto.getCustomerName());
         billing.setSalesRepId(billingDto.getSalesRepId());
-        billing.setTotalPrice(billingDto.getTotalPrice());
+//        billing.setTotalPrice(billingDto.getTotalPrice());
         billingRepository.save(billing);
         for(ProductBilled productBilled : billingDto.getProductBilledList()) {
             productBilled.setBillingId(billing.getBillingId());
@@ -57,7 +59,11 @@ public class BillingService {
                     .bodyToMono(new ParameterizedTypeReference<String>() {})
                     .block();
             productBilledRepository.save(productBilled);
+            totalPrice+=productBilled.getTotalPrice();
         }
+        billing.setTotalPrice(totalPrice);
+        billingRepository.save(billing);
+
         return "Success";
     }
 
@@ -69,7 +75,16 @@ public class BillingService {
         return billingRepository.findById(billingId).get();
     }
 
-    public List<SalesDto> getLeadeboard(String storeId){
-        return billingRepository.getLeaderboard(storeId);
+    public List<SalesDto> getLeaderboard(String storeId){
+        List<Object[]> results = billingRepository.getLeaderboard(storeId);
+        List<SalesDto> salesDtos = new ArrayList<>();
+        for (Object[] result : results) {
+            salesDtos.add(new SalesDto(
+                    (String) result[0], // salesRepId
+                    (String) result[1], // salesRepName
+                    ((Number) result[2]).intValue() // noofSales
+            ));
+        }
+        return salesDtos;
     }
 }

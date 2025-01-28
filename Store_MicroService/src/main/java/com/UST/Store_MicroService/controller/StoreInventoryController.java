@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/stores")
+@CrossOrigin("*")
 public class StoreInventoryController {
 
     @Autowired

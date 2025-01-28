@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/vendors")
+@CrossOrigin("*")
 public class VendorController {
 
     @Autowired

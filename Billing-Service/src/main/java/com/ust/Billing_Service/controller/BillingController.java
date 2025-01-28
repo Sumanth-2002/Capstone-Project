@@ -3,6 +3,7 @@ package com.ust.Billing_Service.controller;
 import com.ust.Billing_Service.dto.BillingDto;
 import com.ust.Billing_Service.dto.SalesDto;
 import com.ust.Billing_Service.dto.StoreSaledDto;
+import com.ust.Billing_Service.dto.StoreYearlyDto;
 import com.ust.Billing_Service.entity.Billing;
 import com.ust.Billing_Service.entity.Customer;
 import com.ust.Billing_Service.entity.ProductBilled;
@@ -16,9 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/billing")
+@CrossOrigin("*")
 public class BillingController {
 
     @Autowired
@@ -43,7 +46,7 @@ public class BillingController {
 
     @GetMapping("/get-leaderboard/{storeId}")
     public ResponseEntity<List<SalesDto>> getLeaderboard(@PathVariable String storeId) {
-        return ResponseEntity.ok(billingService.getLeadeboard(storeId));
+        return ResponseEntity.ok(billingService.getLeaderboard(storeId));
     }
 
     @GetMapping("/get-store-wise/{companyId}")
@@ -61,5 +64,21 @@ public class BillingController {
         return ResponseEntity.ok(productBilledRepository.findAllByBillingId(billingId));
     }
 
+    @GetMapping("/getSalesYearly/{storeId}")
+    public List<StoreYearlyDto>  getProductStoreId(
+            @PathVariable String storeId,
+            @RequestParam Integer year) {
+        return metricsService.getYearlyMetrics(storeId, year);
+    }
+
+    @GetMapping("/getProductsSelled/{storeId}")
+    public List<Map<String,Object>> getProductSelled(@PathVariable String storeId){
+        return metricsService.getProductSalesByStore(storeId);
+    }
+
+    @GetMapping("/get-customers/{storeId}")
+    public List<Map<String, Object>> getCustomerByStoreId(@PathVariable String storeId,@RequestParam Integer year){
+        return metricsService.getCustomerForStore(storeId,year);
+    }
 
 }
