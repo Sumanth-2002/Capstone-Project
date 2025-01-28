@@ -16,7 +16,7 @@
         top: 0;
         left: 0;
         width: 96%;
-        z-index: 1000; /* Ensure header is above other content */
+        z-index: 2; /* Ensure header is above other content */
     /* Subtle shadow */
 }
 

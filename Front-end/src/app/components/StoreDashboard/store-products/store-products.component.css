@@ -1,22 +1,30 @@
 /* Main Content */
 .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: 250px;
-    /* Match the width of the sidebar */
     margin-top: 60px;
-    /* Match the height of the header */
     padding: 20px;
-    /* Add padding for spacing */
     background-color: #dae7ff;
-    /* Light background color */
     height: calc(100vh - 60px);
     overflow-y: auto;
-    background-color: #dae7ff;
 }
-
+.content-div{
+    width: 80%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    padding-bottom: 0px;
+    overflow-y: auto;
+}
 
 /* Search Bar */
 .search-container {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .search-bar {
@@ -28,15 +36,21 @@
 }
 
 /* Products Table */
+.table-container {
+    max-height: calc(100vh - 300px); /* Adjust based on your layout */
+    overflow-y: auto; /* Enable scrolling for the table body */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Products Table */
 .products-table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
 }
-
 .products-table th,
 .products-table td {
     padding: 12px;
@@ -48,10 +62,18 @@
     background-color: #007bff;
     color: #fff;
     font-weight: bold;
+    /* top: 0; Stick the header to the top of the table container */
+    /* z-index: 10; Ensure the header stays above the table rows */
 }
 
-.products-table tr:hover {
-    background-color: #f1f1f1;
+.products-table tr:hover td {
+    transform: scale(1.1); 
+    transition: transform 0.2s ease;
+    padding: 12px; 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #8ddef9;
 }
 
 /* Request Button */
@@ -177,13 +199,13 @@ th.sorted-desc::after {
     content: ' ▼';
 }
 
+
 /* Container for Pagination Limits and Pagination Controls */
 .pagination-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 1rem;
-    margin-top: 1rem;
 }
 
 /* Pagination Limits Dropdown */

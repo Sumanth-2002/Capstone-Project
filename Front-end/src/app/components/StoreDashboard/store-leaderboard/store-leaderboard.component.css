@@ -14,7 +14,7 @@
     width: 80%;
     max-width: 900px;
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     text-align: center;
@@ -29,7 +29,10 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 thead tr {
@@ -40,7 +43,7 @@ thead tr {
 th,
 td {
     padding: 1rem;
-    text-align: left;
+    text-align: center;
 }
 
 th {
@@ -51,36 +54,12 @@ tbody tr:nth-child(even) {
     background-color: #8ddef9;
 }
 
-tbody tr:hover {
-    background-color: #e9ecef;
+tbody tr:hover td{
+    transform: scale(1.2); 
+    transition: transform 0.2s ease;
 }
 
 td {
     border-bottom: 1px solid #dee2e6;
-}
-
-td:nth-child(1) {
-    font-weight: bold;
     text-align: center;
-    width: 5%;
-}
-
-td:nth-child(3) {
-    text-align: right;
-}
-
-@media (max-width: 768px) {
-    .leaderboard {
-        width: 95%;
-        padding: 1rem;
-    }
-
-    table {
-        font-size: 0.9rem;
-    }
-
-    th,
-    td {
-        padding: 0.8rem;
-    }
 }
