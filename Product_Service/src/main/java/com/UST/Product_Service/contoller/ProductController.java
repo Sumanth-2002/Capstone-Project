@@ -6,7 +6,11 @@ import com.UST.Product_Service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +23,9 @@ public class ProductController {
     private ProductService productService;
 
 
-    @PostMapping("/bulk")
-    public ResponseEntity<List<Product>> saveProducts(@RequestBody List<Product> products) {
-        List<Product> savedProducts = productService.saveProducts(products);
+    @PostMapping("/add")
+    public ResponseEntity<Product> saveProducts(@RequestBody Product product) {
+        Product savedProducts = productService.saveProduct(product);
         return ResponseEntity.ok(savedProducts);
     }
 
@@ -60,5 +64,20 @@ public class ProductController {
     @GetMapping("/get-total-purchases/{companyId}")
     public Map<String,Double> getTotalPurchase(@PathVariable String companyId){
         return productService.getTotalPurchases(companyId);
+    }
+
+    @PostMapping("/save-data-csv")
+
+    public ResponseEntity<String> uploadCSV(@RequestParam("products_data") MultipartFile file,@RequestParam String companyId) {
+        try {
+            Path tempFile = Files.createTempFile("sales_data", ".csv");
+            Files.copy(file.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
+            productService.saveProductDataFromCSV(tempFile.toString(),companyId);
+            Files.delete(tempFile);
+            return ResponseEntity.ok("Sales data successfully saved!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error occurred while processing the file");
+        }
     }
 }
