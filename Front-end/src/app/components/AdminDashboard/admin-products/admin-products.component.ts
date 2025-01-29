@@ -22,7 +22,7 @@ export class AdminProductsComponent implements OnInit {
   
   // Initialize as an empty array
   searchTerm: string ='';
-  filterProducts: any[]=[];
+  // filterProducts: any[]=[];
 
   // New Product Object
   newProduct ={
@@ -34,7 +34,7 @@ export class AdminProductsComponent implements OnInit {
     selling_Price: 0,
     cost_Price: 0,
     quantity: 0,
-    description: 0,
+    description: '',
     // companyId: '',
   }
 
@@ -60,16 +60,19 @@ export class AdminProductsComponent implements OnInit {
 
   // Fetch products from backend
   fetchProducts() {
-    this.productService.getAllProducts().subscribe(
-      (products: any[]) => {
+    this.productService.getAllProducts().subscribe({
+      next: (products: any[]) => {
         this.products = products;
+        this.filteredProducts = products; // Update filteredProducts
+        console.log(products);
       },
-      (error: any) => {
+      error: (error: any) => {
         console.error('Error fetching products:', error);
         alert('Could not fetch products. Please try again later.');
       }
-    );
+    });
   }
+  
 
   // Open Add Product Form
   openAddProductForm() {
@@ -116,7 +119,7 @@ export class AdminProductsComponent implements OnInit {
       selling_Price: 0,
       cost_Price: 0,
       quantity: 0,
-      description: 0,
+      description: '',
       // companyId: '',
     }
   
@@ -125,15 +128,18 @@ export class AdminProductsComponent implements OnInit {
   // Initialize and fetch products on component load
 
   onSearch(searchTerm: string) {
-    this.filteredProducts = this.products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    this.config.currentPage = 1; // Reset to first page after search
-  }
+    //this.filteredProducts = this.products;
 
+    this.filteredProducts = this.products.filter((product) =>
+      product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
+    //this.config.currentPage = 1; // Reset to first page after search
+  }
+  
   ngOnInit() {
     this.fetchProducts();
-    this.filteredProducts = this.products;
+    //this.filteredProducts = this.products;
   }
 
    // Pagination change page

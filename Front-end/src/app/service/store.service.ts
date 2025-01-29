@@ -11,13 +11,14 @@ export class StoreService {
    
      constructor(private http: HttpClient) {}
    
-     // Fetch all vendors
+    //  Fetch all vendors
      getAllStores(companyId: string): Observable<any[]> {
       return this.http.get<any[]>(`${this.baseUrl}/getAllStores/${companyId}`);
     }
 
-    
-   
+    // getAllStores(companyId: string): Observable<any[]> {
+    //   return this.http.get<any[]>(`${this.baseUrl}?companyId=${companyId}`);
+    // }
      // Add a new vendor
      addStore(store: any): Observable<any> {
        return this.http.post(`${this.baseUrl}/addStore`, store);
