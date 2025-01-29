@@ -197,6 +197,19 @@ export class StoreProductsComponent implements OnInit {
     }
   ];
 
+  newProduct ={
+    // productId: '',
+    productName: '',
+    category: '',
+    vendorId: '',
+    vendorName: '',
+    selling_Price: 0,
+    cost_Price: 0,
+    quantity: 0,
+    description: '',
+    // companyId: '',
+  }
+
   searchTerm: string = '';
 
   // Filtered Products for Display
@@ -275,6 +288,37 @@ export class StoreProductsComponent implements OnInit {
       }
     });
   }
+
+  // Control Pop-up Form Visibility
+  showAddProductForm = false;
+
+  // Open Add Product Form
+  openAddProductForm() {
+    this.showAddProductForm = true;
+  }
+
+  // Close Add Product Form
+  closeAddProductForm() {
+    this.showAddProductForm = false;
+    this.resetForm();
+  }
+
+  // Reset Product Form
+  resetProductForm() {
+    this.newProduct ={
+      // productId: '',
+      productName: '',
+      category: '',
+      vendorId: '',
+      vendorName: '',
+      selling_Price: 0,
+      cost_Price: 0,
+      quantity: 0,
+      description: '',
+      // companyId: '',
+    }
+  }
+
 
   // Open Request Form
   openRequestForm(product: any) {
