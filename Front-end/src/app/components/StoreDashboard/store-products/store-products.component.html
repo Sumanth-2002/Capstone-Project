@@ -28,8 +28,8 @@
                             [class.sorted-desc]="sortColumn === 'description' && sortDirection === 'desc'">Description</th>
                         <th (click)="sort('category')" [class.sorted-asc]="sortColumn === 'category' && sortDirection === 'asc'"
                             [class.sorted-desc]="sortColumn === 'category' && sortDirection === 'desc'">Category</th>
-                        <th (click)="sort('costPrice')" [class.sorted-asc]="sortColumn === 'costPrice' && sortDirection === 'asc'"
-                            [class.sorted-desc]="sortColumn === 'costPrice' && sortDirection === 'desc'">Cost Price</th>
+                        <!-- <th (click)="sort('costPrice')" [class.sorted-asc]="sortColumn === 'costPrice' && sortDirection === 'asc'"
+                            [class.sorted-desc]="sortColumn === 'costPrice' && sortDirection === 'desc'">Cost Price</th> -->
                         <th (click)="sort('quantity')" [class.sorted-asc]="sortColumn === 'quantity' && sortDirection === 'asc'"
                             [class.sorted-desc]="sortColumn === 'quantity' && sortDirection === 'desc'">Quantity</th>
                         <th>Status</th>
@@ -41,7 +41,7 @@
                         <td>{{ product.name }}</td>
                         <td>{{ product.description }}</td>
                         <td>{{ product.category }}</td>
-                        <td>{{ product.costPrice }}</td>
+                        <!-- <td>{{ product.costPrice }}</td> -->
                         <td>{{ product.quantity }}</td>
                         <td>
                             <button *ngIf="product.status !== 'Requested'" class="request-button" (click)="openRequestForm(product)">
@@ -71,6 +71,44 @@
             <!-- Pagination Controls -->
             <div class="pagination-controls">
                 <pagination-controls (pageChange)="onPageChange($event)" id="custom"></pagination-controls>
+            </div>
+        </div>
+
+        <!-- Add Product Form (Pop-up) -->
+        <div class="add-product-form" *ngIf="showAddProductForm">
+            <div class="form-container">
+                <div class="header">
+                    <h2>Add New Product</h2>
+                    <button class="close-button" (click)="closeAddProductForm()">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                
+                <!-- <form (ngSubmit)="saveProduct()"> -->
+                    <form>
+                    <div class="form-group">
+                        <label>Product ID</label>
+                        <input type="text"  name="costPrice" required />
+                        <!-- <input type="text" [(ngModel)]="newProduct.productId" name="costPrice" required /> -->
+                    </div>
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" [(ngModel)]="newProduct.productName" name="productName" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea [(ngModel)]="newProduct.description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" [(ngModel)]="newProduct.category" name="category" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" required />
+                    </div>
+                    <button type="submit" class="save-button">Save</button>
+                </form>
             </div>
         </div>
 
