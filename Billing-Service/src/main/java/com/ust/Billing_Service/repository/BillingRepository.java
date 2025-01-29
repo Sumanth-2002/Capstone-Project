@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface BillingRepository extends JpaRepository<Billing, String> {
 
-    @Query(value = "SELECT s.sales_rep_id AS salesRepId, s.name AS salesRepName, COUNT(b.sales_rep_id) AS salesCount " +
+    @Query(value = "SELECT s.sales_rep_id AS salesRepId, s.name AS salesRepName, SUM(b.total_price) AS totalSales " +
             "FROM billing b " +
             "JOIN sales_rep s ON b.sales_rep_id = s.sales_rep_id " +
             "WHERE b.store_id = :storeId " +

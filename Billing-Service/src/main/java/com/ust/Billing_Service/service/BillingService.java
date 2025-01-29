@@ -82,7 +82,7 @@ public class BillingService {
             salesDtos.add(new SalesDto(
                     (String) result[0], // salesRepId
                     (String) result[1], // salesRepName
-                    ((Number) result[2]).intValue() // noofSales
+                    ((Double) result[2]).doubleValue() // noofSales
             ));
         }
         return salesDtos;

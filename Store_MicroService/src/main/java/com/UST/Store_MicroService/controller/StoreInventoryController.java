@@ -5,6 +5,7 @@ import com.UST.Store_MicroService.model.Inventory;
 import com.UST.Store_MicroService.model.Request;
 //import com.UST.Store_MicroService.model.SalesRep;
 import com.UST.Store_MicroService.model.SalesRep;
+import com.UST.Store_MicroService.model.Store;
 import com.UST.Store_MicroService.service.RequestService;
 //import com.UST.Store_MicroService.service.SalesRepService;
 import com.UST.Store_MicroService.service.SalesRepService;
@@ -62,6 +63,10 @@ public class StoreInventoryController {
     @GetMapping("/get-all-salesRep/{storeId}")
     public ResponseEntity<List<SalesRep>> getAllSalesRep(@PathVariable String storeId) {
         return ResponseEntity.ok(salesRepService.getAllSalesRep(storeId));
+    }
+    @GetMapping("/getAllStorealone/{companyId}")
+    public ResponseEntity<List<Store>> getAllStoreAlone(@PathVariable("companyId") String companyId){
+        return ResponseEntity.ok(storeService.getAllStoreAlone(companyId));
     }
 
     @PutMapping("/update-stock")

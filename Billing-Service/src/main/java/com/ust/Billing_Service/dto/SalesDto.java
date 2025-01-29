@@ -3,9 +3,9 @@ package com.ust.Billing_Service.dto;
 public class SalesDto {
     private String salesRepId;
     private String salesRepName;
-    private int  noofSales;
+    private Double  noofSales;
 
-    public SalesDto(String salesRepId, String salesRepName, int noofSales) {
+    public SalesDto(String salesRepId, String salesRepName, Double noofSales) {
         this.salesRepId = salesRepId;
         this.salesRepName = salesRepName;
         this.noofSales = noofSales;
@@ -30,11 +30,11 @@ public class SalesDto {
         this.salesRepName = salesRepName;
     }
 
-    public int getNoofSales() {
+    public Double getNoofSales() {
         return noofSales;
     }
 
-    public void setNoofSales(int noofSales) {
+    public void setNoofSales(Double noofSales) {
         this.noofSales = noofSales;
     }
 }

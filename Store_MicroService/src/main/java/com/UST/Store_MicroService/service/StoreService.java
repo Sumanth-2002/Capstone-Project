@@ -59,6 +59,12 @@ public class StoreService {
         return "Store details saved successfully ";
     }
 
+    public List<Store> getAllStoreAlone(String companyId) {
+        // TODO Auto-generated method stub
+        List<Store> stores = storeRepository.findAllStore(companyId);
+        return stores;
+    }
+
     public String addNewProduct(AddProductDto addProductDto) {
         Inventory inventory = new Inventory();
         inventory.setInventoryId(inventoryRepository.getInventoryIdByStoreId(addProductDto.getStoreId()));
