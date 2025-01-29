@@ -33,15 +33,7 @@ public class StoreService {
     if(storeRepository.save(store)==null){
         throw new RuntimeException("Error while saving store");
     };
-        Inventory inventory = new Inventory();
-        inventory.setInventoryId(inventoryIdGenerator.generateId());
-        inventory.setStoreId(store.getStoreId());
-        inventory.setProductId(storeDto.getProductId());
-        inventory.setQuantity(storeDto.getQuantity());
-        inventory.setProductName(storeDto.getProductName());
-        if(inventoryRepository.save(inventory)==null){
-            throw new RuntimeException("Error while saving store");
-        }
+
         Map<String,Object> registerDto = new HashMap<>();
         registerDto.put("userId",store.getStoreId());
         registerDto.put("name",store.getStoreName());
@@ -65,20 +57,7 @@ public class StoreService {
         return stores;
     }
 
-    public String addNewProduct(AddProductDto addProductDto) {
-        Inventory inventory = new Inventory();
-        inventory.setInventoryId(inventoryRepository.getInventoryIdByStoreId(addProductDto.getStoreId()));
-        inventory.setProductId(addProductDto.getProductId());
-        inventory.setQuantity(addProductDto.getQuantity());
-        inventory.setProductName(addProductDto.getProductName());
-        inventory.setProductName(addProductDto.getProductDescription());
-        inventory.setCategory(addProductDto.getCategory());
-        inventory.setStoreId(addProductDto.getStoreId());
-        if(inventoryRepository.save(inventory)==null){
-            throw new RuntimeException("Error while saving product");
-        }
-        return "Product details saved successfully";
-    }
+
 
     public List<StoreResponseDto> getAllStore(String companyId){
         List<Store> stores = storeRepository.findAllStore(companyId);

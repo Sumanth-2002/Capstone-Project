@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.UST.Store_MicroService.model.Inventory;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory,Long>{
@@ -27,5 +28,6 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long>{
     @Query("SELECT i FROM Inventory i  where i.storeId = :storeId and i.productId = :productId")
     Inventory getByStoreAndProductId(@Param("storeId") String storeId, @Param("productId") String productId);
 
+    Optional<Inventory> findByProductId(String productId);
 
 }

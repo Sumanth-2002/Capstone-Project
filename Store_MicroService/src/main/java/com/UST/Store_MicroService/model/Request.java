@@ -20,6 +20,8 @@ public class Request {
     private String storeName;
     private String productId;
     private String productName;
+    private String productDescription;
+    private String category;
     private int quantity;
     private String status = "Requested";
     private LocalDate requestDate;
@@ -28,24 +30,17 @@ public class Request {
     public Request() {
     }
 
-    public Request(String companyId,String storeId, String storeName, String productId, String productName, int quantity) {
+    public Request(String companyId,String storeId, String storeName, String productId, String productName, String productDescription,String category,int quantity) {
         this.companyId = companyId;
         this.storeId = storeId;
         this.storeName = storeName;
         this.productId = productId;
         this.productName = productName;
+        this.productDescription = productDescription;
+        this.category = category;
         this.quantity = quantity;
     }
 
-    public Request(int quantity, String productName, String productId, String storeName, String storeId, String companyId, String requestId) {
-        this.quantity = quantity;
-        this.productName = productName;
-        this.productId = productId;
-        this.storeName = storeName;
-        this.storeId = storeId;
-        this.companyId = companyId;
-        this.requestId = requestId;
-    }
 
     public String getCompanyId() {
         return companyId;
@@ -136,5 +131,21 @@ public class Request {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

@@ -1,9 +1,13 @@
 package com.UST.Store_MicroService.service;
 
+import com.UST.Store_MicroService.dto.AddProductDto;
 import com.UST.Store_MicroService.dto.ProductDto;
 import com.UST.Store_MicroService.dto.RequestUpdateDto;
 import com.UST.Store_MicroService.dto.UpdateProductDto;
+import com.UST.Store_MicroService.generator.InventoryIdGenerator;
+import com.UST.Store_MicroService.model.Inventory;
 import com.UST.Store_MicroService.model.Request;
+import com.UST.Store_MicroService.repository.InventoryRepository;
 import com.UST.Store_MicroService.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,12 +26,32 @@ public class RequestService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
+    @Autowired
+    private InventoryRepository inventoryRepository;
+    @Autowired
+    private InventoryIdGenerator inventoryIdGenerator;
+
     public String raiseRequest(Request request) {
+        String inventoryId = inventoryRepository.getInventoryIdByStoreId(request.getStoreId());
+        if(inventoryId == null) {
+            inventoryId = inventoryIdGenerator.generateId();
+        }
+        Optional<Inventory> exisiting = inventoryRepository.findByProductId(request.getProductId());
+        if(!exisiting.isPresent()) {
+            Inventory inventory = new Inventory();
+            inventory.setStoreId(request.getStoreId());
+            inventory.setInventoryId(inventoryId);
+            inventory.setCategory(request.getCategory());
+            inventory.setProductDescription(request.getProductDescription());
+            inventory.setProductName(request.getProductName());
+            inventory.setProductId(request.getProductId());
+            inventory.setQuantity(0);
+            inventoryRepository.save(inventory);
+        }
         if (requestRepository.save(request) == null) {
             throw new RuntimeException("Error while Raising request");
         }
         return "Request raised Successfully";
-
     }
     public List<Request> getAllRequests(String companyId) {
         return requestRepository.getAllRequests(companyId);
@@ -35,10 +59,10 @@ public class RequestService {
     public List<Request> getAllRequestsForStore(String storeId ) {
         return requestRepository.getAllRequestsByStore(storeId);
     }
-
     public Request updateRequest(RequestUpdateDto requestUpdateDto) {
         Request exs = requestRepository.getById(requestUpdateDto.getRequestId());
         exs.setStatus("Restocked");
+
         UpdateProductDto updateProductDto = new UpdateProductDto();
         updateProductDto.setProductId(requestUpdateDto.getProductId());
         updateProductDto.setQuantity(requestUpdateDto.getQuantity());

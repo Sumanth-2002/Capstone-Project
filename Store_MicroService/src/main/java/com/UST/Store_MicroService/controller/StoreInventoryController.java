@@ -34,10 +34,7 @@ public class StoreInventoryController {
     public ResponseEntity<String> addStore(@RequestBody StoreDto storeDto) {
         return ResponseEntity.ok(storeService.addStoreInventory(storeDto));
     }
-    @PostMapping("/addNewProduct")
-    public ResponseEntity<String> addNewProduct(@RequestBody AddProductDto addProductDto) {
-        return ResponseEntity.ok(storeService.addNewProduct(addProductDto));
-    }
+
 
     @GetMapping("/getAllStores/{companyId}")
     public ResponseEntity<List<StoreResponseDto>> getAllStores(@PathVariable("companyId") String companyId) {

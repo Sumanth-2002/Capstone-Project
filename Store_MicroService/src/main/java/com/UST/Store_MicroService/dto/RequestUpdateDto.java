@@ -8,13 +8,14 @@ import java.util.Date;
 
 
 public class RequestUpdateDto {
-
     private String requestId;
     private String companyId;
     private String storeId;
     private String storeName;
     private String productId;
     private String productName;
+    private String productDescription;
+    private String category;
     private int quantity;
 
 
@@ -22,13 +23,15 @@ public class RequestUpdateDto {
     public RequestUpdateDto() {
     }
 
-    public RequestUpdateDto(String requestId, String companyId, String storeId, String storeName, String productId, String productName, int quantity) {
+    public RequestUpdateDto(String requestId, String companyId, String storeId, String storeName, String productId, String productName,String productDescription,String category,int quantity) {
         this.requestId = requestId;
         this.companyId = companyId;
         this.storeId = storeId;
         this.storeName = storeName;
         this.productId = productId;
         this.productName = productName;
+        this.productDescription=productDescription;
+        this.category=category;
         this.quantity = quantity;
     }
 
@@ -90,6 +93,19 @@ public class RequestUpdateDto {
         this.quantity = quantity;
     }
 
+    public String getProductDescription() {
+        return productDescription;
+    }
 
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }
