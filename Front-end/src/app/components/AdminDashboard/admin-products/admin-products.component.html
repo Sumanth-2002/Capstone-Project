@@ -10,11 +10,11 @@
         <!-- Search Bar and Add Product Button -->
         <div class="search-add-container">
             <input type="text" class="search-bar" [(ngModel)]="searchTerm" 
-                placeholder="Search Product" (input)="onSearch(searchTerm)"/>
+                placeholder="Search Product Name" (input)="onSearch(searchTerm)"/>
             <button class="add-product-button" (click)="openAddProductForm()">
                 Add New Product
             </button>
-        </div>
+        </div> 
 
         <div class="table-container">
         <!-- Product Table -->

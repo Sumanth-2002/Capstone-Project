@@ -7,8 +7,8 @@ import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
 
 @Component({
   selector: 'app-store-products',
-  standalone: true, // Mark the component as standalone
-  imports: [FormsModule, CommonModule, HeaderComponent, SidebarComponent,NgxPaginationModule], // Add FormsModule to imports
+  standalone: true, 
+  imports: [FormsModule, CommonModule, HeaderComponent, SidebarComponent,NgxPaginationModule],
   templateUrl: './store-products.component.html',
   styleUrls: ['./store-products.component.css'],
 })

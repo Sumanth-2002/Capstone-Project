@@ -19,10 +19,8 @@ export class AdminProductsComponent implements OnInit {
   // Product list fetched from backend
   products: any[] = [];
   filteredProducts: any[] = [];
-  
-  // Initialize as an empty array
+
   searchTerm: string ='';
-  // filterProducts: any[]=[];
 
   // New Product Object
   newProduct ={
@@ -105,7 +103,6 @@ export class AdminProductsComponent implements OnInit {
       }
     );
   }
-  
   
 
   // Reset Form

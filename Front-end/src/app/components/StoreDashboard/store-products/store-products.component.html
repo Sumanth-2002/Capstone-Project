@@ -7,9 +7,12 @@
 <div class="main-content">
     <div class="content-div">
         <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search Product" [(ngModel)]="searchTerm"
+        <div class="search-add-container">
+            <input type="text" class="search-bar" placeholder="Search Product Name" [(ngModel)]="searchTerm"
             (input)="onSearch(searchTerm)" />
+            <button class="add-product-button" (click)="openAddProductForm()">
+                Add New Product
+            </button>
         </div>
 
         <div class="table-container">
