@@ -14,18 +14,23 @@ public class Inventory {
     private String storeId;
     private String productId;
     private String productName;
+    private String productDescription;
+    private String category;
     private int quantity;
     private LocalDate updatedAt;
 
     public Inventory() {
     }
 
-    public Inventory(String inventoryId, String storeId, String productId, String productName, int quantity) {
+    public Inventory(String inventoryId, String storeId, String productId, String productName,String productDescription,String category, int quantity) {
         this.inventoryId = inventoryId;
         this.storeId = storeId;
         this.productId = productId;
         this.productName = productName;
+        this.productDescription = productDescription;
+        this.category = category;
         this.quantity = quantity;
+
     }
     @PrePersist
     protected void onCreate() {
@@ -82,5 +87,21 @@ public class Inventory {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

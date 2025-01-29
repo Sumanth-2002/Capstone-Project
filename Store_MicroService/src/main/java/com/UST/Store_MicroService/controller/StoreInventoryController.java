@@ -89,5 +89,8 @@ public class StoreInventoryController {
         return ResponseEntity.ok("Product Details updated Successfully");
     }
 
-
+    @GetMapping("/get-store-products/{storeId}")
+    public List<InventoryDto> getStoreProducts(@PathVariable("storeId") String storeId){
+        return storeService.getAllProductsByStore(storeId);
+    }
 }

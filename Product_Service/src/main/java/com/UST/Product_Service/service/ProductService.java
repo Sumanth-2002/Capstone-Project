@@ -61,7 +61,6 @@ Map<String,Object> response = WebClient.builder()
         return savedProducts;
 
     }
-
     public Product saveProduct(Product product) {
         Product savedProduct = productRepository.save(product);
         Purchases purchases = new Purchases();
@@ -197,5 +196,7 @@ Map<String,Object> response = WebClient.builder()
             return null;
         }
     }
+
+
 
 }

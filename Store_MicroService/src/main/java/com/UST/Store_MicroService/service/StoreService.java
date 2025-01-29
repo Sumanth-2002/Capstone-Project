@@ -71,6 +71,8 @@ public class StoreService {
         inventory.setProductId(addProductDto.getProductId());
         inventory.setQuantity(addProductDto.getQuantity());
         inventory.setProductName(addProductDto.getProductName());
+        inventory.setProductName(addProductDto.getProductDescription());
+        inventory.setCategory(addProductDto.getCategory());
         inventory.setStoreId(addProductDto.getStoreId());
         if(inventoryRepository.save(inventory)==null){
             throw new RuntimeException("Error while saving product");
@@ -120,4 +122,7 @@ public class StoreService {
         inventory.setQuantity(inventory.getQuantity()+updateProductDto.getQuantity());
         return inventoryRepository.save(inventory);
         }
+    public List<InventoryDto> getAllProductsByStore(String storeId){
+    return  inventoryRepository.findByStoreId(storeId);
+    }
 }
