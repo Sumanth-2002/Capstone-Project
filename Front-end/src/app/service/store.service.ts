@@ -13,7 +13,7 @@ export class StoreService {
    
     //  Fetch all vendors
      getAllStores(companyId: string): Observable<any[]> {
-      return this.http.get<any[]>(`${this.baseUrl}/getAllStores/${companyId}`);
+      return this.http.get<any[]>(`${this.baseUrl}/getAllStorealone/${companyId}`);
     }
 
     // getAllStores(companyId: string): Observable<any[]> {
@@ -21,6 +21,6 @@ export class StoreService {
     // }
      // Add a new vendor
      addStore(store: any): Observable<any> {
-       return this.http.post(`${this.baseUrl}/addStore`, store);
+       return this.http.post(`${this.baseUrl}/addStore`, store,{ responseType: 'text' });
      }
 }

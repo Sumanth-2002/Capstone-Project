@@ -55,9 +55,11 @@ export class AdminStoreComponent {
     this.storeService.getAllStores(this.companyId).subscribe({
       next: (stores: any[]) => {
         console.log('Fetched stores:', stores);
-  
-        // Update the frontend stores array with a fresh copy
-        this.stores = stores.map(store => ({ ...store })); // Avoid accidental mutations
+        if (stores && stores.length > 0) {
+          this.stores = [...stores]; // Ensure full replacement, not mutation
+        } else {
+          this.stores = []; // Ensure an empty list is handled properly
+        }
       },
       error: (error: any) => {
         console.error('Error fetching stores:', error);
@@ -68,22 +70,18 @@ export class AdminStoreComponent {
   
   
   
+  
   saveStore(): void {
     // Create a fresh copy of newStore to avoid reference issues
-    const storeToAdd = { ...this.newStore };
-  
-    console.log('Saving store:', storeToAdd);
-  
-    this.storeService.addStore(storeToAdd).subscribe({
-      next: (response: any) => {
+    this.storeService.addStore(this.newStore).subscribe({
+      next: (response: string) => {
         console.log('Response from backend:', response);
         
-        // Add the response (newly added store) to the stores array
-        this.stores.push({ ...response });
-  
-        // Close the form and reset
-        this.closeAddStoreForm();
-        alert('Store added successfully!');
+        // Since response is plain text, just show a success message
+        alert(response);
+    
+        // Optionally refetch stores
+        this.fetchStores();
       },
       error: (err: any) => {
         console.error('Error saving store:', err);
@@ -100,7 +98,7 @@ export class AdminStoreComponent {
   resetForm() {
     this.newStore = {
       // storeId: '',
-      companyId: '',
+      companyId: this.companyId,
       storeName: '',
       region: '',
       storeAddress: '',
