@@ -77,11 +77,11 @@ public class StoreInventoryController {
 
     @GetMapping("/get-all-requests/store/{storeId}")
     public ResponseEntity<List<Request>> getAllStoreRequests(@PathVariable("storeId") String storeId) {
-        return ResponseEntity.ok(requestService.getAllRequests(storeId));
+        return ResponseEntity.ok(requestService.getAllRequestsForStore(storeId));
     }
     @PutMapping("/update-request")
-    public ResponseEntity<Request> updateRequest(@RequestBody Request request){
-        return ResponseEntity.ok(requestService.updateRequest(request));
+    public ResponseEntity<Request> updateRequest(@RequestBody RequestUpdateDto requestUpdateDto){
+        return ResponseEntity.ok(requestService.updateRequest(requestUpdateDto));
     }
     @PutMapping("/restock-products")
     public ResponseEntity<String> restockProduct(@RequestBody UpdateProductDto updateProductDto){

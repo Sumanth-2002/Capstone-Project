@@ -1,6 +1,7 @@
 package com.UST.Store_MicroService.service;
 
 import com.UST.Store_MicroService.dto.ProductDto;
+import com.UST.Store_MicroService.dto.RequestUpdateDto;
 import com.UST.Store_MicroService.dto.UpdateProductDto;
 import com.UST.Store_MicroService.model.Request;
 import com.UST.Store_MicroService.repository.RequestRepository;
@@ -35,20 +36,20 @@ public class RequestService {
         return requestRepository.getAllRequestsByStore(storeId);
     }
 
-    public Request updateRequest(Request request) {
-        Request exs = requestRepository.getById(request.getRequestId());
+    public Request updateRequest(RequestUpdateDto requestUpdateDto) {
+        Request exs = requestRepository.getById(requestUpdateDto.getRequestId());
         exs.setStatus("Restocked");
         UpdateProductDto updateProductDto = new UpdateProductDto();
-        updateProductDto.setProductId(request.getProductId());
-        updateProductDto.setQuantity(request.getQuantity());
-        updateProductDto.setProductName(request.getProductName());
-        updateProductDto.setStoreId(request.getStoreId());
-        updateProductDto.setStoreName(request.getStoreName());
+        updateProductDto.setProductId(requestUpdateDto.getProductId());
+        updateProductDto.setQuantity(requestUpdateDto.getQuantity());
+        updateProductDto.setProductName(requestUpdateDto.getProductName());
+        updateProductDto.setStoreId(requestUpdateDto.getStoreId());
+        updateProductDto.setStoreName(requestUpdateDto.getStoreName());
         storeService.updateQuantity(updateProductDto);
         ProductDto productDto = new ProductDto();
-        productDto.setProductId(request.getProductId());
-        productDto.setProductName(request.getProductName());
-        productDto.setQuantity(Long.valueOf(request.getQuantity()));
+        productDto.setProductId(requestUpdateDto.getProductId());
+        productDto.setProductName(requestUpdateDto.getProductName());
+        productDto.setQuantity(Long.valueOf(requestUpdateDto.getQuantity()));
         Optional<Object> object = WebClient.builder()
                 .baseUrl("http://localhost:9091")
                 .build()
@@ -58,6 +59,7 @@ public class RequestService {
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<Optional<Object>>() {})
                 .block();
+
         return requestRepository.save(exs);
     }
 }

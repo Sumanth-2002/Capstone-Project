@@ -43,7 +43,7 @@ public class BillingController {
     }
 
     @GetMapping("/get-leaderboard/{storeId}")
-    public ResponseEntity<List<SalesDto>> getLeaderboard(@PathVariable String storeId) {
+    public ResponseEntity< List<Map<String,Object>>> getLeaderboard(@PathVariable String storeId) {
         return ResponseEntity.ok(billingService.getLeaderboard(storeId));
     }
 

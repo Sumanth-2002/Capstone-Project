@@ -15,9 +15,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BillingService {
@@ -75,9 +73,11 @@ public class BillingService {
         return billingRepository.findById(billingId).get();
     }
 
-    public List<SalesDto> getLeaderboard(String storeId){
+    public  List<Map<String,Object>> getLeaderboard(String storeId){
         List<Object[]> results = billingRepository.getLeaderboard(storeId);
         List<SalesDto> salesDtos = new ArrayList<>();
+
+        List<Map<String,Object>> leaderboard = new ArrayList<>();
         for (Object[] result : results) {
             salesDtos.add(new SalesDto(
                     (String) result[0], // salesRepId
@@ -85,6 +85,13 @@ public class BillingService {
                     ((Double) result[2]).doubleValue() // noofSales
             ));
         }
-        return salesDtos;
+        for(Object[] result : results) {
+            Map<String,Object> data = new HashMap<>();
+            data.put("salesRepId", (String) result[0]);
+            data.put("salesRepName", (String) result[1]);
+            data.put("TotalSale",result[2]);
+            leaderboard.add(data);
+        }
+        return leaderboard;
     }
 }

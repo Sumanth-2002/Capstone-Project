@@ -3,6 +3,7 @@ package com.UST.Store_MicroService.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,21 +21,30 @@ public class Request {
     private String productId;
     private String productName;
     private int quantity;
-    private String status;
-    private Date requestDate;
-    private Date updatedAt;
+    private String status = "Requested";
+    private LocalDate requestDate;
+    private LocalDate updatedAt;
 
     public Request() {
     }
 
-    public Request(String companyId,String storeId, String storeName, String productId, String productName, int quantity, String status) {
+    public Request(String companyId,String storeId, String storeName, String productId, String productName, int quantity) {
         this.companyId = companyId;
         this.storeId = storeId;
         this.storeName = storeName;
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
-        this.status = status;
+    }
+
+    public Request(int quantity, String productName, String productId, String storeName, String storeId, String companyId, String requestId) {
+        this.quantity = quantity;
+        this.productName = productName;
+        this.productId = productId;
+        this.storeName = storeName;
+        this.storeId = storeId;
+        this.companyId = companyId;
+        this.requestId = requestId;
     }
 
     public String getCompanyId() {
@@ -47,13 +57,13 @@ public class Request {
 
     @PrePersist
     protected void onCreate() {
-        this.requestDate = new Date();
-        this.updatedAt = new Date(); // Set updatedAt if necessary
+        this.requestDate = LocalDate.now();
+        this.updatedAt = LocalDate.now(); // Set updatedAt if necessary
 
     }
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = new Date();
+        this.updatedAt = LocalDate.now();
     }
 
     public String getRequestId() {
@@ -112,19 +122,19 @@ public class Request {
         this.status = status;
     }
 
-    public Date getRequestDate() {
+    public LocalDate getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
+    public void setRequestDate(LocalDate requestDate) {
         this.requestDate = requestDate;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
