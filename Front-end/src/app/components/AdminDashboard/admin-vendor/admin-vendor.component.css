@@ -1,9 +1,9 @@
 .main-content {
-    display: flex;
     margin-left: 250px;
     margin-top: 60px;
-    justify-content: center;
+    display: flex;
     align-items: center;
+    flex-direction: column;
     padding: 20px;
     height: calc(100vh - 60px);
     background-color: #0093E9;

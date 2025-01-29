@@ -172,4 +172,30 @@ export class AdminProductsComponent implements OnInit {
       }
     });
   }
+
+  showUpdateStockForm: boolean = false;
+  selectedProduct: any = {};
+  addStock: number = 0;
+
+  // Method to open the update stock form
+  openUpdateStockForm(product: any) {
+    this.selectedProduct = { ...product };
+    this.showUpdateStockForm = true;
+  }
+
+  // Method to close the update stock form
+  closeUpdateStockForm() {
+    this.showUpdateStockForm = false;
+    this.selectedProduct = {};
+    this.addStock = 0;
+  }
+
+  // Method to save the updated stock
+  saveStock() {
+    const productIndex = this.filteredProducts.findIndex(p => p.productId === this.selectedProduct.productId);
+    if (productIndex !== -1) {
+      this.filteredProducts[productIndex].quantity += this.addStock;
+    }
+    this.closeUpdateStockForm();
+  }
 }

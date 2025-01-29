@@ -1,5 +1,8 @@
 /* Main Content */
 .main-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     margin-left: 250px;
     /* Match the width of the sidebar */
     margin-top: 60px;
@@ -12,6 +15,16 @@
     overflow-y: auto;
     background-color: #0093E9;
     background-image: linear-gradient(135deg, #6cc9fff2 0%, #a0eee5 59%);
+}
+
+.content-div{
+    width: 80%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-y: auto;
 }
 
 /* Search Bar and Add Store Button */

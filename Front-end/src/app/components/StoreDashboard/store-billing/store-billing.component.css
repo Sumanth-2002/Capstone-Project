@@ -20,20 +20,37 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     justify-content: center;
+    position: relative;
+}
+
+/* Add Customer Button */
+.add-customer-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.add-customer-button:hover {
+    background-color: #e68900;
 }
 
 /* Form Row */
 .form-row {
     display: flex;
     gap: 1rem;
-    /* Space between form groups */
     margin-bottom: 1rem;
 }
 
 /* Form Group */
 .form-group {
     flex: 1;
-    /* Equal width for form groups */
 }
 
 .form-group label {
@@ -49,7 +66,6 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
-    /* margin: 10px; */
 }
 
 /* Add Product Button */
@@ -62,7 +78,7 @@
     cursor: pointer;
     font-size: 1rem;
     margin-bottom: 1rem;
-    margin-left: auto; /* Move the button to the right end */
+    margin-left: auto;
     display: block;
     margin-right: 20px;
 }
@@ -76,7 +92,6 @@
     display: flex;
     gap: 1rem;
     justify-content: center;
-    /* Space between buttons */
 }
 
 .save-button,
@@ -104,4 +119,36 @@
 
 .generate-invoice-button:hover {
     background-color: #c82333;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content .close {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-bottom: 1rem;
 }

@@ -36,6 +36,7 @@
                     <th >Description</th>
                     <th (click)="sort('category')" [class.sorted-asc]="sortColumn === 'category' && sortDirection === 'asc'"
                     [class.sorted-desc]="sortColumn === 'category' && sortDirection === 'desc'">Category</th>
+                    <th></th>
 
                     <!-- <th>Company ID</th> -->
                 </tr>
@@ -50,6 +51,11 @@
                     <td>{{ product.quantity }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ product.category }}</td>
+                    <td>
+                        <button (click)="openUpdateStockForm(product)">
+                            Update
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -124,6 +130,34 @@
                             required
                         />
                     </div> -->
+                    <button type="submit" class="save-button">Save</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Update Stock Form (Pop-up) -->
+        <div class="update-stock-form" *ngIf="showUpdateStockForm">
+            <div class="form-container">
+                <div class="header">
+                    <h2>Update Stock</h2>
+                    <button class="close-button" (click)="closeUpdateStockForm()">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                
+                <form (ngSubmit)="saveStock()">
+                    <div class="form-group">
+                        <label>Product ID</label>
+                        <input type="text" [(ngModel)]="selectedProduct.productId" name="productId" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" [(ngModel)]="selectedProduct.productName" name="productName" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Add Stock</label>
+                        <input type="number" [(ngModel)]="addStock" name="addStock" required />
+                    </div>
                     <button type="submit" class="save-button">Save</button>
                 </form>
             </div>
