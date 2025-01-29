@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from "../side-bar/side-bar.component";
+import { DoughnutComponent } from '../doughnut/doughnut.component';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [HeaderComponent, SidebarComponent],
+  imports: [HeaderComponent, SidebarComponent,DoughnutComponent],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.css'
 })
