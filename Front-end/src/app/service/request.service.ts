@@ -9,9 +9,9 @@ export class RequestService {
   constructor(private http: HttpClient) {}
   // Fetch pending requests from the API
   getPendingRequests(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/get-requests/COMP14652A`);
+    return this.http.get<any[]>(`${this.apiUrl}/get-requests/COMP1A1006`);
   }
- 
+  // Update request status
   updateRequestStatus(updatedRequest: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/update-request`, updatedRequest);
   }

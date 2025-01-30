@@ -18,7 +18,7 @@ export class StoreLeaderboardComponent {
   }
   fetchLeaderboardData(): void {
     // Replace with your backend API endpoint
-    const apiUrl = 'http://localhost:9095/api/billing/get-leaderboard/STOR28116A';
+    const apiUrl = 'http://localhost:9095/api/billing/get-leaderboard/STOR1728AA';
     this.http.get<any[]>(apiUrl).subscribe(
       (data) => {
         this.leaderboardData = data;

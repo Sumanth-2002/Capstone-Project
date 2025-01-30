@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../side-bar/side-bar.component';
 import { RequestService } from '../../../service/request.service'; // Import Service
-
 @Component({
   selector: 'app-admin-requests',
   standalone: true,
@@ -16,19 +15,15 @@ export class AdminRequestsComponent implements OnInit {
   requests: any[] = [];
   restockData = { requestId: '', storeId: '', productId: '', vendorId: '', productName: '', quantity: null };
   showRestockForm = false;
-
   constructor(private requestService: RequestService) {}
-
   ngOnInit(): void {
     this.fetchRequests();
   }
-
   // Fetch requests using service
   fetchRequests(): void {
     this.requestService.getPendingRequests().subscribe(
       (data) => {
         console.log('Fetched Requests:', data);
-
         // Filter out requests with status 'Restocked'
         this.requests = data
           .filter((item) => item.status !== 'Restocked') // Exclude 'Restocked' requests
@@ -44,27 +39,24 @@ export class AdminRequestsComponent implements OnInit {
       (error) => console.error('Error fetching requests:', error)
     );
   }
-
   // Open Restock Form
   openRestockForm(request: any): void {
     this.restockData = { ...request };
     this.showRestockForm = true;
   }
-
   // Close Restock Form
   closeRestockForm(): void {
     this.showRestockForm = false;
     this.resetForm();
   }
-
   // Submit Restock Request
   saveRestock(): void {
     // Create a copy of the request with the updated status
     const updatedRequest = { ...this.restockData, status: 'Restocked' };
-
     this.requestService.updateRequestStatus(updatedRequest).subscribe(
       () => {
         console.log('✅ Status updated successfully');
+        alert('✅ Restocked successfully');
         this.updateLocalRequestStatus(); // Update UI locally
         this.closeRestockForm(); // Close form after updating
       },
@@ -74,12 +66,10 @@ export class AdminRequestsComponent implements OnInit {
       }
     );
   }
-
   // Update UI Locally
   updateLocalRequestStatus(): void {
     this.requests = this.requests.filter((r) => r.requestId !== this.restockData.requestId);
   }
-
   // Reset Form
   resetForm(): void {
     this.restockData = { requestId: '', storeId: '', productId: '', vendorId: '', productName: '', quantity: null };
