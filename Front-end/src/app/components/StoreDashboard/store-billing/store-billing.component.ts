@@ -90,7 +90,6 @@ export class StoreBillingComponent {
       products: this.productBilledList,
     };
     console.log('Billing Data:', { ...this.billingData, products: this.productBilledList });
-    alert('Billing data saved successfully!');
     this.billingService.addBilling(billingPayload).subscribe({
       next: (response) => {
         console.log('Billing data saved successfully:', response);
