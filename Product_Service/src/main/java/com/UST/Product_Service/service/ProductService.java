@@ -129,7 +129,7 @@ Map<String,Object> response = WebClient.builder()
 
     public Map<String,Double> getTotalPurchases(String companyId){
         Map<String,Double> totalSale = new HashMap<>();
-        totalSale.put("totalSale",  purchaseRepository.getTotalPurchases(companyId));
+        totalSale.put("totalPurchases",  purchaseRepository.getTotalPurchases(companyId));
         return totalSale;
     }
     public void saveProductDataFromCSV(String filePath,String companyId) {

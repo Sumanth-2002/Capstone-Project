@@ -16,13 +16,10 @@ public class ProductBilled {
     private String productName;
 
     @JsonProperty("price")
-    private Double price;
-
-    @JsonProperty("GST")
-    private Double GST;
+    private Double price=null;
 
     @JsonProperty("totalPrice")
-    private Double totalPrice;
+    private Double totalPrice=null;
 
     @JsonProperty("quantity")
     private Integer quantity;
@@ -32,14 +29,11 @@ public class ProductBilled {
 
     public ProductBilled() {}
 
-    public ProductBilled(String productId, String productName, Double price, Double GST, Double totalPrice, Integer quantity, String billingId) {
+    public ProductBilled(String productId, String productName,   Integer quantity) {
         this.productId = productId;
         this.productName = productName;
-        this.price = price;
-        this.GST = GST;
-        this.totalPrice = totalPrice;
+
         this.quantity = quantity;
-        this.billingId = billingId;
     }
 
     public Long getId() {
@@ -74,13 +68,7 @@ public class ProductBilled {
         this.price = price;
     }
 
-    public Double getGST() {
-        return GST;
-    }
 
-    public void setGST(Double GST) {
-        this.GST = GST;
-    }
 
     public Double getTotalPrice() {
         return totalPrice;

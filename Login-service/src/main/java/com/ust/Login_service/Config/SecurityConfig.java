@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/api/login/**","/api/**","/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll() // Allow public access to specific endpoints
+                .requestMatchers("/api/login/**","/api/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Allow public access to specific endpoints
                 .anyRequest().authenticated(); // Secure all other endpoints
 
         // Add JWT filter before the UsernamePasswordAuthenticationFilter

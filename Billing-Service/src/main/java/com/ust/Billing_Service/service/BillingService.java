@@ -56,9 +56,28 @@ public class BillingService {
                     .retrieve()
                     .bodyToMono(new ParameterizedTypeReference<String>() {})
                     .block();
+            String productTd = productBilled.getProductId();
+            Map<String,Object> obj = WebClient.builder()
+                    .baseUrl("http://localhost:9091")
+                    .build()
+                    .get()
+                    .uri("/api/products/getproductById/"+productTd) // Direct URI without query parameters
+                  // Attach the DTO as the body
+                    .retrieve()
+                    .bodyToMono(new ParameterizedTypeReference<Map<String,Object>>() {})
+                    .block();
+            double sellingPrice = Double.parseDouble(obj.get("selling_Price").toString());
+            productBilled.setPrice(sellingPrice);
+
+            int quantity = productBilled.getQuantity();
+            double totalPrices = quantity * sellingPrice;
+
+            productBilled.setTotalPrice(totalPrices);
             productBilledRepository.save(productBilled);
             totalPrice+=productBilled.getTotalPrice();
+
         }
+        System.out.println(totalPrice);
         billing.setTotalPrice(totalPrice);
         billingRepository.save(billing);
 
@@ -70,7 +89,10 @@ public class BillingService {
         return  customer.getCustomerId();
     }
     public Billing getBillingByid(String billingId){
-        return billingRepository.findById(billingId).get();
+        Billing billing = billingRepository.findById(billingId).get();
+        System.out.println(billing);
+        return billing;
+
     }
 
     public  List<Map<String,Object>> getLeaderboard(String storeId){

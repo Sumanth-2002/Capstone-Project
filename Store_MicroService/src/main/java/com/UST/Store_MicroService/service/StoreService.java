@@ -24,12 +24,8 @@ public class StoreService {
     private InventoryRepository inventoryRepository;
     @Autowired
     private WebClient.Builder webClientBuilder;
-    public String  addStoreInventory(StoreDto storeDto) {
-        Store store = new Store();
-        store.setCompanyId(storeDto.getCompanyId());
-        store.setStoreName(storeDto.getStoreName());
-        store.setStoreAddress(storeDto.getStoreAddress());
-        store.setRegion(storeDto.getRegion());
+    public String  addStoreInventory(Store store) {
+
     if(storeRepository.save(store)==null){
         throw new RuntimeException("Error while saving store");
     };

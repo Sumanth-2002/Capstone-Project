@@ -31,8 +31,8 @@ public class StoreInventoryController {
     private SalesRepService salesRepService;
 
     @PostMapping("/addStore")
-    public ResponseEntity<String> addStore(@RequestBody StoreDto storeDto) {
-        return ResponseEntity.ok(storeService.addStoreInventory(storeDto));
+    public ResponseEntity<String> addStore(@RequestBody Store store) {
+        return ResponseEntity.ok(storeService.addStoreInventory(store));
     }
 
 
