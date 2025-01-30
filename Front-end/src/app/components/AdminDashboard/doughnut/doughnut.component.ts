@@ -1,35 +1,46 @@
 import { CommonModule } from '@angular/common';
+import { Chart, registerables } from 'chart.js';
 import { Component } from '@angular/core';
-
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-doughnut',
-  imports: [ CommonModule , CanvasJSAngularChartsModule],
+  standalone: true,
+  imports: [ CommonModule ],
   templateUrl: './doughnut.component.html',
   styleUrl: './doughnut.component.css'
 })
 export class DoughnutComponent {
-  chartOptions = {
-	  animationEnabled: true,
-	  title:{
-		text: "Project Cost Breakdown"
-	  },
-	  data: [{
-		type: "doughnut",
-		yValueFormatString: "#,###.##'%'",
-		indexLabel: "{name}",
-		dataPoints: [
-		  { y: 28, name: "Labour" },
-		  { y: 10, name: "Legal" },
-		  { y: 20, name: "Production" },
-		  { y: 15, name: "License" },
-		  { y: 23, name: "Facilities" },
-		  { y: 17, name: "Taxes" },
-		  { y: 12, name: "Insurance" }
-		]
-	  }]
-	}
 
+  ngOnInit(): void {
+    this.renderDoughnutChart();
+  }
+
+	renderDoughnutChart(): void {
+    const productCategories = ['Laptops', 'Mobiles', 'Tablets', 'Accessories', 'Desktops'];
+    const productsSold = [150, 300, 120, 200, 80]; // Hardcoded number of products sold per category
+    const colors = ['red', 'blue', 'green', 'orange', 'purple'];
+
+    new Chart('doughnutChart', {
+      type: 'doughnut',
+      data: {
+        labels: productCategories,
+        datasets: [{
+          label: 'Products Sold',
+          data: productsSold,
+          backgroundColor: colors,
+          borderColor: 'black',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        }
+      }
+    });
+  }
 }
