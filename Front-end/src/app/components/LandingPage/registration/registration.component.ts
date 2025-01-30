@@ -30,9 +30,4 @@ export class RegistrationComponent {
     // Add your registration logic here (e.g., API call)
     alert('Registration successful!');
   }
-
-  // Function to navigate back to the landing page
-  navigateToLandingPage() {
-    this.router.navigate(['/']); // Navigate to the landing page
-  }
 }

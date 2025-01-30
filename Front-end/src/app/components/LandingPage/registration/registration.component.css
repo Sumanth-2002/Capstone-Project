@@ -11,26 +11,6 @@
     /* Include padding in height calculation */
 }
 
-/* Back Button */
-.back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.back-button:hover {
-    background-color: #0056b3;
-}
-
 h2{
     margin-top: 0%;
 }

@@ -15,7 +15,7 @@ export class LoginComponent {
   // Object to hold login data
   loginData = {
     role: 'company', // Default role
-    email: '',
+    userId: '',
     password: '',
   };
 
@@ -26,10 +26,5 @@ export class LoginComponent {
     console.log('Login Data:', this.loginData);
     // Add your login logic here (e.g., API call)
     alert('Login successful!');
-  }
-
-  // Function to navigate back to the landing page
-  navigateToLandingPage() {
-    this.router.navigate(['/']); // Navigate to the landing page
   }
 }

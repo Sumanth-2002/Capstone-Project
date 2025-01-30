@@ -1,8 +1,4 @@
 <div class="registration-container">
-    <!-- Back Button -->
-    <button class="back-button" (click)="navigateToLandingPage()">
-        <span class="material-icons">arrow_back</span> Back
-    </button>
 
     <!-- Registration Form -->
     <form class="registration-form" (ngSubmit)="onSubmit()">
@@ -10,7 +6,7 @@
 
         <!-- Company Name -->
         <div class="form-group">
-            <label for="companyName">Company Name</label>
+            <label for="companyName">Name</label>
             <input type="text" id="companyName" name="companyName" [(ngModel)]="registrationData.companyName"
                 required />
         </div>
