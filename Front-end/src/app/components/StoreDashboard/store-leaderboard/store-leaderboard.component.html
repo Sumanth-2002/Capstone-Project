@@ -1,9 +1,6 @@
-<!-- Header -->
 <app-header></app-header>
-
 <!-- Sidebar -->
 <app-sidebar></app-sidebar>
-
 <!-- Main Content -->
 <div class="main-content">
     <div class="leaderboard">
@@ -17,20 +14,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>₹15,000</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>₹12,000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Michael Johnson</td>
-                    <td>₹10,500</td>
+                <!-- Dynamically generate rows based on leaderboardData -->
+                <tr *ngFor="let item of leaderboardData; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.salesRepName }}</td>
+                    <td>₹{{ item.TotalSale }}</td>
                 </tr>
             </tbody>
         </table>

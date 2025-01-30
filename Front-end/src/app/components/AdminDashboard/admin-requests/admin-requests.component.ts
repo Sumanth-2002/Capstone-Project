@@ -1,116 +1,87 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../side-bar/side-bar.component';
+import { RequestService } from '../../../service/request.service'; // Import Service
 
 @Component({
   selector: 'app-admin-requests',
-  standalone: true, // Mark the component as standalone
-  imports: [FormsModule, CommonModule, HeaderComponent, SidebarComponent], // Add FormsModule to imports
+  standalone: true,
+  imports: [FormsModule, CommonModule, HeaderComponent, SidebarComponent],
   templateUrl: './admin-requests.component.html',
   styleUrls: ['./admin-requests.component.css'],
 })
-export class AdminRequestsComponent {
-  // Dummy Data for Requests
-  requests = [
-    {
-      requestId: 'R001',
-      storeId: 'S001',
-      name: 'Store A',
-      productId: 'P001',
-      quantity: 50,
-      status: 'Pending',
-      vendorId: 'V001',
-      productName: 'Product A',
-    },
-    {
-      requestId: 'R002',
-      storeId: 'S002',
-      name: 'Store B',
-      productId: 'P002',
-      quantity: 30,
-      status: 'Pending',
-      vendorId: 'V002',
-      productName: 'Product B',
-    },
-    {
-      requestId: 'R003',
-      storeId: 'S003',
-      name: 'Store C',
-      productId: 'P003',
-      quantity: 20,
-      status: 'Pending',
-      vendorId: 'V003',
-      productName: 'Product C',
-    },
-    {
-      requestId: 'R004',
-      storeId: 'S004',
-      name: 'Store D',
-      productId: 'P004',
-      quantity: 40,
-      status: 'Pending',
-      vendorId: 'V004',
-      productName: 'Product D',
-    },
-    {
-      requestId: 'R005',
-      storeId: 'S005',
-      name: 'Store E',
-      productId: 'P005',
-      quantity: 60,
-      status: 'Pending',
-      vendorId: 'V005',
-      productName: 'Product E',
-    },
-  ];
-
-  // Restock Data Object
-  restockData = {
-    requestId: '',
-    storeId: '',
-    productId: '',
-    vendorId: '',
-    productName: '',
-    quantity: null,
-  };
-
-  // Control Pop-up Form Visibility
+export class AdminRequestsComponent implements OnInit {
+  requests: any[] = [];
+  restockData = { requestId: '', storeId: '', productId: '', vendorId: '', productName: '', quantity: null };
   showRestockForm = false;
 
+  constructor(private requestService: RequestService) {}
+
+  ngOnInit(): void {
+    this.fetchRequests();
+  }
+
+  // Fetch requests using service
+  fetchRequests(): void {
+    this.requestService.getPendingRequests().subscribe(
+      (data) => {
+        console.log('Fetched Requests:', data);
+
+        // Filter out requests with status 'Restocked'
+        this.requests = data
+          .filter((item) => item.status !== 'Restocked') // Exclude 'Restocked' requests
+          .map((item) => ({
+            requestId: item.requestId,
+            storeId: item.storeId,
+            status: item.status,
+            productId: item.productId,
+            productName: item.productName,
+            quantity: item.quantity,
+          }));
+      },
+      (error) => console.error('Error fetching requests:', error)
+    );
+  }
+
   // Open Restock Form
-  openRestockForm(request: any) {
-    this.restockData = { ...request }; // Populate form data
+  openRestockForm(request: any): void {
+    this.restockData = { ...request };
     this.showRestockForm = true;
   }
 
   // Close Restock Form
-  closeRestockForm() {
+  closeRestockForm(): void {
     this.showRestockForm = false;
     this.resetForm();
   }
 
-  // Save Restock
-  saveRestock() {
-    const request = this.requests.find(
-      (r) => r.requestId === this.restockData.requestId
+  // Submit Restock Request
+  saveRestock(): void {
+    // Create a copy of the request with the updated status
+    const updatedRequest = { ...this.restockData, status: 'Restocked' };
+
+    this.requestService.updateRequestStatus(updatedRequest).subscribe(
+      () => {
+        console.log('✅ Status updated successfully');
+        this.updateLocalRequestStatus(); // Update UI locally
+        this.closeRestockForm(); // Close form after updating
+      },
+      (error) => {
+        console.error('❌ Failed to update status:', error);
+        alert('⚠️ Error updating status. Please try again.');
+      }
     );
-    if (request) {
-      request.status = 'Restocked'; // Update status to "Restocked"
-    }
-    this.closeRestockForm(); // Close the form
+  }
+
+  // Update UI Locally
+  updateLocalRequestStatus(): void {
+    this.requests = this.requests.filter((r) => r.requestId !== this.restockData.requestId);
   }
 
   // Reset Form
-  resetForm() {
-    this.restockData = {
-      requestId: '',
-      storeId: '',
-      productId: '',
-      vendorId: '',
-      productName: '',
-      quantity: null,
-    };
+  resetForm(): void {
+    this.restockData = { requestId: '', storeId: '', productId: '', vendorId: '', productName: '', quantity: null };
   }
 }
