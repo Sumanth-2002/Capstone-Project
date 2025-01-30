@@ -18,4 +18,8 @@ export class BillingService {
   addCustomer(customerData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/customer`, customerData);
   }
+  generateInvoice(billingId: string) {
+    return this.http.get(`http://localhost:9095/api/billing/invoice/generate-invoice/${billingId}`);
+  }
+  
 }
