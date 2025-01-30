@@ -33,7 +33,49 @@ export class AdminProductsComponent implements OnInit {
     cost_Price: 0,
     quantity: 0,
     description: '',
-    // companyId: '',
+    companyId: 'COMP1A1006',
+  }
+
+  showAddBulkProductForm: boolean = false;
+  selectedFile: File | null = null;
+
+  // Open Add Bulk Product Form
+  openAddBulkProductForm() {
+    this.showAddBulkProductForm = true;
+  }
+
+  // Close Add Bulk Product Form
+  closeAddBulkProductForm() {
+    this.showAddBulkProductForm = false;
+    this.selectedFile = null; // Reset the selected file
+  }
+
+  // Handle File Selection
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  // Upload Bulk Products
+  uploadBulkProducts() {
+    if (!this.selectedFile) {
+      alert('Please select a CSV file.');
+      return;
+    }
+
+    this.productService
+      .uploadBulkProducts(this.selectedFile, this.newProduct.companyId)
+      .subscribe({
+        next: (response: string) => {
+          console.log('Bulk products uploaded successfully:', response);
+          alert('Bulk products uploaded successfully!');
+          this.closeAddBulkProductForm();
+          this.fetchProducts(); // Refresh the product list
+        },
+        error: (error) => {
+          console.error('Error uploading bulk products:', error);
+          alert('Error uploading bulk products. Please try again.');
+        },
+      });
   }
 
 
@@ -117,7 +159,7 @@ export class AdminProductsComponent implements OnInit {
       cost_Price: 0,
       quantity: 0,
       description: '',
-      // companyId: '',
+      companyId: 'COMP1A1006',
     }
   
   }

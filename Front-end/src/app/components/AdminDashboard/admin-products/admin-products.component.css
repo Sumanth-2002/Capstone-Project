@@ -11,7 +11,8 @@
     height: calc(100vh - 60px);
     overflow-y: auto;
 }
-.content-div{
+
+.content-div {
     width: 80%;
     max-width: 900px;
     background-color: #ffffff;
@@ -52,10 +53,100 @@
     background-color: #218838;
 }
 
+/* Add Bulk Product Button */
+.add-bulk-product-button {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.add-bulk-product-button:hover {
+    background-color: #45a049;
+}
+
+/* Add Bulk Product Form */
+.add-bulk-product-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.add-bulk-product-form .form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.add-bulk-product-form .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-bulk-product-form .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.add-bulk-product-form .close-button span {
+    font-size: 24px;
+    color: #333;
+}
+
+.add-bulk-product-form .form-group {
+    margin-bottom: 15px;
+}
+
+.add-bulk-product-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-bulk-product-form .form-group input[type="file"] {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-bulk-product-form .save-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.add-bulk-product-form .save-button:hover {
+    background-color: #45a049;
+}
+
 /* Products Table */
 .table-container {
-    max-height: calc(100vh - 300px); /* Adjust based on your layout */
-    overflow-y: auto; /* Enable scrolling for the table body */
+    max-height: calc(100vh - 300px);
+    /* Adjust based on your layout */
+    overflow-y: auto;
+    /* Enable scrolling for the table body */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -83,9 +174,9 @@
 }
 
 .product-table tr:hover td {
-    transform: scale(1.02); 
+    transform: scale(1.02);
     transition: transform 0.2s ease;
-    padding: 12px; 
+    padding: 12px;
 }
 
 tbody tr:nth-child(even) {
@@ -111,24 +202,33 @@ tbody tr:nth-child(even) {
 .form-container {
     background-color: #fff;
     border-radius: 8px;
-    width: 100%; /* Use full width */
-    max-width: 500px; /* Set a maximum width */
-    height: auto; /* Allow height to adjust based on content */
+    width: 100%;
+    /* Use full width */
+    max-width: 500px;
+    /* Set a maximum width */
+    height: auto;
+    /* Allow height to adjust based on content */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     position: relative;
-    overflow-y: auto; /* Allow scrolling if content overflows */
+    overflow-y: auto;
+    /* Allow scrolling if content overflows */
     max-height: calc(100% - 40px);
     padding: 20px;
 }
+
 .header {
     display: flex;
-    justify-content: space-between; /* Aligns items to the left and right */
-    align-items: center; /* Vertically centers the items */
-    margin-bottom: 20px; /* Adjust as needed */
+    justify-content: space-between;
+    /* Aligns items to the left and right */
+    align-items: center;
+    /* Vertically centers the items */
+    margin-bottom: 20px;
+    /* Adjust as needed */
 }
 
 h2 {
-    margin: 0; /* Removes default margin */
+    margin: 0;
+    /* Removes default margin */
 }
 
 .close-button {
@@ -137,9 +237,12 @@ h2 {
     cursor: pointer;
     padding: 0;
 }
+
 .close-button .material-icons {
-    font-size: 24px; /* Adjust icon size as needed */
-    color: #000; /* Adjust icon color as needed */
+    font-size: 24px;
+    /* Adjust icon size as needed */
+    color: #000;
+    /* Adjust icon color as needed */
 }
 
 .close-button:hover {
@@ -159,28 +262,40 @@ h2 {
 
 .form-group input,
 .form-group textarea {
-    width: calc(100% - 16px); /* Subtract padding for full width */
+    width: calc(100% - 16px);
+    /* Subtract padding for full width */
     height: 25px;
     margin-top: 5px;
 }
 
 .save-button {
-    background-color: #28a745; /* Green background */
-    color: white; /* White text */
-    padding: 8px 24px; /* Padding for size */
-    font-size: 16px; /* Font size */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
-    display: block; /* Block element for centering */
-    margin: 0 auto; /* Center horizontally */
+    background-color: #28a745;
+    /* Green background */
+    color: white;
+    /* White text */
+    padding: 8px 24px;
+    /* Padding for size */
+    font-size: 16px;
+    /* Font size */
+    border: none;
+    /* No border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s;
+    /* Smooth transitions */
+    display: block;
+    /* Block element for centering */
+    margin: 0 auto;
+    /* Center horizontally */
 }
 
 .save-button:hover {
     background-color: #218838;
     transform: scale(1.05);
 }
+
 .pagination-limit-container {
     margin-bottom: 1rem;
 }
@@ -278,9 +393,12 @@ th.sorted-desc::after {
     color: #fff;
     border-color: #007bff;
 }
+
 .save-button:focus {
-    outline: none; /* Remove default outline on focus */
+    outline: none;
+    /* Remove default outline on focus */
 }
+
 .update-stock-form {
     position: fixed;
     top: 0;

@@ -14,6 +14,10 @@
             <button class="add-product-button" (click)="openAddProductForm()">
                 Add New Product
             </button>
+            <!-- Add Bulk Product Button -->
+            <button class="add-bulk-product-button" (click)="openAddBulkProductForm()">
+                Add Bulk Product
+            </button>
         </div> 
 
         <div class="table-container">
@@ -78,6 +82,26 @@
             </div>
         </div>
 
+        <!-- Add Bulk Product Form (Pop-up) -->
+        <div class="add-bulk-product-form" *ngIf="showAddBulkProductForm">
+            <div class="form-container">
+                <div class="header">
+                    <h2>Add Bulk Product</h2>
+                    <button class="close-button" (click)="closeAddBulkProductForm()">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                
+                <form (ngSubmit)="uploadBulkProducts()">
+                    <div class="form-group">
+                        <label>Upload CSV File</label>
+                        <input type="file" (change)="onFileSelected($event)" accept=".csv" required />
+                    </div>
+                    <button type="submit" class="save-button">Upload</button>
+                </form>
+            </div>
+        </div>
+
         <!-- Add Product Form (Pop-up) -->
         <div class="add-product-form" *ngIf="showAddProductForm">
             <div class="form-container">
@@ -121,15 +145,6 @@
                         <label>Quantity</label>
                         <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" required />
                     </div>
-                    <!-- <div class="form-group">
-                        <label>Company ID</label>
-                        <input
-                            type="text"
-                            [(ngModel)]="newProduct.companyId"
-                            name="companyId"
-                            required
-                        />
-                    </div> -->
                     <button type="submit" class="save-button">Save</button>
                 </form>
             </div>
