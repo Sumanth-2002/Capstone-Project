@@ -11,6 +11,7 @@ import { StoreHomeComponent } from './components/StoreDashboard/store-home/store
 import { StoreProductsComponent } from './components/StoreDashboard/store-products/store-products.component';
 import { StoreBillingComponent } from './components/StoreDashboard/store-billing/store-billing.component';
 import { StoreLeaderboardComponent } from './components/StoreDashboard/store-leaderboard/store-leaderboard.component';
+import { AuthGuard } from './components/LandingPage/auth/auth.guard';
 
 export const routes: Routes = [
     {path:'', component:LandingPageComponent},
@@ -27,4 +28,8 @@ export const routes: Routes = [
     { path: 'store-products', component: StoreProductsComponent },
     { path: 'store-billing', component: StoreBillingComponent },
     { path: 'store-leaderboard', component: StoreLeaderboardComponent },
+    // { path: '', component: LoginComponent }, // Default route (login page)
+    // { path: 'login', component: LoginComponent }, // Login route
+    // { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] }, // Protected route
+    // { path: 'store-dashboard', component: StoreDashboardComponent, canActivate: [AuthGuard] },
 ];
