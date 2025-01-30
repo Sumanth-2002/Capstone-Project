@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:9091/api/products/'; // Replace with your backend URL
+  private baseUrl = 'http://localhost:9091/api/products'; // Replace with your backend URL
 
   constructor(private http: HttpClient) {}
 
   // Fetch all vendors
   getAllProducts(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}`);
+    return this.http.get<any[]>(`${this.baseUrl}/get-products/COMP1A1006`);
   }
 
   // Add a new vendor
