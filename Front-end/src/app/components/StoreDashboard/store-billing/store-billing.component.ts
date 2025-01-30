@@ -23,7 +23,7 @@ export class StoreBillingComponent {
   };
 
   // Product Array
-  productBilledList = [{ productName: '', productId: '', quantity: null }];
+  products = [{ productName: '', productId: '', quantity: null }];
 
   // New Customer Object
   newCustomer = {
@@ -78,7 +78,7 @@ export class StoreBillingComponent {
 
   // Add Product Fields
   addProduct() {
-    this.productBilledList.push({ productName: '', productId: '', quantity: null });
+    this.products.push({ productName: '', productId: '', quantity: null });
   }
 
   // Handle Form Submission
@@ -87,9 +87,9 @@ export class StoreBillingComponent {
   onSubmit() {
     const billingPayload = {
       ...this.billingData,
-      products: this.productBilledList,
+      productBilledList: this.products,
     };
-    console.log('Billing Data:', { ...this.billingData, products: this.productBilledList });
+    console.log('Billing Data:', { ...this.billingData, productBilledList: this.products });
     this.billingService.addBilling(billingPayload).subscribe({
       next: (response) => {
         console.log('Billing data saved successfully:', response);
@@ -105,7 +105,7 @@ export class StoreBillingComponent {
 
   // Generate Invoice
   generateInvoice() {
-    console.log('Invoice Generated:', { ...this.billingData, products: this.productBilledList });
+    console.log('Invoice Generated:', { ...this.billingData, productBilledList: this.products });
     alert('Invoice generated successfully!');
   }
 

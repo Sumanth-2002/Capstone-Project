@@ -51,7 +51,7 @@
             </div>
 
             <!-- Product Details -->
-            <div class="form-row" *ngFor="let product of productBilledList; let i = index">
+            <div class="form-row" *ngFor="let product of products; let i = index">
                 <div class="form-group">
                     <label>Product Name</label>
                     <input type="text" [(ngModel)]="product.productName" name="productName{{i}}" required />
