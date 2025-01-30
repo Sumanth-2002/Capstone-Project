@@ -12,9 +12,10 @@ public class SalesRepService {
     @Autowired
     private SalesRepRepository salesRepRepository;
 
-    public  String addSalesRep(SalesRep salesRep) {
-        if(salesRepRepository.save(salesRep)==null) throw  new RuntimeException("Error while adding Sales Representative");
-        return "Sales Representative Added Successfully";
+    public  SalesRep addSalesRep(SalesRep salesRep) {
+        SalesRep salesRep1 = salesRepRepository.save(salesRep);
+        if(salesRep1==null) throw  new RuntimeException("Error while adding Sales Representative");
+        return salesRep1;
     }
     public List<SalesRep> getAllSalesRep(String storeId) {
         return salesRepRepository.getAllSalesRep(storeId);

@@ -54,7 +54,7 @@ public class StoreInventoryController {
     }
 //
     @PostMapping("/add-sales-rep")
-    public ResponseEntity<String> addSalesRep(SalesRep salesRep){
+    public ResponseEntity<SalesRep> addSalesRep(SalesRep salesRep){
         return ResponseEntity.ok(salesRepService.addSalesRep(salesRep));
     }
     @GetMapping("/get-all-salesRep/{storeId}")
