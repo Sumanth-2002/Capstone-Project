@@ -44,8 +44,14 @@ export class DoughnutComponent {
         },
         plugins: {
           legend: {
-            position: 'top',
+            position: 'bottom',
           },
+          title: {
+            display: true,
+            text: 'Products Sold',
+            
+
+          }
         },
       }
     });
