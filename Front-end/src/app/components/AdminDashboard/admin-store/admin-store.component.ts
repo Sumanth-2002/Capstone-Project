@@ -15,7 +15,7 @@ import { StoreService } from '../../../service/store.service';
 export class AdminStoreComponent {
   // Dummy Data for Stores
   stores: any[] = [];
-  companyId = 'COMP14652A'; // Hardcoded in the component
+  companyId = 'COMP1A1006'; // Hardcoded in the component
 
 
   constructor(public storeService: StoreService){}

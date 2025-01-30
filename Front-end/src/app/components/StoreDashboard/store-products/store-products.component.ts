@@ -23,61 +23,45 @@ import { of } from 'rxjs';
   styleUrls: ['./store-products.component.css'],
 })
 export class StoreProductsComponent implements OnInit {
-  // Dummy Data for Products (will be replaced by fetched data)
   products: any[] = [];
-
   newProduct = {
+    companyId: 'COMP1A1006',
+    storeId: 'STOR1728AA',
+    storeName: 'TechStore Chennai',
+    productId: '',
     productName: '',
     productDescription: '',
     category: '',
-    vendorId: '',
-    vendorName: '',
-    selling_Price: 0,
-    cost_Price: 0,
     quantity: 0,
- 
   };
-
   searchTerm: string = '';
-
-  // Filtered Products for Display
   filteredProducts: any[] = [];
-
-  // Request Data Object
   requestData = {
-    storeId: 'STOR1728AA', // Example store ID
-    storeName: 'TechStore Chennai', // Example store name
+    storeId: 'STOR1728AA',
+    storeName: 'TechStore Chennai',
     productId: '',
     productName: '',
+    productDescription: '',
+    category: '',
     quantity: null,
   };
-
-  // Control Pop-up Form Visibility
   showRequestForm = false;
-
-  // Pagination
+  showAddProductForm = false;
   public config: PaginationInstance = {
     id: 'custom',
-    itemsPerPage: 5, // Number of items per page
+    itemsPerPage: 5,
     currentPage: 1,
   };
-
-  // Pagination Limit Options
   paginationLimits = [5, 10, 20, 50];
-
-  // Sorting
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  // Inject HttpClient
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    // Fetch products from the backend on component initialization
     this.fetchProducts();
   }
 
-  // Fetch products from the backend
   fetchProducts() {
     const apiUrl = 'http://localhost:9092/api/stores/get-store-products/STOR1728AA'; // Replace with your backend API URL
 
@@ -86,36 +70,54 @@ export class StoreProductsComponent implements OnInit {
       .pipe(
         catchError((error) => {
           console.error('Error fetching products:', error);
-          return of([]); // Return an empty array in case of error
+          return of([]);
         })
       )
       .subscribe((data) => {
         console.log(data);
-        this.products = data; // Update products with fetched data
-        this.filteredProducts = this.products; // Initialize filtered products
+        this.products = data;
+        this.filteredProducts = this.products;
       });
   }
+  saveProduct() {
+    // Backend API call to save product
+    const payload = this.newProduct;
 
-  // Pagination change page
+    this.http
+      .post('http://localhost:9092/api/stores/raise-request', payload) // Replace with your backend API URL
+      .pipe(
+        catchError((error) => {
+          console.error('Error saving product:', error);
+          return of(null); // Return null if error
+        })
+      )
+      .subscribe((response) => {
+        if (response) {
+          alert('Request raised successfully');
+          console.log('Product added successfully:', response);
+          this.closeAddProductForm(); // Close the form after successful submission
+          this.fetchProducts(); // Optionally refresh the product list
+        } else {
+          console.error('Failed to add product.');
+        }
+      });
+  }
   onPageChange(page: number) {
     this.config.currentPage = page;
   }
 
-  // Change Pagination Limit
   onPaginationLimitChange(limit: number) {
     this.config.itemsPerPage = limit;
-    this.config.currentPage = 1; // Reset to the first page when the limit changes
+    this.config.currentPage = 1;
   }
 
-  // Search functionality
   onSearch(searchTerm: string) {
     this.filteredProducts = this.products.filter((product) =>
       product.productName.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    this.config.currentPage = 1; // Reset to first page after search
+    this.config.currentPage = 1;
   }
 
-  // Sorting functionality
   sort(column: string) {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -138,70 +140,91 @@ export class StoreProductsComponent implements OnInit {
     });
   }
 
-  // Control Pop-up Form Visibility
-  showAddProductForm = false;
-
-  // Open Add Product Form
   openAddProductForm() {
     this.showAddProductForm = true;
   }
 
-  // Close Add Product Form
   closeAddProductForm() {
     this.showAddProductForm = false;
-    this.resetForm();
+    this.resetProductForm();
   }
 
-  // Reset Product Form
   resetProductForm() {
-    this.newProduct = {
-      productDescription:'',
-      productName: '',
-      category: '',
-      vendorId: '',
-      vendorName: '',
-      selling_Price: 0,
-      cost_Price: 0,
-      quantity: 0,
     
+    this.newProduct = {
+      companyId: 'COMP1A1006',
+      storeId: 'STOR1728AA',
+      storeName: 'TechStore Chennai',
+      productId: '',
+      productName: '',
+      productDescription: '',
+      category: '',
+      quantity: 0,
     };
   }
 
-  // Open Request Form
   openRequestForm(product: any) {
     this.requestData = {
-      ...this.requestData,
+      storeId: 'STOR1728AA',
+      storeName: 'TechStore Chennai',
       productId: product.productId,
       productName: product.productName,
+      productDescription: product.productDescription,
+      category: product.category,
+      quantity: null,
     };
     this.showRequestForm = true;
   }
 
-  // Close Request Form
   closeRequestForm() {
     this.showRequestForm = false;
     this.resetForm();
   }
 
-  // Send Request
-  sendRequest() {
-    const product = this.products.find(
-      (p) => p.productId === this.requestData.productId
-    );
-    if (product) {
-      product.status = 'Requested'; // Update status to "Requested"
-    }
-    this.closeRequestForm(); // Close the form
-  }
-
-  // Reset Form
   resetForm() {
     this.requestData = {
       storeId: 'STOR1728AA',
       storeName: 'TechStore Chennai',
       productId: '',
       productName: '',
+      productDescription: '',
+      category: '',
       quantity: null,
     };
+  }
+
+  onSubmit() {
+    this.sendRequest();
+  }
+
+  sendRequest() {
+    const payload = {
+      companyId: 'COMP1A1006', // Replace with actual company ID
+      storeId: this.requestData.storeId,
+      storeName: this.requestData.storeName,
+      productId: this.requestData.productId,
+      productName: this.requestData.productName,
+      productDescription: this.requestData.productDescription,
+      category: this.requestData.category,
+      quantity: this.requestData.quantity,
+      status: 'Requested', // Set the status as 'Requested'
+    };
+
+    this.sendRequestToBackend(payload).subscribe(
+      (response) => {
+        console.log('Request sent successfully:', response);
+        alert('Request Sent successfully');
+        this.closeRequestForm();
+      },
+      (error) => {
+        console.error('Failed to send request:', error);
+        alert('Failed to send request. Please try again.');
+      }
+    );
+  }
+
+  sendRequestToBackend(payload: any) {
+    const apiUrl = 'http://localhost:9092/api/stores/raise-request'; // Replace with your API endpoint
+    return this.http.post(apiUrl, payload);
   }
 }

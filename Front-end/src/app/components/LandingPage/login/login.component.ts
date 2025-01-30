@@ -29,11 +29,21 @@ export class LoginComponent {
     // Call the AuthService to authenticate the user
     this.authService.login(this.loginData.userId, this.loginData.password).subscribe(
       (response: any) => {
-        const jwt = response.jwt;  // Assuming JWT token is returned as 'token'
-        this.authService.saveToken(jwt);  // Save JWT token to localStorage
+        const jwt = response.jwt; // Assuming JWT token is returned as 'token'
+        this.authService.saveToken(jwt); // Save JWT token to localStorage
 
-        // Redirect user based on role
-        this.redirectUserBasedOnRole();
+        // Decode the token to get the role
+        const decodedToken = this.authService.getDecodedToken();
+        const serverRole = decodedToken?.role; // Extract the role from the decoded token
+
+        // Validate if the selected role matches the server role
+        if (this.validateRole(serverRole)) {
+          this.redirectUserBasedOnRole(serverRole); // Redirect based on the server role
+        } else {
+          console.error('Role mismatch!');
+          alert('Role mismatch! Please select the correct role.');
+          this.authService.clearToken(); // Clear the invalid token
+        }
       },
       (error) => {
         console.error('Authentication failed:', error);
@@ -41,14 +51,23 @@ export class LoginComponent {
       }
     );
   }
+  private validateRole(serverRole: string): boolean {
+    const selectedRole = this.loginData.role; // Get the selected role from the radio button
+
+    // Map the selected role to the expected server role
+    const roleMapping: { [key: string]: string } = {
+      company: 'COMPANY', // If 'company' is selected, the server role should be 'COMPANY'
+      store: 'STORE', // If 'store' is selected, the server role should be 'STORE'
+    };
+
+    // Check if the selected role matches the server role
+    return roleMapping[selectedRole] === serverRole;
+  }
 
   // Redirect user based on role after successful login
-  private redirectUserBasedOnRole(): void {
-    const decodedToken = this.authService.getDecodedToken();
-    const role = decodedToken?.role;  // Extract the role from the decoded token
-
+  private redirectUserBasedOnRole(role: string): void {
     if (role === 'COMPANY') {
-      this.router.navigate(['/admin-home']); // Redirect to company dashboard
+      this.router.navigate(['/admin-home']); // Redirect to admin dashboard
     } else if (role === 'STORE') {
       this.router.navigate(['/store-home']); // Redirect to store dashboard
     } else {

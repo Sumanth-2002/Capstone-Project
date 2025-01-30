@@ -44,7 +44,9 @@ export class AuthService {
     }
     return null;
   }
-
+  clearToken():void{
+    localStorage.removeItem("authToken");
+  }
   // Check if the user is authenticated by checking if a token exists and is valid
   isAuthenticated(): boolean {
     const token = this.getDecodedToken();

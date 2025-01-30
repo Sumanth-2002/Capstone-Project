@@ -16,6 +16,7 @@ export class StoreBillingComponent {
   // Billing Data Object
   billingData = {
     customerName: '',
+    
     contact: '',
     storeId: '',
     storeName: '',
