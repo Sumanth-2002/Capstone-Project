@@ -31,6 +31,9 @@ export class AdminBarComponent {
       options: {
         scales: {
           y: {
+            grid: {
+              display: false
+            },
             beginAtZero: true,
             title: {
               display: true,
@@ -38,6 +41,9 @@ export class AdminBarComponent {
             }
           },
           x: {
+            grid: {
+              display: false
+            },
             title: {
               display: true,
               text: 'Stores'
