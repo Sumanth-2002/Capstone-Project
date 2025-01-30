@@ -1,0 +1,19 @@
+/* Custom styles for the canvas element */
+/* canvas#doughnutChart {
+    display: block;
+    box-sizing: border-box;
+    margin: 0 auto; 
+    background-color: #f9f9f9; 
+    border: 1px solid #ddd; 
+  }
+ */
+
+  canvas#doughnutChart[_ngcontent-ng-c449398832] {
+    display: block;
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border: 1px solid #f3f2f2;
+    width:100%;
+  }
+  

@@ -54,7 +54,10 @@
 .add-product-button:hover {
     background-color: #218838;
 }
-
+.mat-autocomplete-panel {
+    max-height: 200px;
+    overflow-y: auto;
+  }
 /* Products Table */
 .table-container {
     max-height: calc(100vh - 300px); /* Adjust based on your layout */

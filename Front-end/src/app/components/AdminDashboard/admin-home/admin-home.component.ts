@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from "../side-bar/side-bar.component";
 import { DoughnutComponent } from '../doughnut/doughnut.component';
+import { LineAdminComponent } from '../line-admin/line-admin.component';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [HeaderComponent, SidebarComponent,DoughnutComponent],
+  imports: [HeaderComponent, SidebarComponent,DoughnutComponent,LineAdminComponent],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.css'
 })

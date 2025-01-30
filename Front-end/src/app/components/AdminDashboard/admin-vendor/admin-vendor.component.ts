@@ -64,16 +64,18 @@ sortDirection: 'asc' | 'desc' = 'asc';
 
   // Fetch all vendors from the service
   getAllVendors(): void {
-    this.vendorService.getAllVendors().subscribe({
-      next: (vendors: any[]) => {
-        this.vendors = vendors; // Assign fetched data to the vendors array
-      },
-      error: (err: any) => {
-        console.error('Failed to fetch vendors:', err);
-        alert('Failed to fetch vendors. Please try again later.');
-      },
-    });
-  }
+  this.vendorService.getAllVendors().subscribe({
+    next: (vendors: any[]) => {
+      this.vendors = vendors; // Assign fetched data to vendors
+      this.filteredVendors = [...this.vendors]; // Ensure filteredVendors gets updated
+    },
+    error: (err: any) => {
+      console.error('Failed to fetch vendors:', err);
+      alert('Failed to fetch vendors. Please try again later.');
+    },
+  });
+}
+
 
   // Open Add Vendor Form
   openAddVendorForm(): void {
@@ -117,7 +119,7 @@ sortDirection: 'asc' | 'desc' = 'asc';
 
   onSearch(searchTerm: string) {
     this.filteredVendors = this.vendors.filter((vendor) =>
-      vendor.name.toLowerCase().includes(searchTerm.toLowerCase())
+      vendor.VendorName.toLowerCase().includes(searchTerm.toLowerCase())
     );
     this.config.currentPage = 1; // Reset to first page after search
   }

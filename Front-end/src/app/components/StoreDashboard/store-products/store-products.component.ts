@@ -4,211 +4,39 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../side-bar/side-bar.component';
 import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
+import { HttpClient, HttpClientModule } from '@angular/common/http'; // Import HttpClient
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-store-products',
-  standalone: true, 
-  imports: [FormsModule, CommonModule, HeaderComponent, SidebarComponent,NgxPaginationModule],
+  standalone: true,
+  imports: [
+    FormsModule,
+    CommonModule,
+    HeaderComponent,
+    SidebarComponent,
+    NgxPaginationModule,
+    HttpClientModule, // Add HttpClientModule to imports
+  ],
   templateUrl: './store-products.component.html',
   styleUrls: ['./store-products.component.css'],
 })
 export class StoreProductsComponent implements OnInit {
-  // Dummy Data for Products
-  products = [
-    {
-      productId: 'P001',
-      name: 'Product A',
-      description: 'Description A',
-      category: 'Category 1',
-      costPrice: 100,
-      quantity: 50,
-      status: 'Available',
-    },
-    {
-      productId: 'P002',
-      name: 'Product B',
-      description: 'Description B',
-      category: 'Category 1',
-      costPrice: 120,
-      quantity: 30,
-      status: 'Available',
-    },
-    {
-      productId: 'P003',
-      name: 'Product C',
-      description: 'Description C',
-      category: 'Category 2',
-      costPrice: 90,
-      quantity: 70,
-      status: 'Out of Stock',
-    },
-    {
-      productId: 'P004',
-      name: 'Product D',
-      description: 'Description D',
-      category: 'Category 3',
-      costPrice: 150,
-      quantity: 40,
-      status: 'Available',
-    },
-    {
-      productId: 'P005',
-      name: 'Product E',
-      description: 'Description E',
-      category: 'Category 2',
-      costPrice: 200,
-      quantity: 20,
-      status: 'Discontinued',
-    },
-    {
-      productId: 'P006',
-      name: 'Product F',
-      description: 'Description F',
-      category: 'Category 4',
-      costPrice: 130,
-      quantity: 15,
-      status: 'Available',
-    },
-    {
-      productId: 'P007',
-      name: 'Product G',
-      description: 'Description G',
-      category: 'Category 3',
-      costPrice: 110,
-      quantity: 25,
-      status: 'Out of Stock',
-    },
-    {
-      productId: 'P008',
-      name: 'Product H',
-      description: 'Description H',
-      category: 'Category 1',
-      costPrice: 80,
-      quantity: 60,
-      status: 'Available',
-    },
-    {
-      productId: 'P009',
-      name: 'Product I',
-      description: 'Description I',
-      category: 'Category 5',
-      costPrice: 140,
-      quantity: 35,
-      status: 'Available',
-    },
-    {
-      productId: 'P010',
-      name: 'Product J',
-      description: 'Description J',
-      category: 'Category 4',
-      costPrice: 95,
-      quantity: 45,
-      status: 'Discontinued',
-    },
-    {
-      productId: 'P011',
-      name: 'Product K',
-      description: 'Description K',
-      category: 'Category 5',
-      costPrice: 125,
-      quantity: 55,
-      status: 'Available',
-    },
-    {
-      productId: 'P012',
-      name: 'Product L',
-      description: 'Description L',
-      category: 'Category 2',
-      costPrice: 105,
-      quantity: 50,
-      status: 'Out of Stock',
-    },
-    {
-      productId: 'P013',
-      name: 'Product M',
-      description: 'Description M',
-      category: 'Category 1',
-      costPrice: 115,
-      quantity: 10,
-      status: 'Available',
-    },
-    {
-      productId: 'P014',
-      name: 'Product N',
-      description: 'Description N',
-      category: 'Category 3',
-      costPrice: 135,
-      quantity: 80,
-      status: 'Available',
-    },
-    {
-      productId: 'P015',
-      name: 'Product O',
-      description: 'Description O',
-      category: 'Category 4',
-      costPrice: 175,
-      quantity: 90,
-      status: 'Discontinued',
-    },
-    {
-      productId: 'P016',
-      name: 'Product P',
-      description: 'Description P',
-      category: 'Category 5',
-      costPrice: 85,
-      quantity: 100,
-      status: 'Available',
-    },
-    {
-      productId: 'P017',
-      name: 'Product Q',
-      description: 'Description Q',
-      category: 'Category 2',
-      costPrice: 145,
-      quantity: 20,
-      status: 'Out of Stock',
-    },
-    {
-      productId: 'P018',
-      name: 'Product R',
-      description: 'Description R',
-      category: 'Category 1',
-      costPrice: 160,
-      quantity: 65,
-      status: 'Available',
-    },
-    {
-      productId: 'P019',
-      name: 'Product S',
-      description: 'Description S',
-      category: 'Category 3',
-      costPrice: 155,
-      quantity: 75,
-      status: 'Available',
-    },
-    {
-      productId: 'P020',
-      name: 'Product T',
-      description: 'Description T',
-      category: 'Category 5',
-      costPrice: 125,
-      quantity: 85,
-      status: 'Discontinued',
-    }
-  ];
+  // Dummy Data for Products (will be replaced by fetched data)
+  products: any[] = [];
 
-  newProduct ={
-    // productId: '',
+  newProduct = {
     productName: '',
+    productDescription: '',
     category: '',
     vendorId: '',
     vendorName: '',
     selling_Price: 0,
     cost_Price: 0,
     quantity: 0,
-    description: '',
-    // companyId: '',
-  }
+ 
+  };
 
   searchTerm: string = '';
 
@@ -217,8 +45,8 @@ export class StoreProductsComponent implements OnInit {
 
   // Request Data Object
   requestData = {
-    storeId: 'S001', // Example store ID
-    storeName: 'Store A', // Example store name
+    storeId: 'STOR1728AA', // Example store ID
+    storeName: 'TechStore Chennai', // Example store name
     productId: '',
     productName: '',
     quantity: null,
@@ -241,12 +69,33 @@ export class StoreProductsComponent implements OnInit {
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
+  // Inject HttpClient
+  constructor(private http: HttpClient) {}
+
   ngOnInit() {
-    // Initialize filtered products
-    this.filteredProducts = this.products;
+    // Fetch products from the backend on component initialization
+    this.fetchProducts();
   }
 
-  
+  // Fetch products from the backend
+  fetchProducts() {
+    const apiUrl = 'http://localhost:9092/api/stores/get-store-products/STOR1728AA'; // Replace with your backend API URL
+
+    this.http
+      .get<any[]>(apiUrl)
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching products:', error);
+          return of([]); // Return an empty array in case of error
+        })
+      )
+      .subscribe((data) => {
+        console.log(data);
+        this.products = data; // Update products with fetched data
+        this.filteredProducts = this.products; // Initialize filtered products
+      });
+  }
+
   // Pagination change page
   onPageChange(page: number) {
     this.config.currentPage = page;
@@ -261,7 +110,7 @@ export class StoreProductsComponent implements OnInit {
   // Search functionality
   onSearch(searchTerm: string) {
     this.filteredProducts = this.products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      product.productName.toLowerCase().includes(searchTerm.toLowerCase())
     );
     this.config.currentPage = 1; // Reset to first page after search
   }
@@ -305,8 +154,8 @@ export class StoreProductsComponent implements OnInit {
 
   // Reset Product Form
   resetProductForm() {
-    this.newProduct ={
-      // productId: '',
+    this.newProduct = {
+      productDescription:'',
       productName: '',
       category: '',
       vendorId: '',
@@ -314,18 +163,16 @@ export class StoreProductsComponent implements OnInit {
       selling_Price: 0,
       cost_Price: 0,
       quantity: 0,
-      description: '',
-      // companyId: '',
-    }
+    
+    };
   }
-
 
   // Open Request Form
   openRequestForm(product: any) {
     this.requestData = {
       ...this.requestData,
       productId: product.productId,
-      productName: product.name,
+      productName: product.productName,
     };
     this.showRequestForm = true;
   }
@@ -350,8 +197,8 @@ export class StoreProductsComponent implements OnInit {
   // Reset Form
   resetForm() {
     this.requestData = {
-      storeId: 'S001',
-      storeName: 'Store A',
+      storeId: 'STOR1728AA',
+      storeName: 'TechStore Chennai',
       productId: '',
       productName: '',
       quantity: null,
