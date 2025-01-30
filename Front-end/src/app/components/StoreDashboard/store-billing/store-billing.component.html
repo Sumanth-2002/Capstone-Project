@@ -42,10 +42,16 @@
                     <label>Sales Rep ID</label>
                     <input type="text" [(ngModel)]="billingData.salesRepId" name="salesRepId" required />
                 </div>
+                <!-- Plus Button -->
+                <div>
+                    <button type="button" class="add-sales-rep-button" (click)="openSalesRepModal()">
+                        +
+                    </button>
+                </div>
             </div>
 
             <!-- Product Details -->
-            <div class="form-row" *ngFor="let product of products; let i = index">
+            <div class="form-row" *ngFor="let product of productBilledList; let i = index">
                 <div class="form-group">
                     <label>Product Name</label>
                     <input type="text" [(ngModel)]="product.productName" name="productName{{i}}" required />
@@ -88,6 +94,24 @@
                 <div class="form-group">
                     <label>Contact</label>
                     <input type="text" [(ngModel)]="newCustomer.contact" name="modalContact" required />
+                </div>
+                <button type="submit" class="save-button">Save</button>
+            </form>
+        </div>
+    </div>
+    <!-- Sales Rep Modal -->
+    <div class="sales-rep-modal" *ngIf="isSalesRepModalOpen">
+        <div class="sales-rep-content">
+            <span class="sales-rep-close" (click)="closeSalesRepModal()">&times;</span>
+            <h2>Add Sales Rep</h2>
+            <form (ngSubmit)="saveSalesRep()">
+                <div class="form-group">
+                    <label>Sales Rep Name</label>
+                    <input type="text" [(ngModel)]="newSalesRep.salesRepName" name="modalSalesRepName" required />
+                </div>
+                <div class="form-group">
+                    <label>Contact</label>
+                    <input type="text" [(ngModel)]="newSalesRep.contact" name="modalSalesRepContact" required />
                 </div>
                 <button type="submit" class="save-button">Save</button>
             </form>
