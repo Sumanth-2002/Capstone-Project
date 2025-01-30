@@ -45,7 +45,7 @@ public class StoreInventoryController {
         return ResponseEntity.ok(storeService.getStore(storeId));
     }
     @PostMapping("/raise-request")
-    public ResponseEntity<String> raiseRequest(@RequestBody Request request){
+    public ResponseEntity<Request> raiseRequest(@RequestBody Request request){
         return ResponseEntity.ok(requestService.raiseRequest(request));
     }
     @GetMapping("/get-requests/{companyId}")

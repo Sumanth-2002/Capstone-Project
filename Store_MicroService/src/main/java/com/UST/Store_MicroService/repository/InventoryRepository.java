@@ -17,7 +17,8 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long>{
     @Query("SELECT COUNT(DISTINCT i.inventoryId) FROM Inventory i")
     Long getNumberOfUniqueInventory();
 
-    @Query("SELECT i.inventoryId FROM Inventory i where i.storeId = :storeId")
+    @Query("SELECT DISTINCT i.inventoryId FROM Inventory i where i.storeId = :storeId ")
+
     String getInventoryIdByStoreId(@Param("storeId") String storeId);
 
     @Query("SELECT new com.UST.Store_MicroService.dto.InventoryDto(i.productId, i.productName,  i.productDescription, i.category,i.quantity) " +
@@ -28,6 +29,7 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long>{
     @Query("SELECT i FROM Inventory i  where i.storeId = :storeId and i.productId = :productId")
     Inventory getByStoreAndProductId(@Param("storeId") String storeId, @Param("productId") String productId);
 
-    Optional<Inventory> findByProductId(String productId);
+    Optional<Inventory> findByStoreIdAndProductId(String storeId, String productId);
+
 
 }

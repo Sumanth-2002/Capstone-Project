@@ -28,6 +28,6 @@ public class RepIdGenerator implements IdentifierGenerator, ApplicationContextAw
 
         SalesRepRepository salesRepRepository = applicationContext.getBean(SalesRepRepository.class);
         long count = salesRepRepository.count();
-        return "REQU" + (count + 1) + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+        return "SREP" + (count + 1) + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
     }
 }

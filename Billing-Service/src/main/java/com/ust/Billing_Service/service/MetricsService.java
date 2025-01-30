@@ -48,16 +48,17 @@ public class MetricsService {
         }
         return allMonths;
     }
-    public List<Map<String,Object>> getProductSalesByStore(String storeId){
-        Map<String,Object> response = new HashMap<>();
-        List<Map<String,Object>> responseList = new ArrayList<>();
-        for(Object[] obj :productBilledRepository.getProductsByStoreWise(storeId)){
-            response.put("productName",obj[0]);
-            response.put("quantity",obj[1]);
+    public List<Map<String, Object>> getProductSalesByStore(String storeId) {
+        List<Map<String, Object>> responseList = new ArrayList<>();
+        for (Object[] obj : productBilledRepository.getProductsByStoreWise(storeId)) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("productName", obj[0]);
+            response.put("quantity", obj[1]);
             responseList.add(response);
         }
-        return responseList ;
+        return responseList;
     }
+
     public List<Map<String, Object>> getCustomerForStore(String storeId, Integer year) {
         List<Object[]> customers = billingRepository.getCustomerForStore(storeId, year);
         Map<String, Map<String, Object>> customersStoreMap = MONTH_NAMES.stream()
@@ -105,9 +106,10 @@ public class MetricsService {
     }
 
     public List<Map<String,Object>> getTotalProductsSelled(String companyId){
-        Map<String,Object> response = new HashMap<>();
+
         List<Map<String,Object>> responseList = new ArrayList<>();
         for(Object[] obj :productBilledRepository.getProductByCompanyId(companyId)){
+            Map<String,Object> response = new HashMap<>();
             response.put("productName",obj[0]);
             response.put("quantity",obj[1]);
             responseList.add(response);

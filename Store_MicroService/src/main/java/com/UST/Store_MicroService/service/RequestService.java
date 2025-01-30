@@ -31,12 +31,12 @@ public class RequestService {
     @Autowired
     private InventoryIdGenerator inventoryIdGenerator;
 
-    public String raiseRequest(Request request) {
+    public Request raiseRequest(Request request) {
         String inventoryId = inventoryRepository.getInventoryIdByStoreId(request.getStoreId());
         if(inventoryId == null) {
             inventoryId = inventoryIdGenerator.generateId();
         }
-        Optional<Inventory> exisiting = inventoryRepository.findByProductId(request.getProductId());
+        Optional<Inventory> exisiting = inventoryRepository.findByStoreIdAndProductId(request.getStoreId(),request.getProductId());
         if(!exisiting.isPresent()) {
             Inventory inventory = new Inventory();
             inventory.setStoreId(request.getStoreId());
@@ -48,10 +48,11 @@ public class RequestService {
             inventory.setQuantity(0);
             inventoryRepository.save(inventory);
         }
-        if (requestRepository.save(request) == null) {
+        Request savedreq = requestRepository.save(request);
+        if (savedreq== null) {
             throw new RuntimeException("Error while Raising request");
         }
-        return "Request raised Successfully";
+        return savedreq;
     }
     public List<Request> getAllRequests(String companyId) {
         return requestRepository.getAllRequests(companyId);
