@@ -70,11 +70,11 @@ public class ProductController {
 
     public ResponseEntity<String> uploadCSV(@RequestParam("products_data") MultipartFile file,@RequestParam String companyId) {
         try {
-            Path tempFile = Files.createTempFile("sales_data", ".csv");
+            Path tempFile = Files.createTempFile("products_data", ".csv");
             Files.copy(file.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
             productService.saveProductDataFromCSV(tempFile.toString(),companyId);
             Files.delete(tempFile);
-            return ResponseEntity.ok("Sales data successfully saved!");
+            return ResponseEntity.ok("Products data successfully saved!");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Error occurred while processing the file");
