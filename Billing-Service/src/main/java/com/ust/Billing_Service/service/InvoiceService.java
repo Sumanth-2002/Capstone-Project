@@ -59,7 +59,7 @@ public class InvoiceService {
         context.setVariable("GSTIN",company.get("GSTIN") );
         context.setVariable("billingId", billing.getBillingId());
         context.setVariable("customerName", billing.getCustomerName());
-        context.setVariable("customerContact",getCustomerById(billing.getCustomerId()).getContact());
+//        context.setVariable("customerContact",getCustomerById(billing.getCustomerId()).getContact());
         context.setVariable("orderDate", LocalDate.now().toString()); // Current date
 
         List<ProductBilled> products = productBilledRepository.findAllByBillingId(billingId);

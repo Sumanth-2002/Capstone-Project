@@ -29,7 +29,7 @@ public class BillingService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public String addBillingData(BillingDto billingDto) {
+    public Billing addBillingData(BillingDto billingDto) {
         Double totalPrice = 0.0;
         Billing billing = new Billing();
         billing.setStoreId(billingDto.getStoreId());
@@ -81,7 +81,7 @@ public class BillingService {
         billing.setTotalPrice(totalPrice);
         billingRepository.save(billing);
 
-        return "Success";
+        return billingRepository.save(billing);
     }
 
     public String addCustomerData(Customer customer){
