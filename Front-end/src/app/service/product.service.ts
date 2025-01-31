@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:9091/api/products'; // Replace with your backend URL
-
+  // private baseUrl = 'http://localhost:9091/api/products'; // Replace with your backend URL
+private baseUrl = 'http://localhost:8222/api/products';
   constructor(private http: HttpClient) {}
 
   // Fetch all vendors
