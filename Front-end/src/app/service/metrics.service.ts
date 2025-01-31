@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MetricsService {
-  private apiUrl = 'http://localhost:9095/getTotalProductsSelled';
-
+  // private apiUrl = 'http://localhost:9095/getTotalProductsSelled';
+private apiUrl = 'http://localhost:8222/getTotalProductsSelled';
   constructor(private http:HttpClient) {}
 
   getProductSalesByStore(companyId: string): Observable<any> {
