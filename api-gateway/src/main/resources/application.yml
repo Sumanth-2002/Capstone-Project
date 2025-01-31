@@ -6,30 +6,30 @@ spring:
           uri: http://localhost:9092
           predicates:
             - Path=/api/stores/**
-          filters:
-            - name: JwtAuthFilter  # Use the filter name if it's a custom filter
-              args:
-                allowedRoles:
-                  - COMPANY
-                  - STORE
+          # filters:
+          #   - name: JwtAuthFilter  # Use the filter name if it's a custom filter
+          #     args:
+          #       allowedRoles:
+          #         - COMPANY
+          #         - STORE
         - id: product-service
           uri: http://localhost:9091
           predicates:
             - Path=/api/products/**
-          filters:
-            - name: JwtAuthFilter
-              args:
-                allowedRoles:
-                  - COMPANY
+          # filters:
+          #   - name: JwtAuthFilter
+          #     args:
+          #       allowedRoles:
+          #         - COMPANY
         - id: company-service
           uri: http://localhost:9090
           predicates:
             - Path=/api/company/**
-          filters:
-            - name: JwtAuthFilter
-              args:
-                allowedRoles:
-                  - COMPANY
+          # filters:
+          #   - name: JwtAuthFilter
+          #     args:
+          #       allowedRoles:
+          #         - COMPANY
         - id: login-service
           uri: http://localhost:9093
           predicates:
@@ -38,17 +38,17 @@ spring:
           uri: http://localhost:9095
           predicates:
             - Path=/api/billing/**
-          filters:
-            - name: JwtAuthFilter
-              args:
-                allowedRoles:
-                  - COMPANY
+          # filters:
+          #   - name: JwtAuthFilter
+          #     args:
+          #       allowedRoles:
+          #         - COMPANY
         - id: vendor-service
           uri: http://localhost:9094
           predicates:
             - Path=/api/vendors/**
-          filters:
-            - name: JwtAuthFilter
-              args:
-                allowedRoles:
-                  - STORE
+          # filters:
+          #   - name: JwtAuthFilter
+          #     args:
+          #       allowedRoles:
+          #         - STORE
