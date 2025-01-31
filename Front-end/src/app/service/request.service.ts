@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root', // Makes this service available app-wide
 })
 export class RequestService {
-  private apiUrl = 'http://localhost:9092/api/stores'; // Update with actual API URL
+  // private apiUrl = 'http://localhost:9092/api/stores';
+    private apiUrl = 'http://localhost:8222/api/stores';// Update with actual API URL
   constructor(private http: HttpClient) {}
   // Fetch pending requests from the API
   getPendingRequests(): Observable<any[]> {
