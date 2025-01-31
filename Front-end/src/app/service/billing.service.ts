@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BillingService {
-  private baseUrl = 'http://localhost:9095/api/billing';
-
+  // private baseUrl = 'http://localhost:9095/api/billing';
+  private baseUrl = 'http://localhost:8222/api/billing';
   constructor(private http: HttpClient) {}
   // Add Billing Data
   addBilling(billingData: any): Observable<any> {
