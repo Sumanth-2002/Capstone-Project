@@ -1,18 +1,31 @@
 /* Main Content */
 .main-content {
+    margin-left: 250px;
+    margin-top: 60px;
     display: flex;
+    align-items: center;
+    flex-direction: column;
     background-color: #0093E9;
     background-image: linear-gradient(135deg, #6cc9fff2 0%, #a0eee5 59%);
     padding: 20px;
     width: 81%;
-    flex-direction: column;
-    position: fixed;
     top: 60px;
     /* Match the height of the header */
     left: 250px;
     height: calc(100vh - 60px);
     /* Full height minus header height */
     z-index: 1;
+}
+.content-div{
+    width: 80%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    padding-bottom: 0px;
+    overflow-y: auto;
+    margin-top: 40px;
 }
 
 /* Billing Form */
@@ -72,6 +85,12 @@
 }
 
 /* Plus Button */
+.plus-button{
+    margin-top: 25px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
 .add-sales-rep-button {
     background-color: #4CAF50;
     display: flex;

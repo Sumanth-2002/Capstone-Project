@@ -1,14 +1,12 @@
 /* Main Content */
 .main-content {
+    margin-left: 250px;
+    margin-top: 60px;
     display: flex;
-    justify-content: center;
+    align-items: center;
     flex-direction: column;
     width: 85%;
-    position: fixed;
-    align-items: center;
     padding: 20px;
-    top: 60px; /* Match the height of the header */
-    left: 250px;
     background-color: #0093E9;
     background-image: linear-gradient(135deg, #6cc9fff2 0%, #a0eee5 59%);
     height: calc(100vh - 6px);
@@ -23,6 +21,7 @@
     padding: 20px;
     padding-bottom: 0px;
     overflow-y: auto;
+    margin-top: 40px;
 }
 
 /* Search Bar and Add Product Button */

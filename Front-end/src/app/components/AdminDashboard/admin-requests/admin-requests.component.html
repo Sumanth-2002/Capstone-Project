@@ -3,71 +3,73 @@
 <app-sidebar></app-sidebar>
 <!-- Main Content -->
 <div class="main-content">
-    <!-- Search Bar -->
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search Requests" />
-    </div>
-    <!-- Requests Table -->
-    <table class="requests-table">
-        <thead>
-            <tr>
-                <th>Request ID</th>
-                <th>Store ID</th>
-                <th>Name</th>
-                <th>Product ID</th>
-                <th>Quantity</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let request of requests">
-                <td>{{ request.requestId }}</td>
-                <td>{{ request.storeId }}</td>
-                <td>{{ request.productName }}</td>
-                <td>{{ request.productId }}</td>
-                <td>{{ request.quantity }}</td>
-                <td>
-                    <button *ngIf="request.status !== 'Restocked'" class="restock-button"
-                        (click)="openRestockForm(request)">
-                        Restock
-                    </button>
-                    <span *ngIf="request.status === 'Restocked'" class="restocked-status">
-                        Restocked
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <!-- Restock Form (Pop-up) -->
-    <div class="restock-form" *ngIf="showRestockForm">
-        <div class="form-container">
-            <button class="close-button" (click)="closeRestockForm()">
-                <span class="material-icons">close</span>
-            </button>
-            <h2>Restock Request</h2>
-            <form (ngSubmit)="saveRestock()">
-                <div class="form-group">
-                    <label>Request ID</label>
-                    <input type="text" [(ngModel)]="restockData.requestId" name="requestId" readonly />
-                </div>
-                <div class="form-group">
-                    <label>Product ID</label>
-                    <input type="text" [(ngModel)]="restockData.productId" name="productId" readonly />
-                </div>
-                <div class="form-group">
-                    <label>Store ID</label>
-                    <input type="text" [(ngModel)]="restockData.storeId" name="storeId" readonly />
-                </div>
-                <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" [(ngModel)]="restockData.productName" name="productName" readonly />
-                </div>
-                <div class="form-group">
-                    <label>Quantity</label>
-                    <input type="number" [(ngModel)]="restockData.quantity" name="quantity" readonly />
-                </div>
-                <button type="submit" class="save-button">Save</button>
-            </form>
+    <div class="content-div">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search Requests" />
+        </div>
+        <!-- Requests Table -->
+        <table class="requests-table">
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Store ID</th>
+                    <th>Name</th>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of requests">
+                    <td>{{ request.requestId }}</td>
+                    <td>{{ request.storeId }}</td>
+                    <td>{{ request.productName }}</td>
+                    <td>{{ request.productId }}</td>
+                    <td>{{ request.quantity }}</td>
+                    <td>
+                        <button *ngIf="request.status !== 'Restocked'" class="restock-button"
+                            (click)="openRestockForm(request)">
+                            Restock
+                        </button>
+                        <span *ngIf="request.status === 'Restocked'" class="restocked-status">
+                            Restocked
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Restock Form (Pop-up) -->
+        <div class="restock-form" *ngIf="showRestockForm">
+            <div class="form-container">
+                <button class="close-button" (click)="closeRestockForm()">
+                    <span class="material-icons">close</span>
+                </button>
+                <h2>Restock Request</h2>
+                <form (ngSubmit)="saveRestock()">
+                    <div class="form-group">
+                        <label>Request ID</label>
+                        <input type="text" [(ngModel)]="restockData.requestId" name="requestId" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Product ID</label>
+                        <input type="text" [(ngModel)]="restockData.productId" name="productId" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Store ID</label>
+                        <input type="text" [(ngModel)]="restockData.storeId" name="storeId" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" [(ngModel)]="restockData.productName" name="productName" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" [(ngModel)]="restockData.quantity" name="quantity" readonly />
+                    </div>
+                    <button type="submit" class="save-button">Save</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@
 
 <!-- Main Content -->
 <div class="main-content">
+    <div class="content-div">
     <!-- Billing Form -->
     <form class="billing-form" (ngSubmit)="onSubmit()">
         <!-- Add Customer Button -->
@@ -43,7 +44,7 @@
                     <input type="text" [(ngModel)]="billingData.salesRepId" name="salesRepId" required />
                 </div>
                 <!-- Plus Button -->
-                <div>
+                <div class="plus-button">
                     <button type="button" class="add-sales-rep-button" (click)="openSalesRepModal()">
                         +
                     </button>
@@ -117,4 +118,5 @@
             </form>
         </div>
     </div>
+</div>
 </div>
