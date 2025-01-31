@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class StoreService {
 
-  private baseUrl = 'http://localhost:9092/api/stores'; // Replace with your backend URL
-   
+  // private baseUrl = 'http://localhost:9092/api/stores'; // Replace with your backend URL
+    private baseUrl = 'http://localhost:8222/api/stores';
      constructor(private http: HttpClient) {}
    
     //  Fetch all vendors
