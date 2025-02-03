@@ -18,9 +18,17 @@ export class DoughnutComponent {
   }
 
   renderDoughnutChart(): void {
-    const productCategories = ['Laptops', 'Mobiles', 'Tablets', 'Accessories', 'Desktops'];
-    const productsSold = [150, 300, 120, 200, 80]; // Hardcoded number of products sold per category
-    const colors = ['red', 'blue', 'green', 'orange', 'purple'];
+    const productCategories = [
+      'Laptops', 'Mobiles', 'Tablets', 'Accessories', 
+      'Desktops', 'Smartwatches', 'Headphones', 'Cameras', 'Printers'
+    ];
+
+    const productsSold = [150, 300, 120, 200, 80, 180, 250, 130, 90]; 
+
+    const colors = [
+      'red', 'blue', 'green', 'orange', 'purple', 
+      'cyan', 'magenta', 'yellow', 'brown'
+    ];
 
     new Chart('doughnutChart', {
       type: 'doughnut',
@@ -37,10 +45,10 @@ export class DoughnutComponent {
       options: {
         responsive: true,
         animation: {
-          duration: 1000, // Animation duration in ms (1 second)
-          easing: 'easeInOutQuad', // Easing function (easeInOutQuad is a common smooth easing)
-          animateRotate: true, // Whether to animate the rotation of the chart
-          animateScale: true, // Whether to animate the scale of the chart (like increasing size)
+          duration: 1000,
+          easing: 'easeInOutQuad',
+          animateRotate: true,
+          animateScale: true,
         },
         plugins: {
           legend: {
@@ -49,9 +57,7 @@ export class DoughnutComponent {
           },
           title: {
             display: true,
-            text: 'Products Sold',
-            
-
+            text: 'Products Sold Per Category',
           }
         },
       }
