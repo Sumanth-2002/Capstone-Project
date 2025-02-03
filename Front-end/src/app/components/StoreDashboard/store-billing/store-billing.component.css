@@ -27,6 +27,37 @@
     overflow-y: auto;
     margin-top: 40px;
 }
+.suggestion-list {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestion-list li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-list li:hover {
+    background: #f0f0f0;
+}
+
+  
+
+  
+  /* Add this to your existing media query for mobile */
+  @media (max-width: 768px) {
+    .suggestions-dropdown {
+      max-height: 150px;
+    }
+  }
 
 /* Billing Form */
 .billing-form {

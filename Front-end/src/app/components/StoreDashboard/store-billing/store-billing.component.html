@@ -39,15 +39,10 @@
                     <label>Store Name</label>
                     <input type="text" [(ngModel)]="billingData.storeName" name="storeName" required />
                 </div>
-                <!-- <div class="form-group">
-                    <label>Sales Rep ID</label>
-                    <input type="text" [(ngModel)]="billingData.salesRepId" name="salesRepId" value ="SREP0J1K2L" readonly required />
-                </div> -->
                 <div class="form-group">
                     <label>Sales Rep ID</label>
-                    <input type="text" name="salesRepId" value="SREP0J1K2L" readonly required />
+                    <input type="text" [(ngModel)]="billingData.salesRepId" name="salesRepId" value ="SREP0J1K2L" required />
                 </div>
-                
                 <!-- Plus Button -->
                 <div class="plus-button">
                     <button type="button" class="add-sales-rep-button" (click)="openSalesRepModal()">
@@ -58,14 +53,24 @@
 
             <!-- Product Details -->
             <div class="form-row" *ngFor="let product of products; let i = index">
+                <div class="form-group" style="position: relative;">
+                    <label>Product ID</label>
+                    <input type="text" [(ngModel)]="product.productId" name="productId{{i}}" 
+                           (input)="onProductInput(i)" (focus)="onProductInput(i)" required />
+                    
+                    <!-- Custom Suggestion List -->
+                    <ul class="suggestion-list" *ngIf="product.showSuggestions">
+                        <li *ngFor="let item of product.filteredProducts" (click)="selectProduct(i, item)">
+                            {{ item.productId }} - {{ item.productName }}
+                        </li>
+                    </ul>
+                </div>
+                
                 <div class="form-group">
                     <label>Product Name</label>
-                    <input type="text" [(ngModel)]="product.productName" name="productName{{i}}" required />
+                    <input type="text" [(ngModel)]="product.productName" name="productName{{i}}" required readonly />
                 </div>
-                <div class="form-group">
-                    <label>Product ID</label>
-                    <input type="text" [(ngModel)]="product.productId" name="productId{{i}}" required />
-                </div>
+            
                 <div class="form-group">
                     <label>Quantity</label>
                     <input type="number" [(ngModel)]="product.quantity" name="quantity{{i}}" required style="width: fit-content;" />
