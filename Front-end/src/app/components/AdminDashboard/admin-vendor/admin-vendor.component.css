@@ -1,6 +1,6 @@
 .main-content {
     margin-left: 250px;
-    margin-top: 60px;
+    margin-top: 40px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -11,8 +11,8 @@
     overflow-y: auto;
 }
 .content-div{
-    width: 80%;
-    max-width: 900px;
+    width: 95%;
+    max-width: 1000px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -61,6 +61,7 @@
 }
 .vendor-table {
     width: 100%;
+    height: auto;
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -70,6 +71,7 @@
 
 .vendor-table th,
 .vendor-table td {
+    font-size: 14px;
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #ddd;

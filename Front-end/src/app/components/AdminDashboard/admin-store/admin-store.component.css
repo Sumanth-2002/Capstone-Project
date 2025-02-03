@@ -4,7 +4,7 @@
     align-items: center;
     flex-direction: column;
     margin-left: 250px;
-    /* Match the width of the sidebar */
+    
     margin-top: 60px;
     /* Match the height of the header */
     padding: 20px;
@@ -19,8 +19,8 @@
 }
 
 .content-div{
-    width: 80%;
-    max-width: 900px;
+    width: 95%;
+    max-width: 1000px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -72,6 +72,7 @@
 .store-table th,
 .store-table td {
     padding: 12px;
+    font-size: 14px;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }

@@ -119,13 +119,19 @@ export class StoreBillingComponent {
 
   onProductInput(index: number) {
     const inputValue = this.products[index].productId.toLowerCase();
+  
+    // Exclude the already selected products from the suggestions
+    const selectedProductIds = this.products
+      .filter((product, i) => i !== index && product.productId) // Exclude current product
+      .map(product => product.productId.toLowerCase());
+  
     this.products[index].filteredProducts = this.productsList.filter((product) =>
       product.productId.toLowerCase().includes(inputValue) ||
       product.productName.toLowerCase().includes(inputValue)
-    );
+    ).filter(product => !selectedProductIds.includes(product.productId.toLowerCase()));
+  
     this.products[index].showSuggestions = this.products[index].filteredProducts.length > 0;
   }
-
   selectProduct(index: number, product: Products) {
     this.products[index].productId = product.productId;
     this.products[index].productName = product.productName;
