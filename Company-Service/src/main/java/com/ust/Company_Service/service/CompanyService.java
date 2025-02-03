@@ -26,7 +26,7 @@ public class CompanyService {
 
         Company  company = new Company();
         company.setGSTIN(companyDto.getGSTIN());
-        company.setUIN(companyDto.getUIN());
+
         company.setName(companyDto.getName());
         company.setEmail(companyDto.getEmail());
         Company savedCompany = companyRepository.save(company);

@@ -84,9 +84,9 @@ public class BillingService {
         return billingRepository.save(billing);
     }
 
-    public String addCustomerData(Customer customer){
-        customerRepository.save(customer);
-        return  customer.getCustomerId();
+    public Customer addCustomerData(Customer customer){
+
+        return    customerRepository.save(customer);
     }
     public Billing getBillingByid(String billingId){
         Billing billing = billingRepository.findById(billingId).get();

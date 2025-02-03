@@ -38,7 +38,7 @@ public class BillingController {
     }
 
     @PostMapping("/customer")
-    public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
         return ResponseEntity.ok(billingService.addCustomerData(customer));
     }
 

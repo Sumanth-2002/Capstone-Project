@@ -19,8 +19,7 @@ public class Company {
 
     @JsonProperty("GSTIN")
     private String GSTIN;
-    @JsonProperty("UIN")
-    private String UIN;
+
     @JsonProperty("name")
     private String name;
     @JsonProperty("email")
@@ -30,9 +29,9 @@ public class Company {
     public Company() {
     }
 
-    public Company(String GSTIN, String UIN, String name, String email) {
+    public Company(String GSTIN,  String name, String email) {
         this.GSTIN = GSTIN;
-        this.UIN = UIN;
+
         this.name = name;
         this.email = email;
 
@@ -54,13 +53,7 @@ public class Company {
         this.GSTIN = GSTIN;
     }
 
-    public String getUIN() {
-        return UIN;
-    }
 
-    public void setUIN(String UIN) {
-        this.UIN = UIN;
-    }
 
     public String getName() {
         return name;
