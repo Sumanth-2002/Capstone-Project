@@ -1,21 +1,26 @@
 .chart-container {
   width: 80%;
-  height: px;
+  height: 600px; /* Add proper height */
   margin: 20px auto;
   padding: 20px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute; /* Add for proper canvas sizing */
 }
 
-canvas {
+/* Remove fixed canvas height */
+/* canvas {
   width: 100% !important;
   height: 100% !important;
+} */
+canvas{
+  width: 100%;
+  height: 300px;
 }
-
 @media (max-width: 768px) {
   .chart-container {
     width: 95%;
-    height: 400px;
+    height: 400px; /* Maintain this mobile height */
   }
 }

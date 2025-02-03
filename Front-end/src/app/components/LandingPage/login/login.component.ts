@@ -15,7 +15,7 @@ import { AuthService } from '../auth/auth.service'; // Import the AuthService to
 export class LoginComponent {
   // Object to hold login data
   loginData = {
-    role: 'company', // Default role
+    role: 'COMPANY', // Default role
     userId: '',
     password: '',
   };
@@ -29,6 +29,7 @@ export class LoginComponent {
     // Call the AuthService to authenticate the user
     this.authService.login(this.loginData.userId, this.loginData.password).subscribe(
       (response: any) => {
+        console.log(response);
         const jwt = response.jwt; // Assuming JWT token is returned as 'token'
         this.authService.saveToken(jwt); // Save JWT token to localStorage
 

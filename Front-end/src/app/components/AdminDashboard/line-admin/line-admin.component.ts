@@ -19,8 +19,8 @@ export class LineAdminComponent{
   
   renderLineChart() {
     const canvas = document.getElementById('linechart') as HTMLCanvasElement;
-    canvas.width = 900;  // Adjust width as needed
-    canvas.height = 800; 
+    // canvas.width = 900;  // Adjust width as needed
+    // canvas.height = 800; 
     const mychar = new Chart('linechart', {
       
       type: 'line',
@@ -56,7 +56,7 @@ export class LineAdminComponent{
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             beginAtZero: true,

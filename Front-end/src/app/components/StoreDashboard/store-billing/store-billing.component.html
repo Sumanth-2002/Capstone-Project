@@ -39,10 +39,15 @@
                     <label>Store Name</label>
                     <input type="text" [(ngModel)]="billingData.storeName" name="storeName" required />
                 </div>
+                <!-- <div class="form-group">
+                    <label>Sales Rep ID</label>
+                    <input type="text" [(ngModel)]="billingData.salesRepId" name="salesRepId" value ="SREP0J1K2L" readonly required />
+                </div> -->
                 <div class="form-group">
                     <label>Sales Rep ID</label>
-                    <input type="text" [(ngModel)]="billingData.salesRepId" name="salesRepId" required />
+                    <input type="text" name="salesRepId" value="SREP0J1K2L" readonly required />
                 </div>
+                
                 <!-- Plus Button -->
                 <div class="plus-button">
                     <button type="button" class="add-sales-rep-button" (click)="openSalesRepModal()">
