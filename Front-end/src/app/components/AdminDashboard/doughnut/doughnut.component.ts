@@ -45,6 +45,7 @@ export class DoughnutComponent {
         plugins: {
           legend: {
             position: 'bottom',
+            display:false,
           },
           title: {
             display: true,
