@@ -1,78 +1,85 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
-import { RouterModule } from '@angular/router'; // Import RouterModule for navigation
-import { CommonModule } from '@angular/common'; // Import CommonModule for common directives
-import { AuthService } from '../auth/auth.service'; // Import the AuthService to handle login
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth/auth.service';
+import { NgToastModule  } from 'ng-angular-popup';
+import { NgToastService, ToasterPosition } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-login',
-  standalone: true, // Mark the component as standalone
-  imports: [FormsModule, RouterModule, CommonModule], // Import required modules
+  standalone: true,
+  imports: [FormsModule, RouterModule, CommonModule,NgToastModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  // Object to hold login data
   loginData = {
-    role: 'COMPANY', // Default role
+    role: 'COMPANY',
     userId: '',
     password: '',
   };
+  ToasterPosition = ToasterPosition;
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+ // Inject MatSnackBar
+ private toast: NgToastService
+  ) {}
 
-  constructor(private router: Router, private authService: AuthService) {}
-
-  // Function to handle form submission
   onSubmit() {
     console.log('Login Data:', this.loginData);
 
-    // Call the AuthService to authenticate the user
     this.authService.login(this.loginData.userId, this.loginData.password).subscribe(
       (response: any) => {
         console.log(response);
-        const jwt = response.jwt; // Assuming JWT token is returned as 'token'
-        this.authService.saveToken(jwt); // Save JWT token to localStorage
+        const jwt = response.jwt;
+        this.authService.saveToken(jwt);
 
-        // Decode the token to get the role
         const decodedToken = this.authService.getDecodedToken();
-        const serverRole = decodedToken?.role; // Extract the role from the decoded token
+        const serverRole = decodedToken?.role;
 
-        // Validate if the selected role matches the server role
         if (this.validateRole(serverRole)) {
-          this.redirectUserBasedOnRole(serverRole); // Redirect based on the server role
+     
+          setTimeout(() => {
+            this.toast.danger("",'Login Successful', 3000);
+            this.redirectUserBasedOnRole(serverRole);
+          }, 2000); // Delay redirection to show toast
         } else {
           console.error('Role mismatch!');
-          alert('Role mismatch! Please select the correct role.');
-          this.authService.clearToken(); // Clear the invalid token
+          this.toast.danger("Roles mismatch",'Login Failed', 3000);
+          setTimeout(() => {
+            this.authService.clearToken();
+          }, 2000); // Delay clearing token
         }
       },
       (error) => {
         console.error('Authentication failed:', error);
-        alert('Login failed! Please check your credentials.');
+        this.toast.danger("Please check your credentials",'Login failed !! ', 3000);
+
       }
     );
   }
+
+
+
   private validateRole(serverRole: string): boolean {
-    const selectedRole = this.loginData.role; // Get the selected role from the radio button
-
-    // Map the selected role to the expected server role
+    const selectedRole = this.loginData.role;
     const roleMapping: { [key: string]: string } = {
-      company: 'COMPANY', // If 'company' is selected, the server role should be 'COMPANY'
-      store: 'STORE', // If 'store' is selected, the server role should be 'STORE'
+      company: 'COMPANY',
+      store: 'STORE',
     };
-
-    // Check if the selected role matches the server role
     return roleMapping[selectedRole] === serverRole;
   }
 
-  // Redirect user based on role after successful login
   private redirectUserBasedOnRole(role: string): void {
     if (role === 'COMPANY') {
-      this.router.navigate(['/admin-home']); // Redirect to admin dashboard
+      this.router.navigate(['/admin-home']);
     } else if (role === 'STORE') {
-      this.router.navigate(['/store-home']); // Redirect to store dashboard
+      this.router.navigate(['/store-home']);
     } else {
-      this.router.navigate(['/']); // Default redirect (could be login or homepage)
+      this.router.navigate(['/']);
     }
   }
 }

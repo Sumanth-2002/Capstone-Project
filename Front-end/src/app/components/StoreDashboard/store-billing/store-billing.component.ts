@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
@@ -74,7 +74,7 @@ export class StoreBillingComponent {
     );
     this.products[index].showSuggestions = this.products[index].filteredProducts.length > 0;
   }
-
+ 
   // Select Product from Suggestion List
   selectProduct(index: number, product: Products) {
     this.products[index].productId = product.productId;
