@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
@@ -16,6 +16,13 @@ interface Product {
   filteredProducts: { productId: string; productName: string }[];
 }
 
+interface SalesRep {
+  salesRepId: string;
+  storeId: string;
+  name: string;
+  contact: string;
+}
+
 @Component({
   selector: 'app-store-billing',
   standalone: true,
@@ -30,20 +37,22 @@ export class StoreBillingComponent {
     contact: '',
     storeId: 'STOR1728AA',
     storeName: 'TechStore Chennai',
-    salesRepId: 'SREP0J1K2L',
+    salesRepId: '',
   };
 
   products: Product[] = [
     { productName: '', productId: '', quantity: null, showSuggestions: false, filteredProducts: [] },
   ];
-
-  // To store the fetched products from DB
+  
+  salesRepsList: SalesRep[] = [];
   productsList: Products[] = [];
-
   newCustomer = { customerName: '', contact: '' };
   isCustomerModalOpen = false;
   isSalesRepModalOpen = false;
   newSalesRep: any = { salesRepName: '', contact: '' };
+
+  filteredSalesReps: SalesRep[] = [];
+  showSalesRepSuggestions = false;
 
   constructor(
     private billingService: BillingService,
@@ -52,30 +61,71 @@ export class StoreBillingComponent {
   ) {}
 
   ngOnInit() {
-    this.loadProducts(); // Fetch products from DB when component initializes
+    this.fetchSalesReps();
+    this.loadProducts();
   }
+
+  fetchSalesReps() {
+    this.http.get<SalesRep[]>(`http://localhost:9092/api/stores/get-all-salesRep/STOR1728AA`).subscribe(
+      (data) => {
+        console.log(data);
+        this.salesRepsList = data;
+      },
+      (error) => {
+        console.error('Error fetching sales reps:', error);
+        alert('Error fetching sales representatives. Please try again.');
+      }
+    );
+  }
+  onSalesRepFocus() {
+    if (!this.billingData.salesRepId) {
+      this.filteredSalesReps = this.salesRepsList; // Show all sales reps if no input is provided
+      this.showSalesRepSuggestions = this.filteredSalesReps.length > 0;
+    }
+  }
+  
+
+  onSalesRepInput() {
+    const inputValue = this.billingData.salesRepId.toLowerCase();
+    if (inputValue) {
+      this.filteredSalesReps = this.salesRepsList.filter((rep) =>
+        rep.salesRepId.toLowerCase().includes(inputValue) || rep.name.toLowerCase().includes(inputValue)
+      );
+      this.showSalesRepSuggestions = this.filteredSalesReps.length > 0;
+    } else {
+      this.filteredSalesReps = [];
+      this.showSalesRepSuggestions = false;
+    }
+  }
+
+  selectSalesRep(rep: SalesRep) {
+    this.billingData.salesRepId = rep.salesRepId;
+    this.filteredSalesReps = [];
+    this.showSalesRepSuggestions = false;
+  }
+  
 
   loadProducts() {
     this.billingProductService.getProducts().subscribe({
       next: (data) => {
-        this.productsList = data; // Store the fetched products
+        this.productsList = data;
       },
       error: (error) => {
         console.error('Error fetching products:', error);
+        alert('Error fetching products. Please try again.');
       },
     });
   }
 
-  // Handle product input and filter suggestions
   onProductInput(index: number) {
     const inputValue = this.products[index].productId.toLowerCase();
     this.products[index].filteredProducts = this.productsList.filter((product) =>
-      product.productId.toLowerCase().includes(inputValue)
+      product.productId.toLowerCase().includes(inputValue) ||
+      product.productName.toLowerCase().includes(inputValue)
     );
     this.products[index].showSuggestions = this.products[index].filteredProducts.length > 0;
   }
- 
-  // Select Product from Suggestion List
+
   selectProduct(index: number, product: Products) {
     this.products[index].productId = product.productId;
     this.products[index].productName = product.productName;
@@ -83,15 +133,37 @@ export class StoreBillingComponent {
   }
 
   addProduct() {
-    this.products.push({ productName: '', productId: '', quantity: null, showSuggestions: false, filteredProducts: [] });
+    this.products.push({
+      productName: '',
+      productId: '',
+      quantity: null,
+      showSuggestions: false,
+      filteredProducts: [],
+    });
   }
 
-  openSalesRepModal() { this.isSalesRepModalOpen = true; }
-  closeSalesRepModal() { this.isSalesRepModalOpen = false; this.newSalesRep = { salesRepName: '', contact: '' }; }
-  saveSalesRep() { console.log('New Sales Rep:', this.newSalesRep); this.closeSalesRepModal(); }
+  openSalesRepModal() {
+    this.isSalesRepModalOpen = true;
+  }
 
-  openCustomerModal() { this.isCustomerModalOpen = true; }
-  closeCustomerModal() { this.isCustomerModalOpen = false; }
+  closeSalesRepModal() {
+    this.isSalesRepModalOpen = false;
+    this.newSalesRep = { salesRepName: '', contact: '' };
+  }
+
+  saveSalesRep() {
+    console.log('New Sales Rep:', this.newSalesRep);
+    this.closeSalesRepModal();
+  }
+
+  openCustomerModal() {
+    this.isCustomerModalOpen = true;
+  }
+
+  closeCustomerModal() {
+    this.isCustomerModalOpen = false;
+  }
+
   saveCustomer() {
     this.billingData.customerName = this.newCustomer.customerName;
     this.billingData.contact = this.newCustomer.contact;
@@ -116,7 +188,6 @@ export class StoreBillingComponent {
 
     this.billingService.addBilling(billingPayload).subscribe({
       next: (response) => {
-        console.log('Billing Data Saved:', response);
         this.billingId = response.billingId;
         alert('Billing data saved successfully!');
       },
@@ -142,7 +213,6 @@ export class StoreBillingComponent {
         link.href = URL.createObjectURL(pdfBlob);
         link.download = `invoice_${this.billingId}.pdf`;
         link.click();
-        console.log('Invoice generated and downloaded successfully!');
         alert('Invoice generated successfully!');
       },
       error: (error) => {
