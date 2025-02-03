@@ -7,7 +7,7 @@ import { BillingService } from '../../../service/billing.service';
 import { HttpClient } from '@angular/common/http';
 import { BillingProductService } from '../../../service/billing-product.service';
 import { Products } from '../../../service/billing-product.service';
-
+import { StoreService } from '../../../service/store.service';
 interface Product {
   productName: string;
   productId: string;
@@ -38,6 +38,7 @@ export class StoreBillingComponent {
     storeId: 'STOR1728AA',
     storeName: 'TechStore Chennai',
     salesRepId: '',
+    customerId:'',
   };
 
   products: Product[] = [
@@ -159,6 +160,7 @@ export class StoreBillingComponent {
 
   saveSalesRep() {
     console.log('New Sales Rep:', this.newSalesRep);
+
     this.closeSalesRepModal();
   }
 
@@ -171,14 +173,36 @@ export class StoreBillingComponent {
   }
 
   saveCustomer() {
-    this.billingData.customerName = this.newCustomer.customerName;
-    this.billingData.contact = this.newCustomer.contact;
-    this.closeCustomerModal();
+    const customerData = {
+      customerName: this.newCustomer.customerName,
+      contact: this.newCustomer.contact
+    };
+  
+    this.billingService.addCustomer(customerData).subscribe(
+      (response) => {
+        console.log('API Response:', response);
+  
+        if (response && response.customerId) {
+          console.log('Customer added successfully:', response);
+          this.billingData.customerName = response.customerName;
+          this.billingData.contact = response.contact;
+          this.billingData.customerId=response.customerId;
+          this.closeCustomerModal();
+        } else {
+          console.error('Unexpected API response format:', response);
+        }
+      },
+      (error) => {
+        console.error('Error while saving customer:', error);
+      }
+    );
   }
+  
+
 
   onSubmit() {
     const billingPayload = {
-      customerId: 'CUST123',
+      customerId: this.billingData.customerId,
       companyId: 'COMP1A1006',
       customerName: this.billingData.customerName,
       contact: this.billingData.contact,
@@ -220,6 +244,17 @@ export class StoreBillingComponent {
         link.download = `invoice_${this.billingId}.pdf`;
         link.click();
         alert('Invoice generated successfully!');
+        setTimeout(() => {
+          this.billingData = {
+            customerName: '',
+            contact: '',
+            storeId: 'STOR1728AA',
+            storeName: 'TechStore Chennai',
+            salesRepId: '',
+            customerId: '',
+          };
+        }, 500);
+        
       },
       error: (error) => {
         console.error('Error generating invoice:', error);

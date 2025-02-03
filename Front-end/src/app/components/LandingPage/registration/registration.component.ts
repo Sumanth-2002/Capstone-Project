@@ -16,7 +16,7 @@ export class RegistrationComponent {
   registrationData = {
     companyName: '',
     gstNumber: '',
-    uinNumber: '',
+ 
     address: '',
     companyEmail: '',
     password: '',
@@ -31,7 +31,7 @@ export class RegistrationComponent {
     // Mapping the registration data from the form to the expected format for the backend
     const requestData = {
       GSTIN: this.registrationData.gstNumber,   // Mapping form field to backend property
-      UIN: this.registrationData.uinNumber,     // Mapping form field to backend property
+      // Mapping form field to backend property
       name: this.registrationData.companyName,  // Mapping form field to backend property
       email: this.registrationData.companyEmail, // Mapping form field to backend property
       password: this.registrationData.password,  // Mapping form field to backend property

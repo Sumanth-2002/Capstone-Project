@@ -21,74 +21,95 @@ h2{
 /* Registration Form */
 .registration-form {
     background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: 400px;
-    /* Compact form width */
+    max-width: 450px;
     margin: 0 auto;
-    /* Center the form horizontally */
+    transition: transform 0.3s ease;
+}
+
+.registration-form:hover {
+    transform: translateY(-5px);
 }
 
 .registration-form h2 {
     text-align: center;
-    margin-bottom: 1.5rem;
-    color: #333;
-    font-size: 1.5rem;
-    /* Smaller heading */
+    margin-bottom: 2rem;
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+    position: relative;
+}
+
+.registration-form h2:after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #6cc9ff;
+    margin: 10px auto 0;
+    border-radius: 2px;
 }
 
 /* Form Group */
 .form-group {
-    margin-bottom: 1rem;
-    /* Reduced spacing between fields */
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.25rem;
-    /* Reduced spacing */
-    font-weight: bold;
-    color: #555;
-    font-size: 0.9rem;
-    /* Smaller label text */
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #34495e;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 8px;
-    /* Smaller padding */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    /* Smaller input text */
-    box-sizing: border-box;
-    /* Include padding in width calculation */
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 80px;
-    /* Smaller textarea height */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #6cc9ff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 201, 255, 0.2);
+    background-color: #fff;
 }
 
 /* Register Button */
 .register-button {
-    display: block; 
-    margin: 0 auto;
-    width: 100px;
-    padding: 10px;
-    background-color: #28a745;
+    display: block;
+    margin: 2rem auto 0;
+    width: 150px;
+    padding: 12px;
+    background: linear-gradient(135deg, #6cc9ff 0%, #a0eee5 100%);
     color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    /* Spacing above the button */
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .register-button:hover {
-    background-color: #218838;
+    background: linear-gradient(135deg, #a0eee5 0%, #6cc9ff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 201, 255, 0.4);
+}
+
+.register-button:active {
+    transform: translateY(0);
 }
