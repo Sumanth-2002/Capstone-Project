@@ -254,7 +254,7 @@ h2 {
 }
 
 .form-group {
-    margin-bottom: 2px;
+    margin-bottom: 15px;
 }
 
 .form-group label {
@@ -267,9 +267,9 @@ h2 {
 .form-group input,
 .form-group textarea {
     width: calc(100% - 16px);
-    /* Subtract padding for full width */
-    height: 25px;
-    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .save-button {
@@ -463,4 +463,18 @@ th.sorted-desc::after {
 
 .update-stock-form .save-button:hover {
     background-color: #45a049;
+}
+
+/* Update/add these styles */
+.error-message {
+    color: #ff0000;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+.error-input {
+    border-color: #ff0000 !important;
+    border-width: 1px;
+    border-style: solid;
 }

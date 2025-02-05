@@ -125,27 +125,140 @@ export class AdminProductsComponent implements OnInit {
     this.resetForm();
   }
 
-  // Save Product
+  // Add validation patterns
+  private patterns = {
+    productName: /^[A-Za-z\s]+$/, // Only alphabets and spaces
+    vendorId: /^[A-Z0-9]+$/, // Uppercase letters and numbers only
+    price: /^\d+(\.\d{1,2})?$/, // Numbers with up to 2 decimal places
+    quantity: /^\d+$/ // Only positive integers
+  };
+
+  validationErrors = {
+    productName: '',
+    description: '',
+    category: '',
+    vendorId: '',
+    vendorName: '',
+    cost_Price: '',
+    selling_Price: '',
+    quantity: ''
+  };
+
+  // Modify saveProduct to include validation
   saveProduct() {
-    // Prepare the list of products to be sent
-    const productsList = [this.newProduct]; // Wrapping the single product in an array
+    if (!this.validateForm()) {
+      return;
+    }
     
-    console.log('Saving products list:', productsList); // Log the products list data
-  
-    // Call the service to send the list of products
-    this.productService.addProduct(productsList).subscribe(
-      (savedProducts) => {
-        // Assuming the API returns the list of saved products
-        this.products = this.products.concat(savedProducts); // Append the saved products to the existing list
-        this.closeAddProductForm(); // Close the form after saving
+    const productsList = [this.newProduct];
+    
+    this.productService.addProduct(productsList).subscribe({
+      next: (savedProducts) => {
+        this.products = this.products.concat(savedProducts);
+        this.closeAddProductForm();
+        this.resetValidationErrors();
       },
-      (error) => {
+      error: (error) => {
         console.error('Error saving products:', error);
         alert('There was an error saving the products. Please try again.');
       }
-    );
+    });
   }
-  
+
+  validateForm(): boolean {
+    let isValid = true;
+    this.resetValidationErrors();
+
+    // Product Name validation
+    if (!this.newProduct.productName || this.newProduct.productName.trim() === '') {
+      this.validationErrors.productName = 'Product name is required';
+      isValid = false;
+    } else if (!this.patterns.productName.test(this.newProduct.productName)) {
+      this.validationErrors.productName = 'Product name can only contain alphabets and spaces';
+      isValid = false;
+    }
+
+    // Description validation
+    if (!this.newProduct.description || this.newProduct.description.trim() === '') {
+      this.validationErrors.description = 'Description is required';
+      isValid = false;
+    } else if (this.newProduct.description.length < 10) {
+      this.validationErrors.description = 'Description must be at least 10 characters long';
+      isValid = false;
+    }
+
+    // Category validation
+    if (!this.newProduct.category || this.newProduct.category.trim() === '') {
+      this.validationErrors.category = 'Category is required';
+      isValid = false;
+    } else if (!this.patterns.productName.test(this.newProduct.category)) {
+      this.validationErrors.category = 'Category can only contain alphabets and spaces';
+      isValid = false;
+    }
+
+    // Vendor ID validation
+    if (!this.newProduct.vendorId || this.newProduct.vendorId.trim() === '') {
+      this.validationErrors.vendorId = 'Vendor ID is required';
+      isValid = false;
+    } else if (!this.patterns.vendorId.test(this.newProduct.vendorId)) {
+      this.validationErrors.vendorId = 'Vendor ID can only contain uppercase letters and numbers';
+      isValid = false;
+    }
+
+    // Vendor Name validation
+    if (!this.newProduct.vendorName || this.newProduct.vendorName.trim() === '') {
+      this.validationErrors.vendorName = 'Vendor name is required';
+      isValid = false;
+    } else if (!this.patterns.productName.test(this.newProduct.vendorName)) {
+      this.validationErrors.vendorName = 'Vendor name can only contain alphabets and spaces';
+      isValid = false;
+    }
+
+    // Cost Price validation
+    if (this.newProduct.cost_Price <= 0) {
+      this.validationErrors.cost_Price = 'Cost price must be greater than 0';
+      isValid = false;
+    } else if (!this.patterns.price.test(this.newProduct.cost_Price.toString())) {
+      this.validationErrors.cost_Price = 'Invalid price format. Use numbers with up to 2 decimal places';
+      isValid = false;
+    }
+
+    // Selling Price validation
+    if (this.newProduct.selling_Price <= 0) {
+      this.validationErrors.selling_Price = 'Selling price must be greater than 0';
+      isValid = false;
+    } else if (!this.patterns.price.test(this.newProduct.selling_Price.toString())) {
+      this.validationErrors.selling_Price = 'Invalid price format. Use numbers with up to 2 decimal places';
+      isValid = false;
+    } else if (this.newProduct.selling_Price <= this.newProduct.cost_Price) {
+      this.validationErrors.selling_Price = 'Selling price must be greater than cost price';
+      isValid = false;
+    }
+
+    // Quantity validation
+    if (this.newProduct.quantity < 0) {
+      this.validationErrors.quantity = 'Quantity cannot be negative';
+      isValid = false;
+    } else if (!this.patterns.quantity.test(this.newProduct.quantity.toString())) {
+      this.validationErrors.quantity = 'Quantity must be a whole number';
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  resetValidationErrors() {
+    this.validationErrors = {
+      productName: '',
+      description: '',
+      category: '',
+      vendorId: '',
+      vendorName: '',
+      cost_Price: '',
+      selling_Price: '',
+      quantity: ''
+    };
+  }
 
   // Reset Form
   resetForm() {
